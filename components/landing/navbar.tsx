@@ -4,47 +4,49 @@ import { Button } from "@/components/ui/button";
 import {
     NavigationMenu,
     NavigationMenuContent,
+    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
+    NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/common/theme-toggle-button";
-
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 export function Navbar() {
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur">
+        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-                <Link href="/" className="text-lg font-semibold">
+                <Link href="/" className="text-xl font-bold tracking-tight">
                     TechScribe
                 </Link>
 
                 <div className="hidden md:block">
                     <NavigationMenu>
-                        <NavigationMenuList>
+                        <NavigationMenuList className="gap-1">
                             <NavigationMenuItem>
                                 <NavigationMenuTrigger>Services</NavigationMenuTrigger>
                                 <NavigationMenuContent>
-                                    <ul className="grid md:w-[320px]">
+                                    <ul className="grid w-[320px] gap-1 p-2">
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link href="#" className="block">
+                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
                                                     Assignment Help
                                                 </Link>
                                             </NavigationMenuLink>
                                         </li>
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link href="#" className="block">
+                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
                                                     Proofreading
                                                 </Link>
                                             </NavigationMenuLink>
                                         </li>
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link href="#" className="block">
+                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
                                                     Tutoring
                                                 </Link>
                                             </NavigationMenuLink>
@@ -55,7 +57,7 @@ export function Navbar() {
 
                             <NavigationMenuItem>
                                 <NavigationMenuLink asChild>
-                                    <Link href="#" className="text-sm font-medium">
+                                    <Link href="#" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
                                         Experts
                                     </Link>
                                 </NavigationMenuLink>
@@ -63,7 +65,7 @@ export function Navbar() {
 
                             <NavigationMenuItem>
                                 <NavigationMenuLink asChild>
-                                    <Link href="#" className="text-sm font-medium">
+                                    <Link href="#" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
                                         Reviews
                                     </Link>
                                 </NavigationMenuLink>
@@ -71,7 +73,7 @@ export function Navbar() {
 
                             <NavigationMenuItem>
                                 <NavigationMenuLink asChild>
-                                    <Link href="#" className="text-sm font-medium">
+                                    <Link href="#" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
                                         About Us
                                     </Link>
                                 </NavigationMenuLink>
@@ -79,7 +81,7 @@ export function Navbar() {
 
                             <NavigationMenuItem>
                                 <NavigationMenuLink asChild>
-                                    <Link href="#" className="text-sm font-medium">
+                                    <Link href="#" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
                                         Contact Us
                                     </Link>
                                 </NavigationMenuLink>
@@ -88,17 +90,17 @@ export function Navbar() {
                             <NavigationMenuItem>
                                 <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
                                 <NavigationMenuContent>
-                                    <ul className="grid md:w-[240px]">
+                                    <ul className="grid w-[240px] gap-1 p-2">
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link href="#" className="block">
+                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
                                                     Blog
                                                 </Link>
                                             </NavigationMenuLink>
                                         </li>
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link href="#" className="block">
+                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
                                                     Samples
                                                 </Link>
                                             </NavigationMenuLink>
@@ -107,34 +109,56 @@ export function Navbar() {
                                 </NavigationMenuContent>
                             </NavigationMenuItem>
                         </NavigationMenuList>
+                        <NavigationMenuIndicator />
+                        <NavigationMenuViewport />
                     </NavigationMenu>
                 </div>
 
                 <div className="hidden md:flex items-center gap-2">
                     <ThemeToggle />
-                    <Button variant="outline">Sign In</Button>
+                    <Button variant="ghost">Sign In</Button>
                     <Button>Get Started</Button>
                 </div>
 
-                <div className="md:hidden">
+                <div className="flex md:hidden items-center gap-2">
+                    <ThemeToggle />
                     <Sheet>
                         <SheetTrigger asChild>
                             <Button size="icon" variant="ghost" aria-label="Open menu">
                                 <Menu className="h-5 w-5" />
                             </Button>
                         </SheetTrigger>
-                        <SheetContent className="space-y-4">
-                            <Link href="#" className="block text-sm font-medium">Services</Link>
-                            <Link href="#" className="block text-sm font-medium">Experts</Link>
-                            <Link href="#" className="block text-sm font-medium">Reviews</Link>
-                            <Link href="#" className="block text-sm font-medium">About Us</Link>
-                            <Link href="#" className="block text-sm font-medium">Contact Us</Link>
-                            <Link href="#" className="block text-sm font-medium">Blog</Link>
-                            <Link href="#" className="block text-sm font-medium">Samples</Link>
-                            <div className="flex gap-2 pt-4">
-                                <Button variant="outline" className="w-full">Sign In</Button>
-                                <Button className="w-full">Get Started</Button>
-                            </div>
+                        <SheetContent side="right" className="w-[300px] sm:w-[400px] px-6 py-4">
+                            {/* <VisuallyHidden> */}
+                                <SheetTitle>TechScribe</SheetTitle>
+                            {/* </VisuallyHidden> */}
+                            <nav className="flex flex-col gap-4 mt-8">
+                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
+                                    Services
+                                </Link>
+                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
+                                    Experts
+                                </Link>
+                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
+                                    Reviews
+                                </Link>
+                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
+                                    About Us
+                                </Link>
+                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
+                                    Contact Us
+                                </Link>
+                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
+                                    Blog
+                                </Link>
+                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
+                                    Samples
+                                </Link>
+                                <div className="flex flex-col gap-2 pt-6 border-t">
+                                    <Button variant="outline" className="w-full">Sign In</Button>
+                                    <Button className="w-full">Get Started</Button>
+                                </div>
+                            </nav>
                         </SheetContent>
                     </Sheet>
                 </div>
