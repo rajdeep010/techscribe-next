@@ -56,6 +56,28 @@ export function Navbar() {
                             </NavigationMenuItem>
 
                             <NavigationMenuItem>
+                                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+                                <NavigationMenuContent>
+                                    <ul className="grid w-[240px] gap-1 p-2">
+                                        <li>
+                                            <NavigationMenuLink asChild>
+                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
+                                                    Blog
+                                                </Link>
+                                            </NavigationMenuLink>
+                                        </li>
+                                        <li>
+                                            <NavigationMenuLink asChild>
+                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
+                                                    Samples
+                                                </Link>
+                                            </NavigationMenuLink>
+                                        </li>
+                                    </ul>
+                                </NavigationMenuContent>
+                            </NavigationMenuItem>
+
+                            <NavigationMenuItem>
                                 <NavigationMenuLink asChild>
                                     <Link href="#" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
                                         Experts
@@ -87,27 +109,7 @@ export function Navbar() {
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
 
-                            <NavigationMenuItem>
-                                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-                                <NavigationMenuContent>
-                                    <ul className="grid w-[240px] gap-1 p-2">
-                                        <li>
-                                            <NavigationMenuLink asChild>
-                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
-                                                    Blog
-                                                </Link>
-                                            </NavigationMenuLink>
-                                        </li>
-                                        <li>
-                                            <NavigationMenuLink asChild>
-                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
-                                                    Samples
-                                                </Link>
-                                            </NavigationMenuLink>
-                                        </li>
-                                    </ul>
-                                </NavigationMenuContent>
-                            </NavigationMenuItem>
+
                         </NavigationMenuList>
                         <NavigationMenuIndicator />
                         <NavigationMenuViewport />
@@ -130,7 +132,7 @@ export function Navbar() {
                         </SheetTrigger>
                         <SheetContent side="right" className="w-[300px] sm:w-[400px] px-6 py-4">
                             {/* <VisuallyHidden> */}
-                                <SheetTitle>TechScribe</SheetTitle>
+                            <SheetTitle>TechScribe</SheetTitle>
                             {/* </VisuallyHidden> */}
                             <nav className="flex flex-col gap-4 mt-8">
                                 <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
