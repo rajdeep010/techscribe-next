@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,9 +14,13 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/common/theme-toggle-button";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { usePathname } from "next/navigation";
 
 export function Navbar() {
+    const pathname = usePathname();
+    const isLoginPage = pathname === "/login";
+    const isSignupPage = pathname === "/signup";
+
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -118,8 +123,33 @@ export function Navbar() {
 
                 <div className="hidden md:flex items-center gap-2">
                     <ThemeToggle />
-                    <Button variant="ghost">Sign In</Button>
-                    <Button>Get Started</Button>
+                    {isLoginPage && (
+                        <>
+                            <span className="text-sm text-muted-foreground">Don't have an account?</span>
+                            <Button asChild>
+                                <Link href="/signup">Sign Up</Link>
+                            </Button>
+                        </>
+                    )}
+                    {isSignupPage && (
+                        <>
+                            <span className="text-sm text-muted-foreground">Already have an account?</span>
+                            <Button asChild>
+                                <Link href="/login">Sign In</Link>
+                            </Button>
+                        </>
+                    )}
+                    {!isLoginPage && !isSignupPage && (
+                        <>
+                            <Button variant="ghost" asChild>
+                                <Link href="/login">Sign In</Link>
+                            </Button>
+                            <Button asChild>
+                                <Link href="/signup">Get Started</Link>
+                            </Button>
+                        </>
+                    )}
+
                 </div>
 
                 <div className="flex md:hidden items-center gap-2">
