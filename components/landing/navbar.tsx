@@ -145,7 +145,7 @@ export function Navbar() {
                                 <Link href="/login">Sign In</Link>
                             </Button>
                             <Button asChild>
-                                <Link href="/signup">Get Started</Link>
+                                <Link href="/u/rajdeep">Get Started</Link>
                             </Button>
                         </>
                     )}
