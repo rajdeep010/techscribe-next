@@ -57,39 +57,39 @@ export function SidebarIconExample() {
             {
                 title: "Dashboard",
                 url: "#",
-                icon: <LayoutDashboard />,
+                icon: <LayoutDashboard className="h-6 w-6" />,
             },
             {
                 title: "Services",
                 url: "#",
-                icon: <BookOpen />,
+                icon: <BookOpen className="h-6 w-6" />,
             },
             {
                 title: "Experts",
                 url: "#",
-                icon: <Users />,
+                icon: <Users className="h-6 w-6" />,
             },
             {
                 title: "Reviews",
                 url: "#",
-                icon: <MessageSquare />,
+                icon: <MessageSquare className="h-6 w-6" />,
             },
             {
                 title: "About Us",
                 url: "#",
-                icon: <Info />,
+                icon: <Info className="h-6 w-6"/>,
             },
         ],
         settings: [
             {
                 title: "Help & Support",
                 url: "#",
-                icon: <HelpCircle />,
+                icon: <HelpCircle className="h-6 w-6" />,
             },
             {
                 title: "Settings",
                 url: "#",
-                icon: <Settings />,
+                icon: <Settings className="h-6 w-6" />,
             },
         ],
     }
@@ -147,14 +147,14 @@ export function SidebarIconExample() {
                 <SidebarContent>
                     <SidebarGroup>
                         <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
-                        <SidebarMenu>
+                        <SidebarMenu className="flex flex-col gap-2 mt-2">
                             {data.mainMenu.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild tooltip={item.title}>
-                                        <a href={item.url}>
+                                        <Link href={item.url}>
                                             {item.icon}
-                                            <span>{item.title}</span>
-                                        </a>
+                                            <span className="text-md">{item.title}</span>
+                                        </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}
@@ -162,14 +162,14 @@ export function SidebarIconExample() {
                     </SidebarGroup>
                     <SidebarGroup>
                         <SidebarGroupLabel>Settings</SidebarGroupLabel>
-                        <SidebarMenu>
+                        <SidebarMenu className="flex flex-col gap-2 mt-2">
                             {data.settings.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild tooltip={item.title}>
-                                        <a href={item.url}>
+                                        <Link href={item.url}>
                                             {item.icon}
-                                            <span>{item.title}</span>
-                                        </a>
+                                            <span className="text-md">{item.title}</span>
+                                        </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}
@@ -255,7 +255,7 @@ export function SidebarIconExample() {
                         <ThemeToggle />
                     </div>
                 </header>
-                <div className="flex flex-1 flex-col gap-6 p-6">
+                <div className="flex flex-1 flex-col gap-4 p-6">
                     <UserProfileSection />
                     <AssignmentsTable />
                 </div>

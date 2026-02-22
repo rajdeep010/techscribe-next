@@ -13,15 +13,15 @@ const stats = [
 export function UserProfileSection() {
     return (
         <Card>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4">
                 {/* User Profile Info */}
-                <div className="flex items-center gap-6">
-                    <Avatar className="h-24 w-24 ring-2 ring-border">
+                <div className="flex items-start gap-6">
+                    <Avatar className="h-16 w-16">
                         <AvatarImage src="https://github.com/shadcn.png" />
                         <AvatarFallback className="text-xl font-semibold">JD</AvatarFallback>
                     </Avatar>
-                    <div className="flex-1">
-                        <h2 className="text-2xl font-bold mb-4">John Doe</h2>
+                    <div className="flex-1 flex flex-col">
+                        <h2 className="text-xl font-bold mb-4">John Doe</h2>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-2 text-sm">
                             <div>
                                 <p className="text-muted-foreground">ID</p>
