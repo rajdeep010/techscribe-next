@@ -10,12 +10,6 @@ export default function LoginPage() {
             {/* Left Side - Form */}
             <div className="flex w-full flex-col justify-center px-6 py-12 lg:w-1/2 lg:px-16">
                 <div className="mx-auto w-full max-w-sm">
-                    {/* Logo */}
-                    <div className="mb-8">
-                        <Link href="/" className="text-2xl font-bold">
-                            TechScribe
-                        </Link>
-                    </div>
 
                     {/* Header */}
                     <div className="mb-8">
