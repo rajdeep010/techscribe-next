@@ -1,4 +1,4 @@
-import { Expert, GradientCtaData, FAQ, HeroData, HowItWorksData } from "./types";
+import { Expert, GradientCtaData, FAQ, HeroData, HowItWorksData, ColumnDef, TabItem, DocumentRow } from "./types";
 
 export const heroData: HeroData = {
     eyebrow: "Trusted by 50,000+ Students Worldwide",
@@ -126,4 +126,169 @@ export const faqsData: FAQ[] = [
         question: "What if I need urgent assistance?",
         answer: "We offer express delivery options with turnaround times as short as 6 hours. Our experts are available 24/7 to handle urgent requests without compromising quality."
     },
+];
+
+export const tableTabs: TabItem[] = [
+    { id: "Outline", label: "Outline", count: null },
+    { id: "Past Performance", label: "Past Performance", count: 3 },
+    { id: "Key Personnel", label: "Key Personnel", count: 2 },
+    { id: "Focus Documents", label: "Focus Documents", count: null },
+];
+
+// Admin Dashboard Mock Data
+export const mockStats = [
+    {
+        title: "Total Revenue",
+        value: "$1,250.00",
+        change: "+12.5%",
+        trend: "up" as const,
+        description: "Trending up this month",
+        icon: "dollar-sign" as const,
+    },
+    {
+        title: "New Customers",
+        value: "1,234",
+        change: "+20%",
+        trend: "up" as const,
+        description: "Down 20% this period",
+        icon: "users" as const,
+    },
+    {
+        title: "Active Accounts",
+        value: "45,678",
+        change: "+18.6%",
+        trend: "up" as const,
+        description: "Strong user retention",
+        icon: "activity" as const,
+    },
+    {
+        title: "Growth Rate",
+        value: "4.5%",
+        change: "+4.5%",
+        trend: "up" as const,
+        description: "Steady performance increase",
+        icon: "trending-up" as const,
+    },
+];
+
+export const mockChartData = [
+    { date: "Jun 24", value: 2400 },
+    { date: "Jun 25", value: 1398 },
+    { date: "Jun 26", value: 4800 },
+    { date: "Jun 27", value: 3908 },
+    { date: "Jun 28", value: 4800 },
+    { date: "Jun 29", value: 3800 },
+    { date: "Jun 30", value: 4300 },
+];
+
+export const mockDocuments: DocumentRow[] = [
+    {
+        id: "1",
+        header: "Cover page",
+        sectionType: "Cover page",
+        status: "In Progress",
+        target: 18,
+        limit: 5,
+        reviewer: "Eddie Lake",
+        order: 1,
+    },
+    {
+        id: "2",
+        header: "Table of contents",
+        sectionType: "Table of contents",
+        status: "Done",
+        target: 29,
+        limit: 24,
+        reviewer: "Eddie Lake",
+        order: 2,
+    },
+    {
+        id: "3",
+        header: "Executive summary",
+        sectionType: "Narrative",
+        status: "Done",
+        target: 10,
+        limit: 13,
+        reviewer: "Eddie Lake",
+        order: 3,
+    },
+    {
+        id: "4",
+        header: "Technical approach",
+        sectionType: "Narrative",
+        status: "Done",
+        target: 27,
+        limit: 23,
+        reviewer: "Jamik Tashpulatov",
+        order: 4,
+    },
+    {
+        id: "5",
+        header: "Design",
+        sectionType: "Narrative",
+        status: "In Progress",
+        target: 2,
+        limit: 16,
+        reviewer: "Jamik Tashpulatov",
+        order: 5,
+    },
+    {
+        id: "6",
+        header: "Capabilities",
+        sectionType: "Narrative",
+        status: "In Progress",
+        target: 20,
+        limit: 8,
+        reviewer: "Jamik Tashpulatov",
+        order: 6,
+    },
+    {
+        id: "7",
+        header: "Integration with existing systems",
+        sectionType: "Narrative",
+        status: "In Progress",
+        target: 19,
+        limit: 21,
+        reviewer: "Jamik Tashpulatov",
+        order: 7,
+    },
+    {
+        id: "8",
+        header: "Innovation and Advantages",
+        sectionType: "Narrative",
+        status: "Done",
+        target: 25,
+        limit: 26,
+        reviewer: "Jamik Tashpulatov",
+        order: 8,
+    },
+    {
+        id: "9",
+        header: "Overview of EMR's Innovative Solutions",
+        sectionType: "Technical content",
+        status: "Done",
+        target: 7,
+        limit: 23,
+        reviewer: "Jamik Tashpulatov",
+        order: 9,
+    },
+    {
+        id: "10",
+        header: "Advanced Algorithms and Machine Learning",
+        sectionType: "Narrative",
+        status: "Done",
+        target: 30,
+        limit: 28,
+        reviewer: "Jamik Tashpulatov",
+        order: 10,
+    },
+];
+
+export const defaultColumns: ColumnDef[] = [
+    { id: "header", label: "Header", visible: true },
+    { id: "sectionType", label: "Section Type", visible: true },
+    { id: "status", label: "Status", visible: true },
+    { id: "target", label: "Target", visible: true },
+    { id: "limit", label: "Limit", visible: true },
+    { id: "reviewer", label: "Reviewer", visible: true },
 ];

@@ -65,3 +65,63 @@ export type HowItWorksData = {
         href: string;
     };
 };
+
+export type UserRole = "admin" | "user" | "expert";
+
+export type User = {
+    id: string;
+    name: string;
+    email: string;
+    avatar?: string;
+    role: UserRole;
+};
+
+export type AdminStat = {
+    title: string;
+    value: string;
+    change: string;
+    trend: "up" | "down";
+    description: string;
+    icon: "dollar-sign" | "users" | "activity" | "trending-up";
+};
+
+export type DocumentRow = {
+    id: string;
+    header: string;
+    sectionType: string;
+    status: "Done" | "In Progress" | "Pending";
+    target: number;
+    limit: number;
+    reviewer: string;
+    order: number;
+};
+
+export type TimeFilter = "Last 3 months" | "Last 30 days" | "Last 7 days";
+
+export type ChartDataPoint = {
+    date: string;
+    value: number;
+};
+
+export type DocumentRow = {
+    id: string;
+    header: string;
+    sectionType: string;
+    status: "Done" | "In Progress" | "Pending";
+    target: number;
+    limit: number;
+    reviewer: string;
+    order: number;
+};
+
+export type ColumnDef = {
+    id: keyof Omit<DocumentRow, 'id' | 'order'>;
+    label: string;
+    visible: boolean;
+};
+
+export type TabItem = {
+    id: string;
+    label: string;
+    count: number | null;
+};
