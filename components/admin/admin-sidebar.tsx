@@ -47,13 +47,13 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from "@/components/ui/sidebar";
-import { User } from "@/lib/types";
+import { useUser } from "@/context/UserProvider";
 
-interface AdminSidebarProps {
-    user: User;
-}
 
-export function AdminSidebar({ user }: AdminSidebarProps) {
+export function AdminSidebar() {
+    const {user} = useUser();
+    if(!user)   return null;
+
     const mainMenu = [
         {
             title: "Dashboard",
@@ -61,14 +61,14 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
             icon: <LayoutDashboard className="h-5 w-5" />,
         },
         {
-            title: "Documents",
-            url: `/u/${user.id}/documents`,
-            icon: <FileText className="h-5 w-5" />,
-        },
-        {
             title: "Analytics",
             url: `/u/${user.id}/analytics`,
             icon: <LayoutDashboard className="h-5 w-5" />,
+        },
+        {
+            title: "Audit Logs",
+            url: `/u/${user.id}/audit`,
+            icon: <FileText className="h-5 w-5" />,
         },
     ];
 
@@ -103,7 +103,7 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
     const settingsMenu = [
         {
             title: "Settings",
-            url: `/u/${user.id}/settings`,
+            url: `/u/${user.id}/settings`, // Make sure it uses this format
             icon: <Settings className="h-5 w-5" />,
         },
         {

@@ -45,8 +45,13 @@ import { ThemeToggle } from "../common/theme-toggle-button"
 import { UserProfileSection } from "./user-stats"
 import { AssignmentsTable } from "./assignment-table"
 import Link from "next/link"
+import { useUser } from "@/context/UserProvider"
 
 export function SidebarIconExample() {
+    const {user} = useUser();
+
+    if(!user)   return null;
+
     const data = {
         user: {
             name: "techscribe",
@@ -77,7 +82,7 @@ export function SidebarIconExample() {
             {
                 title: "About Us",
                 url: "#",
-                icon: <Info className="h-6 w-6"/>,
+                icon: <Info className="h-6 w-6" />,
             },
         ],
         settings: [
@@ -88,7 +93,7 @@ export function SidebarIconExample() {
             },
             {
                 title: "Settings",
-                url: "#",
+                url: `/u/${user.id}/settings`, // Change to this format with your user ID
                 icon: <Settings className="h-6 w-6" />,
             },
         ],
