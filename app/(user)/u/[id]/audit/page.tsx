@@ -8,6 +8,8 @@ import { useUser } from "@/context/UserProvider";
 import { AuditTable } from "@/components/audit/audit-table";
 import { auditLogs } from "@/lib/template-data";
 
+
+// audit log page added
 export default function AuditPage() {
     const { user, isLoading } = useUser();
 
