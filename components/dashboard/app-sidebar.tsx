@@ -1,13 +1,11 @@
-"use client"
-
-import * as React from "react"
+"use client";
 
 import {
     Avatar,
     AvatarFallback,
     AvatarImage,
-} from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -16,52 +14,59 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from "@/components/ui/dropdown-menu";
 import {
     Item,
     ItemContent,
     ItemDescription,
     ItemMedia,
     ItemTitle,
-} from '@/components/ui/item'
+} from "@/components/ui/item";
 import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
     SidebarGroup,
-    SidebarGroupContent,
     SidebarGroupLabel,
     SidebarHeader,
-    SidebarInset,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarProvider,
     SidebarRail,
-    SidebarTrigger,
-} from '@/components/ui/sidebar'
-import { LayoutDashboard, BookOpen, Users, MessageSquare, Info, PhoneCall, HelpCircle, Settings, UserCircle, CreditCard, ChevronsUpDownIcon, LogOut } from "lucide-react"
-import { ThemeToggle } from "../common/theme-toggle-button"
-import { UserProfileSection } from "./user-stats"
-import { AssignmentsTable } from "./assignment-table"
-import Link from "next/link"
-import { useUser } from "@/context/UserProvider"
+} from "@/components/ui/sidebar";
+import {
+    LayoutDashboard,
+    BookOpen,
+    Users,
+    MessageSquare,
+    Info,
+    HelpCircle,
+    Settings,
+    UserCircle,
+    ChevronsUpDownIcon,
+    LogOut,
+} from "lucide-react";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
+import { useUser } from "@/context/UserProvider";
 
 export function SidebarIconExample() {
-    const {user} = useUser();
+    const { user } = useUser();
 
-    if(!user)   return null;
+    if (!user) return null;
+
+    const userDashboardUrl = `/u/${user.username}`;
 
     const data = {
         user: {
-            name: "techscribe",
-            email: "techscribe@example.com",
-            avatar: "/avatars/techscribe.jpg",
+            name: user.name,
+            email: user.email,
+            avatar: user.avatar || "https://github.com/shadcn.png",
         },
         mainMenu: [
             {
                 title: "Dashboard",
-                url: "#",
+                url: userDashboardUrl,
                 icon: <LayoutDashboard className="h-6 w-6" />,
             },
             {
@@ -93,27 +98,27 @@ export function SidebarIconExample() {
             },
             {
                 title: "Settings",
-                url: `/u/${user.id}/settings`, // Change to this format with your user ID
+                url: `/u/${user.username}/settings`,
                 icon: <Settings className="h-6 w-6" />,
             },
         ],
-    }
+    };
 
     return (
-        <SidebarProvider>
+        <>
             <Sidebar collapsible="icon">
                 <SidebarHeader>
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton size="lg" asChild>
-                                <Link href={'/'}>
+                                <Link href="/">
                                     <Button size="icon-sm" asChild className="size-8">
                                         <span>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 256 256"
                                             >
-                                                <rect width="256" height="256" fill="none"></rect>
+                                                <rect width="256" height="256" fill="none" />
                                                 <line
                                                     x1="208"
                                                     y1="128"
@@ -124,7 +129,7 @@ export function SidebarIconExample() {
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
                                                     strokeWidth="32"
-                                                ></line>
+                                                />
                                                 <line
                                                     x1="192"
                                                     y1="40"
@@ -135,7 +140,7 @@ export function SidebarIconExample() {
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
                                                     strokeWidth="32"
-                                                ></line>
+                                                />
                                             </svg>
                                         </span>
                                     </Button>
@@ -149,10 +154,11 @@ export function SidebarIconExample() {
                         </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarHeader>
+
                 <SidebarContent>
                     <SidebarGroup>
                         <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
-                        <SidebarMenu className="flex flex-col gap-2 mt-2">
+                        <SidebarMenu className="mt-2 flex flex-col gap-2">
                             {data.mainMenu.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild tooltip={item.title}>
@@ -165,9 +171,10 @@ export function SidebarIconExample() {
                             ))}
                         </SidebarMenu>
                     </SidebarGroup>
+
                     <SidebarGroup>
                         <SidebarGroupLabel>Settings</SidebarGroupLabel>
-                        <SidebarMenu className="flex flex-col gap-2 mt-2">
+                        <SidebarMenu className="mt-2 flex flex-col gap-2">
                             {data.settings.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild tooltip={item.title}>
@@ -181,6 +188,7 @@ export function SidebarIconExample() {
                         </SidebarMenu>
                     </SidebarGroup>
                 </SidebarContent>
+
                 <SidebarFooter>
                     <SidebarMenu>
                         <SidebarMenuItem>
@@ -195,7 +203,9 @@ export function SidebarIconExample() {
                                                 src={data.user.avatar}
                                                 alt={data.user.name}
                                             />
-                                            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                                            <AvatarFallback className="rounded-lg">
+                                                {data.user.name.slice(0, 2).toUpperCase()}
+                                            </AvatarFallback>
                                         </Avatar>
                                         <div className="grid flex-1 text-left text-sm leading-tight">
                                             <span className="truncate font-medium">
@@ -208,6 +218,7 @@ export function SidebarIconExample() {
                                         <ChevronsUpDownIcon />
                                     </SidebarMenuButton>
                                 </DropdownMenuTrigger>
+
                                 <DropdownMenuContent>
                                     <DropdownMenuGroup>
                                         <DropdownMenuLabel>
@@ -218,7 +229,9 @@ export function SidebarIconExample() {
                                                             src={data.user.avatar}
                                                             alt={data.user.name}
                                                         />
-                                                        <AvatarFallback>CN</AvatarFallback>
+                                                        <AvatarFallback>
+                                                            {data.user.name.slice(0, 2).toUpperCase()}
+                                                        </AvatarFallback>
                                                     </Avatar>
                                                 </ItemMedia>
                                                 <ItemContent>
@@ -228,17 +241,25 @@ export function SidebarIconExample() {
                                             </Item>
                                         </DropdownMenuLabel>
                                     </DropdownMenuGroup>
+
                                     <DropdownMenuSeparator />
+
                                     <DropdownMenuGroup>
-                                        <DropdownMenuItem>
-                                            <UserCircle className="mr-2 h-4 w-4" />
-                                            Account
+                                        <DropdownMenuItem asChild>
+                                            <Link href={userDashboardUrl}>
+                                                <UserCircle className="mr-2 h-4 w-4" />
+                                                  Account
+                                            </Link>
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
-                                            <Settings className="mr-2 h-4 w-4" />
-                                            Settings
+
+                                        <DropdownMenuItem asChild>
+                                            <Link href={`/u/${user.username}/settings`}>
+                                                <Settings className="mr-2 h-4 w-4" />
+                                                Settings
+                                            </Link>
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
+
+                                        <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
                                             <LogOut className="mr-2 h-4 w-4" />
                                             Log out
                                         </DropdownMenuItem>
@@ -248,23 +269,9 @@ export function SidebarIconExample() {
                         </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarFooter>
+
                 <SidebarRail />
             </Sidebar>
-            <SidebarInset>
-                <header className="flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 justify-between">
-                    <div className="flex items-center gap-2 px-4">
-                        <SidebarTrigger className="-ml-1" />
-                        <h1 className="text-lg font-semibold">Dashboard</h1>
-                    </div>
-                    <div className="px-4">
-                        <ThemeToggle />
-                    </div>
-                </header>
-                <div className="flex flex-1 flex-col gap-4 p-6">
-                    <UserProfileSection />
-                    <AssignmentsTable />
-                </div>
-            </SidebarInset>
-        </SidebarProvider>
-    )
+        </>
+    );
 }

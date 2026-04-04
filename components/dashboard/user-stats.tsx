@@ -24,20 +24,20 @@ export function UserProfileSection() {
                         <h2 className="text-xl font-bold mb-4">John Doe</h2>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-2 text-sm">
                             <div>
-                                <p className="text-muted-foreground">ID</p>
-                                <p className="font-medium">ID: 2021-0001</p>
+                                <div className="text-muted-foreground">ID</div>
+                                <div className="font-medium">ID: 2021-0001</div>
                             </div>
                             <div>
-                                <p className="text-muted-foreground">Number</p>
-                                <p className="font-medium">(555) 123-4567</p>
+                                <div className="text-muted-foreground">Number</div>
+                                <div className="font-medium">(555) 123-4567</div>
                         </div>
                             <div>
-                                <p className="text-muted-foreground">Email</p>
-                                <p className="font-medium">john.doe@gmail.com</p>
+                                <div className="text-muted-foreground">Email</div>
+                                <div className="font-medium">john.doe@gmail.com</div>
                             </div>
                             <div>
-                                <p className="text-muted-foreground">Address</p>
-                                <p className="font-medium">123 Elm Street</p>
+                                <div className="text-muted-foreground">Address</div>
+                                <div className="font-medium">123 Elm Street</div>
                             </div>
                         </div>
                     </div>
@@ -60,8 +60,8 @@ export function UserProfileSection() {
                                         <Icon className={cn("h-5 w-5", stat.color)} />
                                     </div>
                                     <div className="flex -gap-0.5 flex-col flex-1">
-                                        <p className="text-xl font-bold mb-1">{stat.value}</p>
-                                        <p className="text-sm text-muted-foreground">{stat.label}</p>
+                                        <div className="text-xl font-bold mb-1">{stat.value}</div>
+                                        <div className="text-sm text-muted-foreground">{stat.label}</div>
                                     </div>
                                 </div>
                             </div>

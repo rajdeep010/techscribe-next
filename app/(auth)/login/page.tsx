@@ -1,32 +1,111 @@
+"use client";
+
 import Link from "next/link";
+import { getSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 
+type LoginFormState = {
+    identifier: string;
+    password: string;
+};
+
+const initialFormState: LoginFormState = {
+    identifier: "",
+    password: "",
+};
+
 export default function LoginPage() {
+    const router = useRouter();
+    const [formData, setFormData] = useState<LoginFormState>(initialFormState);
+    // const [rememberMe, setRememberMe] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    function updateField<K extends keyof LoginFormState>(
+        field: K,
+        value: LoginFormState[K]
+    ) {
+        setFormData((current) => ({
+            ...current,
+            [field]: value,
+        }));
+    }
+
+    async function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
+        event.preventDefault();
+        setErrorMessage("");
+
+        if (!formData.identifier.trim()) {
+            setErrorMessage("Email or username is required");
+            return;
+        }
+
+        if (!formData.password.trim()) {
+            setErrorMessage("Password is required");
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const result = await signIn("credentials", {
+                identifier: formData.identifier,
+                password: formData.password,
+                redirect: false,
+            });
+
+            if (!result || result.error) {
+                setErrorMessage(result?.error || "Invalid credentials");
+                return;
+            }
+
+            const session = await getSession();
+            const username = session?.user?.username;
+
+            toast.success("Signed in successfully");
+
+            if (username) {
+                router.replace(`/u/${username}`);
+                router.refresh();
+                return;
+            }
+
+            router.replace("/");
+            router.refresh();
+        } catch {
+            setErrorMessage("Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
+
     return (
         <div className="flex min-h-screen">
-            {/* Left Side - Form */}
             <div className="flex w-full flex-col justify-center px-6 py-12 lg:w-1/2 lg:px-16">
                 <div className="mx-auto w-full max-w-sm">
-
-                    {/* Header */}
                     <div className="mb-8">
                         <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
-                        <p className="mt-2 text-sm text-muted-foreground">
+                        <div className="mt-2 text-sm text-muted-foreground">
                             Sign in to your account to continue
-                        </p>
+                        </div>
                     </div>
 
-                    {/* Form */}
-                    <form className="space-y-5">
+                    <form className="space-y-5" onSubmit={handleSubmit}>
                         <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="identifier">Email or Username</Label>
                             <Input
-                                id="email"
-                                type="email"
-                                placeholder="name@example.com"
+                                id="identifier"
+                                type="text"
+                                placeholder="name@example.com or rajdeep010"
+                                value={formData.identifier}
+                                onChange={(event) => updateField("identifier", event.target.value)}
+                                disabled={isSubmitting}
                                 required
                             />
                         </div>
@@ -45,35 +124,47 @@ export default function LoginPage() {
                                 id="password"
                                 type="password"
                                 placeholder="Enter your password"
+                                value={formData.password}
+                                onChange={(event) => updateField("password", event.target.value)}
+                                disabled={isSubmitting}
                                 required
                             />
                         </div>
 
-                        <div className="flex items-center space-x-2">
-                            <Checkbox id="remember" />
+                        {/* <div className="flex items-center space-x-2">
+                            <Checkbox
+                                id="remember"
+                                checked={rememberMe}
+                                onCheckedChange={(checked) => setRememberMe(Boolean(checked))}
+                                disabled={isSubmitting}
+                            />
                             <Label
                                 htmlFor="remember"
                                 className="cursor-pointer text-sm font-normal"
                             >
                                 Remember me for 30 days
                             </Label>
-                        </div>
+                        </div> */}
 
-                        <Button type="submit" className="w-full" size="lg">
-                            Sign In
+                        {errorMessage ? (
+                            <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600 dark:border-red-950 dark:bg-red-950/30 dark:text-red-300">
+                                {errorMessage}
+                            </p>
+                        ) : null}
+
+                        <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                            {isSubmitting ? "Signing in..." : "Sign In"}
                         </Button>
                     </form>
 
-                    {/* Divider */}
                     <div className="my-6 flex items-center">
                         <div className="flex-1 border-t"></div>
                         <span className="px-4 text-xs text-muted-foreground">OR</span>
                         <div className="flex-1 border-t"></div>
                     </div>
 
-                    {/* Social Login */}
                     <div className="space-y-3">
-                        <Button variant="outline" className="w-full" size="lg">
+                        <Button variant="outline" className="w-full" size="lg" type="button">
                             <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
                                 <path
                                     fill="currentColor"
@@ -96,17 +187,15 @@ export default function LoginPage() {
                         </Button>
                     </div>
 
-                    {/* Sign Up Link */}
-                    <p className="mt-6 text-center text-sm text-muted-foreground">
+                    <div className="mt-6 text-center text-sm text-muted-foreground">
                         Don't have an account?{" "}
                         <Link href="/signup" className="font-medium text-primary hover:underline">
                             Sign up for free
                         </Link>
-                    </p>
+                    </div>
                 </div>
             </div>
 
-            {/* Right Side - Image/Banner */}
             <div className="hidden lg:block lg:w-1/2">
                 <div className="relative h-full w-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
                     <div className="absolute inset-0 flex flex-col items-center justify-center p-12">
@@ -114,9 +203,9 @@ export default function LoginPage() {
                             <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50">
                                 Join 50,000+ Students Worldwide
                             </h2>
-                            <p className="text-lg text-slate-600 dark:text-slate-400">
+                            <div className="text-lg text-slate-600 dark:text-slate-400">
                                 Get expert help with your assignments, achieve better grades, and unlock your academic potential.
-                            </p>
+                            </div>
                             <div className="flex items-center justify-center gap-8 pt-4">
                                 <div>
                                     <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">4.9★</div>

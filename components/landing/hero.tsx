@@ -8,11 +8,11 @@ export function Hero() {
     return (
         <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-4 sm:px-6 md:grid-cols-2 md:pt-4">
             <div className="space-y-5">
-                <p className="text-sm font-medium text-primary">{eyebrow}</p>
+                <div className="text-sm font-medium text-primary">{eyebrow}</div>
                 <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
                     {title}
                 </h1>
-                <p className="text-muted-foreground">{description}</p>
+                <div className="text-muted-foreground">{description}</div>
                 <div className="flex flex-wrap gap-3">
                     <Button size="lg" asChild>
                         <a href={primaryCta.href}>{primaryCta.label}</a>

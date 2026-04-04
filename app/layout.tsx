@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/context/ThemeProvider";
-import { UserProvider } from "@/context/UserProvider";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import AuthProvider from "@/context/AuthProvider";
+import Script from "next/script";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -21,17 +23,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={geist.className}>
+      <body suppressHydrationWarning className={geist.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <UserProvider>
-            {children}
-          </UserProvider>
-          <Toaster position="top-right" richColors />
+          <TooltipProvider>
+            <AuthProvider>
+              <Script
+                src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+                strategy="beforeInteractive"
+              />
+              {children}
+            </AuthProvider>
+            <Toaster position="top-right" richColors />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

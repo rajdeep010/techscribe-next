@@ -41,10 +41,10 @@ export default function SettingsPageContent() {
                 </header>
                 <div className="flex flex-1 flex-col gap-6 p-6">
                     <div>
-                        <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
-                        <p className="text-muted-foreground mt-2">
+                        <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
+                        <div className="text-sm text-muted-foreground mt-2">
                             Manage your account settings and set e-mail preferences.
-                        </p>
+                        </div>
                     </div>
                     <ProfileSettings />
                 </div>

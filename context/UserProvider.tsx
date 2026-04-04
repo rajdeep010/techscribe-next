@@ -1,48 +1,39 @@
 "use client";
 
-import { createContext, useContext, useReducer, useEffect, ReactNode } from "react";
-import { User, UserState } from "@/lib/types";
-import { userReducer } from "@/reducer/UserReducer";
+import { createContext, useContext } from "react";
+import { useSession } from "next-auth/react";
+import { UserState } from "@/lib/types";
 
+const UserContext = createContext<UserState | undefined>(undefined);
 
-const initialUserState: User = {
-    id: '1234',
-    name: 'rajdeep',
-    email: 'rajdeep@gmail.com',
-    role: 'admin',
-    avatar: 'https://github.com/shadcn.png',
-    dob: '1990-01-15',
-    language: 'english'
-}
+export function UserProvider({ children }: { children: React.ReactNode }) {
+    const { data: session, status } = useSession();
 
-const UserContext = createContext<any | undefined>(undefined);
+    const value: UserState = {
+        user: session?.user
+            ? {
+                id: session.user._id ?? "",
+                username: session.user.username ?? "",
+                name: session.user.name ?? session.user.username ?? "",
+                email: session.user.email ?? "",
+                role: session.user.role ?? "user",
+                avatar: session.user.profile || undefined,
+                language: "english",
+            }
+            : null,
+        isLoading: status === "loading",
+        error: null,
+    };
 
-
-export function UserProvider({ children }: { children: ReactNode }) {
-    const [state, dispatch] = useReducer(userReducer, initialUserState);
-
-    const setUser = (user: User) => {
-        dispatch({ type: "SET_USER", payload: user });
-    }
-
-    useEffect(() => {
-        setUser(initialUserState);
-    }, [])
-    return (
-        <UserContext.Provider
-            value={{
-                ...state,
-            }}
-        >
-            {children}
-        </UserContext.Provider>
-    );
+    return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
 export function useUser() {
     const context = useContext(UserContext);
-    if (context === undefined) {
+
+    if (!context) {
         throw new Error("useUser must be used within a UserProvider");
     }
+
     return context;
 }

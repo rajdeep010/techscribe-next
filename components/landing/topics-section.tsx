@@ -48,18 +48,18 @@ export function TopicsSection() {
         <section className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="mb-8 text-center">
                 <h2 className="text-3xl font-bold tracking-tight">Topics We Cover</h2>
-                <p className="mt-2 text-lg text-muted-foreground">
+                <div className="mt-2 text-lg text-muted-foreground">
                     Expert assistance across 100+ subjects and academic levels.
-                </p>
+                </div>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {topics.map((topic) => (
                     <Card key={topic.title} className="transition-all hover:shadow-md hover:border-primary/50">
                         <CardContent className="p-6">
                             <h3 className="text-base font-bold">{topic.title}</h3>
-                            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                            <div className="mt-2 text-sm leading-relaxed text-muted-foreground">
                                 {topic.description}
-                            </p>
+                            </div>
                         </CardContent>
                     </Card>
                 ))}

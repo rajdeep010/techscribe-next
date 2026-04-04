@@ -310,9 +310,9 @@ export function AssignmentsTable() {
                             {currentAssignments.length === 0 ? (
                                 <TableRow>
                                     <TableCell colSpan={5} className="py-12 text-center">
-                                        <p className="text-sm text-muted-foreground">
+                                        <div className="text-sm text-muted-foreground">
                                             No assignments found
-                                        </p>
+                                        </div>
                                     </TableCell>
                                 </TableRow>
                             ) : (

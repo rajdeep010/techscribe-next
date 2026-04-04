@@ -39,9 +39,9 @@ export function WhyChooseUs() {
         <section className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="mb-8 text-center">
                 <h2 className="text-3xl font-bold tracking-tight">Why We're the #1 Assignment Help Provider</h2>
-                <p className="mt-2 text-lg text-muted-foreground">
+                <div className="mt-2 text-lg text-muted-foreground">
                     Trusted by over 50,000+ students worldwide for delivering excellence, every time.
-                </p>
+                </div>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {reasons.map((reason) => (
@@ -51,7 +51,7 @@ export function WhyChooseUs() {
                                 <reason.icon className="h-6 w-6 text-primary" />
                             </div>
                             <h3 className="text-lg font-semibold">{reason.title}</h3>
-                            <p className="text-sm leading-relaxed text-muted-foreground">{reason.text}</p>
+                            <div className="text-sm leading-relaxed text-muted-foreground">{reason.text}</div>
                         </CardContent>
                     </Card>
                 ))}

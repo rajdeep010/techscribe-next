@@ -15,11 +15,11 @@ export function HowItWorks() {
     return (
         <section className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="mb-10 text-center">
-                <p className="text-sm font-semibold uppercase tracking-wider text-primary">
+                <div className="text-sm font-semibold uppercase tracking-wider text-primary">
                     {eyebrow}
-                </p>
+                </div>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
-                <p className="mt-3 text-lg text-muted-foreground">{description}</p>
+                <div className="mt-3 text-lg text-muted-foreground">{description}</div>
             </div>
 
             <div className="grid gap-8 md:grid-cols-3">
@@ -42,9 +42,9 @@ export function HowItWorks() {
                                     </div>
                                     <h3 className="text-xl font-bold">{step.title}</h3>
                                 </div>
-                                <p className="text-sm leading-relaxed text-muted-foreground">
+                                <div className="text-sm leading-relaxed text-muted-foreground">
                                     {step.description}
-                                </p>
+                                </div>
                             </CardContent>
                             {index < steps.length - 1 && (
                                 <div className="absolute -right-4 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center md:flex">

@@ -45,9 +45,9 @@ export default function AuditPage() {
                 <div className="flex flex-1 flex-col gap-6 p-6">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight">Welcome back!</h1>
-                        <p className="text-muted-foreground mt-2">
+                        <div className="text-muted-foreground mt-2">
                             Here's a list of your audit logs for monitoring.
-                        </p>
+                        </div>
                     </div>
                     <AuditTable logs={auditLogs} />
                 </div>

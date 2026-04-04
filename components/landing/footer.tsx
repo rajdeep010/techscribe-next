@@ -223,20 +223,20 @@ export function Footer() {
                             <div className="flex items-start gap-2">
                                 <Mail className="mt-0.5 h-4 w-4 text-primary" />
                                 <div>
-                                    <p>support@techscribe.com</p>
-                                    <p>info@techscribe.com</p>
+                                    <div>support@techscribe.com</div>
+                                    <div>info@techscribe.com</div>
                                 </div>
                             </div>
                             <div className="flex items-start gap-2">
                                 <Phone className="mt-0.5 h-4 w-4 text-primary" />
                                 <div>
-                                    <p>+1 (555) 123-4567</p>
-                                    <p>+44 20 1234 5678</p>
+                                    <div>+1 (555) 123-4567</div>
+                                    <div>+44 20 1234 5678</div>
                                 </div>
                             </div>
                             <div className="flex items-start gap-2">
                                 <MapPin className="mt-0.5 h-4 w-4 text-primary" />
-                                <p>123 Academic Street, Education City, ED 12345</p>
+                                <div>123 Academic Street, Education City, ED 12345</div>
                             </div>
                         </div>
                     </div>
@@ -266,9 +266,9 @@ export function Footer() {
                                 UPI
                             </div>
                         </div>
-                        <p className="mt-3 text-xs text-muted-foreground">
+                        <div className="mt-3 text-xs text-muted-foreground">
                             All payments are secured with SSL encryption
-                        </p>
+                        </div>
                     </div>
 
                     {/* Social Media */}
@@ -306,18 +306,18 @@ export function Footer() {
                                 <Linkedin className="h-4 w-4" />
                             </Link>
                         </div>
-                        <p className="mt-4 text-xs text-muted-foreground">
+                        <div className="mt-4 text-xs text-muted-foreground">
                             Join our community of 50,000+ students
-                        </p>
+                        </div>
                     </div>
                 </div>
 
                 {/* Bottom Bar - Copyright */}
                 <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-                    <p>© {new Date().getFullYear()} TechScribe. All rights reserved.</p>
-                    <p className="mt-1">
+                    <div>© {new Date().getFullYear()} TechScribe. All rights reserved.</div>
+                    <div className="mt-1">
                         Trusted by students worldwide for academic excellence since 2020.
-                    </p>
+                    </div>
                 </div>
             </div>
         </footer>

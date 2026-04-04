@@ -5,21 +5,25 @@ import { Button } from "@/components/ui/button";
 import {
     NavigationMenu,
     NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/common/theme-toggle-button";
 import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
+
 
 export function Navbar() {
     const pathname = usePathname();
     const isLoginPage = pathname === "/login";
     const isSignupPage = pathname === "/signup";
+
+    const { data: session, status } = useSession();
+    const isAuthenticated = status === "authenticated";
+
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -114,10 +118,7 @@ export function Navbar() {
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
 
-
                         </NavigationMenuList>
-                        <NavigationMenuIndicator />
-                        <NavigationMenuViewport />
                     </NavigationMenu>
                 </div>
 
@@ -141,12 +142,25 @@ export function Navbar() {
                     )}
                     {!isLoginPage && !isSignupPage && (
                         <>
-                            <Button variant="ghost" asChild>
-                                <Link href="/login">Sign In</Link>
-                            </Button>
-                            <Button asChild>
-                                <Link href="/u/rajdeep">Get Started</Link>
-                            </Button>
+                            {isAuthenticated ? (
+                                <>
+                                    <Button variant="ghost" asChild>
+                                        <Link href={session?.user?.username ? "/u/" + session.user.username : "/"}>Dashboard</Link>
+                                    </Button>
+                                    <Button variant="outline" onClick={() => signOut({ callbackUrl: "/" })}>
+                                        Logout
+                                    </Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Button variant="ghost" asChild>
+                                        <Link href="/login">Sign In</Link>
+                                    </Button>
+                                    <Button asChild>
+                                        <Link href="/signup">Get Started</Link>
+                                    </Button>
+                                </>
+                            )}
                         </>
                     )}
 
@@ -186,9 +200,37 @@ export function Navbar() {
                                 <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
                                     Samples
                                 </Link>
-                                <div className="flex flex-col gap-2 pt-6 border-t">
+                                {/* <div className="flex flex-col gap-2 pt-6 border-t">
                                     <Button variant="outline" className="w-full">Sign In</Button>
                                     <Button className="w-full">Get Started</Button>
+                                </div> */}
+
+                                <div className="flex flex-col gap-2 pt-6 border-t">
+                                    {isAuthenticated ? (
+                                        <>
+                                            <Button variant="outline" className="w-full" asChild>
+                                                <Link href={session?.user?.username ? `/u/${session.user.username}` : "/"}>
+                                                    Dashboard
+                                                </Link>
+                                            </Button>
+                                            <Button
+                                                className="w-full"
+                                                variant="outline"
+                                                onClick={() => signOut({ callbackUrl: "/" })}
+                                            >
+                                                Logout
+                                            </Button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Button variant="outline" className="w-full" asChild>
+                                                <Link href="/login">Sign In</Link>
+                                            </Button>
+                                            <Button className="w-full" asChild>
+                                                <Link href="/signup">Get Started</Link>
+                                            </Button>
+                                        </>
+                                    )}
                                 </div>
                             </nav>
                         </SheetContent>

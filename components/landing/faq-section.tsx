@@ -10,9 +10,9 @@ export function FAQSection() {
         <section className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="mb-12 text-center">
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Frequently Asked Questions</h2>
-                <p className="mt-3 text-lg text-muted-foreground">
+                <div className="mt-3 text-lg text-muted-foreground">
                     Everything you need to know about our assignment help services.
-                </p>
+                </div>
             </div>
             <div className="grid gap-8 md:grid-cols-2">
                 <div>

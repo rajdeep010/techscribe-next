@@ -48,26 +48,28 @@ import {
     SidebarRail,
 } from "@/components/ui/sidebar";
 import { useUser } from "@/context/UserProvider";
+import { signOut } from "next-auth/react";
+
 
 
 export function AdminSidebar() {
-    const {user} = useUser();
-    if(!user)   return null;
+    const { user } = useUser();
+    if (!user) return null;
 
     const mainMenu = [
         {
             title: "Dashboard",
-            url: `/u/${user.id}`,
+            url: `/u/${user.username}`,
             icon: <LayoutDashboard className="h-5 w-5" />,
         },
         {
             title: "Analytics",
-            url: `/u/${user.id}/analytics`,
+            url: `/u/${user.username}/analytics`,
             icon: <LayoutDashboard className="h-5 w-5" />,
         },
         {
             title: "Audit Logs",
-            url: `/u/${user.id}/audit`,
+            url: `/u/${user.username}/audit`,
             icon: <FileText className="h-5 w-5" />,
         },
     ];
@@ -75,27 +77,27 @@ export function AdminSidebar() {
     const adminMenu = [
         {
             title: "Users",
-            url: `/u/${user.id}/users`,
+            url: `/u/${user.username}/users`,
             icon: <Users className="h-5 w-5" />,
         },
         {
             title: "Experts",
-            url: `/u/${user.id}/experts`,
+            url: `/u/${user.username}/experts`,
             icon: <UserCheck className="h-5 w-5" />,
         },
         {
             title: "Data Library",
-            url: `/u/${user.id}/data-library`,
+            url: `/u/${user.username}/data-library`,
             icon: <Database className="h-5 w-5" />,
         },
         {
             title: "Notifications",
-            url: `/u/${user.id}/notifications`,
+            url: `/u/${user.username}/notifications`,
             icon: <Bell className="h-5 w-5" />,
         },
         {
             title: "Security",
-            url: `/u/${user.id}/security`,
+            url: `/u/${user.username}/security`,
             icon: <Shield className="h-5 w-5" />,
         },
     ];
@@ -103,12 +105,12 @@ export function AdminSidebar() {
     const settingsMenu = [
         {
             title: "Settings",
-            url: `/u/${user.id}/settings`, // Make sure it uses this format
+            url: `/u/${user.username}/settings`, // Make sure it uses this format
             icon: <Settings className="h-5 w-5" />,
         },
         {
             title: "Help & Support",
-            url: `/u/${user.id}/help`,
+            url: `/u/${user.username}/help`,
             icon: <HelpCircle className="h-5 w-5" />,
         },
     ];
@@ -270,17 +272,22 @@ export function AdminSidebar() {
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuGroup>
-                                    <DropdownMenuItem>
-                                        <UserCircle className="mr-2 h-4 w-4" />
-                                        Account
+                                    <DropdownMenuItem asChild>
+                                        <Link href={`/u/${user.username}`}>
+                                            <UserCircle className="mr-2 h-4 w-4" />
+                                            Account
+                                        </Link>
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        <Settings className="mr-2 h-4 w-4" />
-                                        Settings
+
+                                    <DropdownMenuItem asChild>
+                                        <Link href={`/u/${user.username}/settings`}>
+                                            <Settings className="mr-2 h-4 w-4" />
+                                            Settings
+                                        </Link>
                                     </DropdownMenuItem>
                                 </DropdownMenuGroup>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
                                     <LogOut className="mr-2 h-4 w-4" />
                                     Log out
                                 </DropdownMenuItem>

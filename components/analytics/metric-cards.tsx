@@ -25,12 +25,12 @@ export function AnalyticsMetricCard({ metric }: AnalyticsMetricCardProps) {
             <CardHeader className="pb-2">
                 <div className="flex items-start justify-between">
                     <div className="space-y-1">
-                        <p className="text-sm font-medium text-muted-foreground">
+                        <div className="text-sm font-medium text-muted-foreground">
                             {metric.title}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
+                        </div>
+                        <div className="text-xs text-muted-foreground">
                             {metric.subtitle}
-                        </p>
+                        </div>
                     </div>
                     <div className="rounded-full bg-primary/10 p-2">
                         <Icon className="h-4 w-4 text-primary" />
@@ -55,16 +55,16 @@ export function AnalyticsMetricCard({ metric }: AnalyticsMetricCardProps) {
 
                 {/* Value and Change */}
                 <div className="space-y-1">
-                    <p className="text-3xl font-bold">{metric.value}</p>
+                    <div className="text-3xl font-bold">{metric.value}</div>
                     {metric.change && (
-                        <p
+                        <div
                             className={cn(
                                 "text-sm font-medium",
                                 isPositive ? "text-green-600" : "text-red-600"
                             )}
                         >
                             {metric.change}
-                        </p>
+                        </div>
                     )}
                 </div>
             </CardContent>

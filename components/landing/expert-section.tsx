@@ -12,9 +12,9 @@ export function ExpertsSection() {
             <div className="mb-6 flex items-end justify-between">
                 <div>
                     <h2 className="text-2xl font-semibold">Top Assignment Experts</h2>
-                    <p className="text-muted-foreground">
+                    <div className="text-muted-foreground">
                         Work with specialists from top universities worldwide.
-                    </p>
+                    </div>
                 </div>
                 <Button variant="outline" className="hidden sm:inline-flex">View All Experts</Button>
             </div>
@@ -36,7 +36,7 @@ export function ExpertsSection() {
                             </div>
                         </CardHeader>
                         <CardContent className="space-y-3">
-                            <p className="text-sm text-muted-foreground">{expert.about}</p>
+                            <div className="text-sm text-muted-foreground">{expert.about}</div>
                             <div className="flex items-center gap-2 text-sm">
                                 <Star className="h-4 w-4 text-yellow-500" />
                                 <span>{expert.rating}</span>
