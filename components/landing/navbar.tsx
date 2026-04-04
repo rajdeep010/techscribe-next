@@ -145,7 +145,15 @@ export function Navbar() {
                             {isAuthenticated ? (
                                 <>
                                     <Button variant="ghost" asChild>
-                                        <Link href={session?.user?.username ? "/u/" + session.user.username : "/"}>Dashboard</Link>
+                                        <Link
+                                            href={
+                                                session?.user?.username
+                                                    ? session.user.role === "admin"
+                                                        ? `/admin/${session.user.username}`
+                                                        : `/u/${session.user.username}`
+                                                    : "/"
+                                            }
+                                        >Dashboard</Link>
                                     </Button>
                                     <Button variant="outline" onClick={() => signOut({ callbackUrl: "/" })}>
                                         Logout
@@ -209,7 +217,15 @@ export function Navbar() {
                                     {isAuthenticated ? (
                                         <>
                                             <Button variant="outline" className="w-full" asChild>
-                                                <Link href={session?.user?.username ? `/u/${session.user.username}` : "/"}>
+                                                <Link
+  href={
+    session?.user?.username
+      ? session.user.role === "admin"
+        ? `/admin/${session.user.username}`
+        : `/u/${session.user.username}`
+      : "/"
+  }
+>
                                                     Dashboard
                                                 </Link>
                                             </Button>

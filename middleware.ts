@@ -29,10 +29,15 @@ export async function middleware(request: NextRequest) {
     });
 
     if (token && isAuthPage(pathname)) {
-        const username = token.username;
-        return NextResponse.redirect(
-            new URL(username ? `/u/${username}` : "/", request.url)
-        );
+        if (token.role === "admin" && token.username) {
+            return NextResponse.redirect(new URL(`/admin/${token.username}`, request.url));
+        }
+
+        if (token.username) {
+            return NextResponse.redirect(new URL(`/u/${token.username}`, request.url));
+        }
+
+        return NextResponse.redirect(new URL("/", request.url));
     }
 
     if (isPublicPath(pathname)) {
@@ -41,6 +46,22 @@ export async function middleware(request: NextRequest) {
 
     if (!token) {
         return NextResponse.redirect(new URL("/", request.url));
+    }
+
+    if (pathname.startsWith("/admin")) {
+        if (token.role !== "admin") {
+            return NextResponse.redirect(
+                new URL(token.username ? `/u/${token.username}` : "/", request.url)
+            );
+        }
+    }
+
+    if (pathname.startsWith("/u/")) {
+        if (token.role === "admin") {
+            return NextResponse.redirect(
+                new URL(token.username ? `/admin/${token.username}` : "/", request.url)
+            );
+        }
     }
 
     return NextResponse.next();

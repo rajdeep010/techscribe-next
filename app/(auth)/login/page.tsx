@@ -67,8 +67,15 @@ export default function LoginPage() {
 
             const session = await getSession();
             const username = session?.user?.username;
+            const role = session?.user?.role;
 
             toast.success("Signed in successfully");
+
+            if (username && role === "admin") {
+                router.replace(`/admin/${username}`);
+                router.refresh();
+                return;
+            }
 
             if (username) {
                 router.replace(`/u/${username}`);

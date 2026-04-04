@@ -244,3 +244,36 @@ export type ColumnVisibility = {
     user: boolean;
     time: boolean;
 };
+
+export type SupportTicketCategory = "general" | "billing" | "technical" | "account";
+export type SupportTicketStatus = "open" | "in-progress" | "resolved";
+export type AdminSupportFilter = "all" | SupportTicketStatus;
+
+export type SupportTicketItem = {
+    id: string;
+    userId: string;
+    username: string;
+    email: string;
+    role: UserRole;
+    subject: string;
+    category: SupportTicketCategory;
+    message: string;
+    status: SupportTicketStatus;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type AdminSupportState = {
+    tickets: SupportTicketItem[];
+    isLoading: boolean;
+    error: string | null;
+    searchQuery: string;
+    statusFilter: AdminSupportFilter;
+};
+
+export type AdminSupportAction =
+    | { type: "SET_LOADING"; payload: boolean }
+    | { type: "SET_TICKETS"; payload: SupportTicketItem[] }
+    | { type: "SET_ERROR"; payload: string | null }
+    | { type: "SET_SEARCH_QUERY"; payload: string }
+    | { type: "SET_STATUS_FILTER"; payload: AdminSupportFilter };

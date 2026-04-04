@@ -1,19 +1,12 @@
-'use client';
+"use client";
 
-import AdminDashboard from '@/components/admin/admin-dashboard';
-import UserDashboard from '@/components/dashboard/user-dashboard';
-import { useUser } from '@/context/UserProvider';
+import UserDashboard from "@/components/dashboard/user-dashboard";
+import { useUser } from "@/context/UserProvider";
 
-const page = () => {
+export default function Page() {
     const { user } = useUser();
-    console.log("User in page component:", user);   
-    if (!user) return null;
 
-    if (user.role === "admin") {
-        return <AdminDashboard />;
-    }
+    if (!user) return null;
 
     return <UserDashboard />;
 }
-
-export default page

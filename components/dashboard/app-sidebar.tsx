@@ -92,14 +92,14 @@ export function SidebarIconExample() {
         ],
         settings: [
             {
-                title: "Help & Support",
-                url: "#",
-                icon: <HelpCircle className="h-6 w-6" />,
-            },
-            {
                 title: "Settings",
                 url: `/u/${user.username}/settings`,
                 icon: <Settings className="h-6 w-6" />,
+            },
+            {
+                title: "Help & Support",
+                url: `/u/${user.username}/help`,
+                icon: <HelpCircle className="h-6 w-6" />,
             },
         ],
     };
@@ -251,7 +251,7 @@ export function SidebarIconExample() {
                                         <DropdownMenuItem asChild>
                                             <Link href={userDashboardUrl}>
                                                 <UserCircle className="mr-2 h-4 w-4" />
-                                                  Account
+                                                Account
                                             </Link>
                                         </DropdownMenuItem>
 

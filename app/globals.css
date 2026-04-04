@@ -137,3 +137,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+.support-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+}
+
+.support-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.support-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.support-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 9999px;
+}
+
+.support-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.7);
+}

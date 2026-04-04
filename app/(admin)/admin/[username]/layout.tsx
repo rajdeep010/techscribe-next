@@ -1,0 +1,28 @@
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+
+export default async function AdminAreaLayout({
+    children,
+    params,
+}: {
+    children: React.ReactNode;
+    params: Promise<{ username: string }>;
+}) {
+    const session = await getServerSession(authOptions);
+    const { username } = await params;
+
+    if (!session?.user) {
+        redirect("/login");
+    }
+
+    if (session.user.role !== "admin") {
+        redirect(session.user.username ? `/u/${session.user.username}` : "/");
+    }
+
+    if (session.user.username !== username) {
+        redirect(`/admin/${session.user.username}`);
+    }
+
+    return <>{children}</>;
+}

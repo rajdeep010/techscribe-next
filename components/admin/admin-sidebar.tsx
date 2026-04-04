@@ -59,17 +59,17 @@ export function AdminSidebar() {
     const mainMenu = [
         {
             title: "Dashboard",
-            url: `/u/${user.username}`,
+            url: `/admin/${user.username}`,
             icon: <LayoutDashboard className="h-5 w-5" />,
         },
         {
             title: "Analytics",
-            url: `/u/${user.username}/analytics`,
+            url: `/admin/${user.username}/analytics`,
             icon: <LayoutDashboard className="h-5 w-5" />,
         },
         {
             title: "Audit Logs",
-            url: `/u/${user.username}/audit`,
+            url: `/admin/${user.username}/audit`,
             icon: <FileText className="h-5 w-5" />,
         },
     ];
@@ -77,27 +77,22 @@ export function AdminSidebar() {
     const adminMenu = [
         {
             title: "Users",
-            url: `/u/${user.username}/users`,
+            url: `/admin/${user.username}/users`,
             icon: <Users className="h-5 w-5" />,
         },
         {
-            title: "Experts",
-            url: `/u/${user.username}/experts`,
-            icon: <UserCheck className="h-5 w-5" />,
-        },
-        {
             title: "Data Library",
-            url: `/u/${user.username}/data-library`,
+            url: `/admin/${user.username}/data-library`,
             icon: <Database className="h-5 w-5" />,
         },
         {
             title: "Notifications",
-            url: `/u/${user.username}/notifications`,
+            url: `/admin/${user.username}/notifications`,
             icon: <Bell className="h-5 w-5" />,
         },
         {
             title: "Security",
-            url: `/u/${user.username}/security`,
+            url: `/admin/${user.username}/security`,
             icon: <Shield className="h-5 w-5" />,
         },
     ];
@@ -105,13 +100,8 @@ export function AdminSidebar() {
     const settingsMenu = [
         {
             title: "Settings",
-            url: `/u/${user.username}/settings`, // Make sure it uses this format
+            url: `/admin/${user.username}/settings`,
             icon: <Settings className="h-5 w-5" />,
-        },
-        {
-            title: "Help & Support",
-            url: `/u/${user.username}/help`,
-            icon: <HelpCircle className="h-5 w-5" />,
         },
     ];
 
@@ -273,14 +263,14 @@ export function AdminSidebar() {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuGroup>
                                     <DropdownMenuItem asChild>
-                                        <Link href={`/u/${user.username}`}>
+                                        <Link href={`/admin/${user.username}`}>
                                             <UserCircle className="mr-2 h-4 w-4" />
                                             Account
                                         </Link>
                                     </DropdownMenuItem>
 
                                     <DropdownMenuItem asChild>
-                                        <Link href={`/u/${user.username}/settings`}>
+                                        <Link href={`/admin/${user.username}/settings`}>
                                             <Settings className="mr-2 h-4 w-4" />
                                             Settings
                                         </Link>
