@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +22,7 @@ function maskEmail(email: string) {
     return `${name.slice(0, 2)}***@${domain}`;
 }
 
-export default function VerifyPage() {
+function VerifyPageContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -41,7 +41,7 @@ export default function VerifyPage() {
         setEmail(initialEmail);
     }, [initialEmail]);
 
-    async function handleVerify(event: FormEvent<HTMLFormElement>) {
+    async function handleVerify(event: React.SyntheticEvent<HTMLFormElement>) {
         event.preventDefault();
         setErrorMessage("");
 
@@ -124,7 +124,7 @@ export default function VerifyPage() {
     return (
         <div className="flex min-h-screen">
             <div className="hidden lg:block lg:w-1/2">
-                <div className="relative h-full w-full bg-gradient-to-br from-slate-100 via-sky-50 to-blue-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
+                <div className="relative h-full w-full bg-linear-to-br from-slate-100 via-sky-50 to-blue-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
                     <div className="absolute inset-0 flex items-center justify-center p-12">
                         <div className="max-w-md space-y-6 text-center">
                             <div className="inline-flex rounded-full border border-sky-200 bg-white/70 px-4 py-1 text-sm font-medium text-sky-700 backdrop-blur dark:border-sky-900 dark:bg-slate-900/60 dark:text-sky-300">
@@ -240,5 +240,21 @@ export default function VerifyPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+function VerifyPageFallback() {
+    return (
+        <div className="flex min-h-screen items-center justify-center px-6">
+            <div className="text-sm text-muted-foreground">Loading verification page...</div>
+        </div>
+    );
+}
+
+export default function VerifyPage() {
+    return (
+        <Suspense fallback={<VerifyPageFallback />}>
+            <VerifyPageContent />
+        </Suspense>
     );
 }
