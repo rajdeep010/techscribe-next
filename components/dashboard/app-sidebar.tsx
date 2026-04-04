@@ -148,6 +148,9 @@ export function SidebarIconExample() {
                                         <span className="truncate font-bold text-xl">
                                             TechScribe
                                         </span>
+                                        <span className="text-xs text-muted-foreground">
+                                            User panel
+                                        </span>
                                     </div>
                                 </Link>
                             </SidebarMenuButton>

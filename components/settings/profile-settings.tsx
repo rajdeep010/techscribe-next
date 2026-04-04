@@ -101,7 +101,7 @@ export function ProfileSettings() {
     return (
         <div className="space-y-6">
             <Card className="overflow-hidden border-border/60 shadow-sm">
-                <div className="bg-linear-to-r from-sky-500/15 via-cyan-500/10 to-emerald-500/15 px-8 py-8">
+                <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-8 py-8">
                     <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                         <div className="flex items-center gap-4">
                             <Avatar className="h-20 w-20 border-4 border-background shadow-lg">
@@ -113,7 +113,7 @@ export function ProfileSettings() {
 
                             <div className="space-y-2">
                                 <div className="flex flex-wrap items-center gap-2">
-                                    <h2 className="text-3xl font-semibold tracking-tight">{displayName}</h2>
+                                    <h2 className="text-3xl font-semibold tracking-tight text-white">{displayName}</h2>
                                     <Badge variant="secondary" className="rounded-full px-3 py-1">
                                         {session?.user?.role === "admin" ? "Admin" : "User"}
                                     </Badge>
@@ -129,7 +129,7 @@ export function ProfileSettings() {
                                     )}
                                 </div>
 
-                                <p className="text-sm text-muted-foreground">
+                                <p className="text-sm text-white/90">
                                     Manage your public profile, professional links, and account identity.
                                 </p>
                             </div>
