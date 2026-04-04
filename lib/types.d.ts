@@ -277,3 +277,24 @@ export type AdminSupportAction =
     | { type: "SET_ERROR"; payload: string | null }
     | { type: "SET_SEARCH_QUERY"; payload: string }
     | { type: "SET_STATUS_FILTER"; payload: AdminSupportFilter };
+
+
+export type UserSupportFilter = "all" | SupportTicketStatus;
+
+export type UserSupportState = {
+    tickets: SupportTicketItem[];
+    isLoading: boolean;
+    error: string | null;
+    searchQuery: string;
+    statusFilter: UserSupportFilter;
+    resolvingTicketId: string | null;
+};
+
+export type UserSupportAction =
+    | { type: "SET_LOADING"; payload: boolean }
+    | { type: "SET_TICKETS"; payload: SupportTicketItem[] }
+    | { type: "SET_ERROR"; payload: string | null }
+    | { type: "SET_SEARCH_QUERY"; payload: string }
+    | { type: "SET_STATUS_FILTER"; payload: UserSupportFilter }
+    | { type: "SET_RESOLVING_TICKET"; payload: string | null }
+    | { type: "MARK_TICKET_RESOLVED"; payload: { ticketId: string; resolvedAt?: string } };

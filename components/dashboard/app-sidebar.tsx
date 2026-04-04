@@ -36,11 +36,12 @@ import {
 } from "@/components/ui/sidebar";
 import {
     LayoutDashboard,
-    BookOpen,
+    ListTodo,
+    MessagesSquare,
     Users,
-    MessageSquare,
+    Star,
     Info,
-    HelpCircle,
+    LifeBuoy,
     Settings,
     UserCircle,
     ChevronsUpDownIcon,
@@ -63,43 +64,50 @@ export function SidebarIconExample() {
             email: user.email,
             avatar: user.avatar || "https://github.com/shadcn.png",
         },
-        mainMenu: [
+        workspace: [
             {
                 title: "Dashboard",
                 url: userDashboardUrl,
                 icon: <LayoutDashboard className="h-6 w-6" />,
             },
             {
-                title: "Services",
-                url: "#",
-                icon: <BookOpen className="h-6 w-6" />,
+                title: "Tasks",
+                url: `/u/${user.username}/tasks`,
+                icon: <ListTodo className="h-6 w-6" />,
             },
             {
+                title: "Queries",
+                url: `/u/${user.username}/queries`,
+                icon: <MessagesSquare className="h-6 w-6" />,
+            },
+        ],
+        techscribe: [
+            {
                 title: "Experts",
-                url: "#",
+                url: "/#experts",
                 icon: <Users className="h-6 w-6" />,
             },
             {
                 title: "Reviews",
-                url: "#",
-                icon: <MessageSquare className="h-6 w-6" />,
+                url: "/reviews",
+                icon: <Star className="h-6 w-6" />,
             },
             {
                 title: "About Us",
-                url: "#",
+                url: "/about",
                 icon: <Info className="h-6 w-6" />,
             },
         ],
         settings: [
             {
+                title: "Help & Support",
+                url: `/u/${user.username}/help`,
+                icon: <LifeBuoy className="h-6 w-6" />,
+            },
+            {
                 title: "Settings",
                 url: `/u/${user.username}/settings`,
                 icon: <Settings className="h-6 w-6" />,
-            },
-            {
-                title: "Help & Support",
-                url: `/u/${user.username}/help`,
-                icon: <HelpCircle className="h-6 w-6" />,
             },
         ],
     };
@@ -160,9 +168,9 @@ export function SidebarIconExample() {
 
                 <SidebarContent>
                     <SidebarGroup>
-                        <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
+                        <SidebarGroupLabel>Workspace</SidebarGroupLabel>
                         <SidebarMenu className="mt-2 flex flex-col gap-2">
-                            {data.mainMenu.map((item) => (
+                            {data.workspace.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild tooltip={item.title}>
                                         <Link href={item.url}>
@@ -176,7 +184,23 @@ export function SidebarIconExample() {
                     </SidebarGroup>
 
                     <SidebarGroup>
-                        <SidebarGroupLabel>Settings</SidebarGroupLabel>
+                        <SidebarGroupLabel>TechScribe</SidebarGroupLabel>
+                        <SidebarMenu className="mt-2 flex flex-col gap-2">
+                            {data.techscribe.map((item) => (
+                                <SidebarMenuItem key={item.title}>
+                                    <SidebarMenuButton asChild tooltip={item.title}>
+                                        <Link href={item.url}>
+                                            {item.icon}
+                                            <span className="text-md">{item.title}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </SidebarMenu>
+                    </SidebarGroup>
+
+                    <SidebarGroup>
+                        <SidebarGroupLabel>Support & Settings</SidebarGroupLabel>
                         <SidebarMenu className="mt-2 flex flex-col gap-2">
                             {data.settings.map((item) => (
                                 <SidebarMenuItem key={item.title}>

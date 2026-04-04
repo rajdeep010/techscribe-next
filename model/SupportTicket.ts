@@ -9,6 +9,7 @@ export interface SupportTicket extends Document {
     category: "general" | "billing" | "technical" | "account";
     message: string;
     status: "open" | "in-progress" | "resolved";
+    resolvedAt?: Date | null;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -61,6 +62,10 @@ const SupportTicketSchema = new Schema<SupportTicket>(
             enum: ["open", "in-progress", "resolved"],
             default: "open",
             required: true,
+        },
+        resolvedAt: {
+            type: Date,
+            default: null,
         },
     },
     {
