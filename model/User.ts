@@ -11,6 +11,9 @@ export interface User extends Document {
     isVerified: boolean;
     verifyCode?: string;
     verifyCodeExpiry?: Date | null;
+    passwordChangeCode?: string;
+    passwordChangeCodeExpiry?: Date | null;
+    pendingPassword?: string;
     location?: string;
     avatar?: string;
     role?: "user" | "admin";
@@ -76,6 +79,18 @@ const UserSchema: Schema<User> = new Schema(
         verifyCodeExpiry: {
             type: Date,
             default: null,
+        },
+        passwordChangeCode: {
+            type: String,
+            default: "",
+        },
+        passwordChangeCodeExpiry: {
+            type: Date,
+            default: null,
+        },
+        pendingPassword: {
+            type: String,
+            default: "",
         },
         avatar: {
             type: String,

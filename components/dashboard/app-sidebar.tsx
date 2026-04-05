@@ -42,6 +42,7 @@ import {
     Star,
     Info,
     LifeBuoy,
+    Shield,
     Settings,
     UserCircle,
     ChevronsUpDownIcon,
@@ -103,6 +104,11 @@ export function SidebarIconExample() {
                 title: "Help & Support",
                 url: `/u/${user.username}/help`,
                 icon: <LifeBuoy className="h-6 w-6" />,
+            },
+            {
+                title: "Security",
+                url: `/u/${user.username}/security`,
+                icon: <Shield className="h-6 w-6" />,
             },
             {
                 title: "Settings",

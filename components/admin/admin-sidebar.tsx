@@ -90,11 +90,6 @@ export function AdminSidebar() {
             url: `/admin/${user.username}/notifications`,
             icon: <Bell className="h-5 w-5" />,
         },
-        {
-            title: "Security",
-            url: `/admin/${user.username}/security`,
-            icon: <Shield className="h-5 w-5" />,
-        },
     ];
 
     const settingsMenu = [
@@ -102,6 +97,11 @@ export function AdminSidebar() {
             title: "Settings",
             url: `/admin/${user.username}/settings`,
             icon: <Settings className="h-5 w-5" />,
+        },
+        {
+            title: "Security",
+            url: `/admin/${user.username}/security`,
+            icon: <Shield className="h-5 w-5" />,
         },
     ];
 
