@@ -200,7 +200,7 @@ export function AdminSupportCenter() {
                             </p>
                         </div>
                     ) : (
-                        <div className="min-h-0 flex-1 space-y-4 max-h-[20rem] overflow-y-auto pr-2 support-scrollbar">
+                        <div className="min-h-0 flex-1 space-y-4 max-h-[60vh] overflow-y-auto pr-2 support-scrollbar">
                             {filteredTickets.map((ticket) => (
                                 <div
                                     key={ticket.id}
