@@ -397,7 +397,7 @@ export function AdminUsersManagement() {
             </div>
 
             <AlertDialog open={Boolean(selectedUser)} onOpenChange={(open) => !open && setSelectedUser(null)}>
-                <AlertDialogContent size="sm">
+                <AlertDialogContent size="sm" className="p-6">
                     <AlertDialogHeader>
                         <AlertDialogMedia>
                             <Crown className="h-5 w-5" />
@@ -424,7 +424,7 @@ export function AdminUsersManagement() {
                             onClick={() => void handlePromote()}
                             disabled={!selectedUser || promotingUserId === selectedUser?.id}
                         >
-                            {promotingUserId === selectedUser?.id ? "Promoting..." : "Confirm Promotion"}
+                            {promotingUserId === selectedUser?.id ? "Promoting..." : "Confirm"}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
