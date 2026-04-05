@@ -298,3 +298,40 @@ export type UserSupportAction =
     | { type: "SET_STATUS_FILTER"; payload: UserSupportFilter }
     | { type: "SET_RESOLVING_TICKET"; payload: string | null }
     | { type: "MARK_TICKET_RESOLVED"; payload: { ticketId: string; resolvedAt?: string } };
+
+
+export type AdminUserListItem = {
+    id: string;
+    name: string;
+    username: string;
+    email: string;
+    role: UserRole;
+    isVerified: boolean;
+    location?: string;
+    avatar?: string;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type AdminUserRoleFilter = "all" | UserRole;
+export type AdminUserVerificationFilter = "all" | "verified" | "unverified";
+
+export type AdminUsersState = {
+    users: AdminUserListItem[];
+    isLoading: boolean;
+    error: string | null;
+    searchQuery: string;
+    roleFilter: AdminUserRoleFilter;
+    verificationFilter: AdminUserVerificationFilter;
+    promotingUserId: string | null;
+};
+
+export type AdminUsersAction =
+    | { type: "SET_LOADING"; payload: boolean }
+    | { type: "SET_USERS"; payload: AdminUserListItem[] }
+    | { type: "SET_ERROR"; payload: string | null }
+    | { type: "SET_SEARCH_QUERY"; payload: string }
+    | { type: "SET_ROLE_FILTER"; payload: AdminUserRoleFilter }
+    | { type: "SET_VERIFICATION_FILTER"; payload: AdminUserVerificationFilter }
+    | { type: "SET_PROMOTING_USER"; payload: string | null }
+    | { type: "PROMOTE_USER"; payload: { userId: string } };
