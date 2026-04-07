@@ -3,12 +3,14 @@
 import { useMemo } from "react";
 import {
     AlertCircle,
+    Box,
     CheckCircle2,
     Clock3,
     Inbox,
     Mail,
     RefreshCw,
     Search,
+    ShieldCheck,
     UserRound,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -91,6 +93,34 @@ export function AdminSupportCenter() {
 
     return (
         <div className="flex min-h-0 flex-1 flex-col gap-6">
+            <Card className="overflow-hidden border-border/60 shadow-sm">
+                <div className="bg-linear-to-r from-sky-500/15 via-cyan-500/10 to-emerald-500/15 px-8 py-8">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <div className="space-y-2">
+                            <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-sm font-medium backdrop-blur">
+                                <Box className="h-4 w-4" />
+                                Notifications
+                            </div>
+                            <h2 className="text-3xl font-semibold tracking-tight">
+                                User queries and support tickets
+                            </h2>
+                            <p className="max-w-2xl text-sm text-muted-foreground">
+                                View and manage support requests submitted by users through the app. Respond to queries, track issue resolution, and ensure timely support.
+                            </p>
+                        </div>
+
+                        <div className="rounded-2xl border bg-background/80 px-4 py-3 backdrop-blur">
+                            <div className="text-xs uppercase tracking-wide text-muted-foreground">
+                                Security rule
+                            </div>
+                            <div className="mt-1 text-xs text-muted-foreground">
+                                After a successful password change, you will be signed out and asked to log in again.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Card>
+
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                 <Card className="border-border/60 shadow-sm">
                     <CardContent className="flex items-center justify-between p-5">
