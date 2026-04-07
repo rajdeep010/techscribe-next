@@ -33,7 +33,7 @@ type PasswordSecurityFormProps = {
 
 export function PasswordSecurityForm({
     email,
-    title = "Protect your account with a verified password change",
+    title = "Protect your account",
     description = "Use your current password, request a one-time code, and complete the update through a secure email verification flow.",
 }: PasswordSecurityFormProps) {
     const [currentPassword, setCurrentPassword] = useState("");
@@ -149,7 +149,7 @@ export function PasswordSecurityForm({
         <div className="relative flex flex-1 flex-col gap-6">
             <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 rounded-[2rem] bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.18),transparent_34%),radial-gradient(circle_at_top_right,rgba(16,185,129,0.16),transparent_30%),radial-gradient(circle_at_bottom,rgba(99,102,241,0.12),transparent_35%)]" />
 
-            <Card className="overflow-hidden border-white/50 bg-background/80 shadow-[0_20px_80px_-32px_rgba(15,23,42,0.35)] backdrop-blur">
+            {/* <Card className="overflow-hidden border-white/50 bg-background/80 shadow-[0_20px_80px_-32px_rgba(15,23,42,0.35)] backdrop-blur">
                 <div className="relative overflow-hidden px-6 py-7 sm:px-8 sm:py-8">
                     <div className="absolute inset-0 bg-gradient-to-r from-sky-500/12 via-cyan-500/8 to-emerald-500/12" />
                     <div className="absolute -left-12 top-0 h-40 w-40 rounded-full bg-sky-500/10 blur-3xl" />
@@ -218,6 +218,34 @@ export function PasswordSecurityForm({
                                 <p className="mt-2 text-xs leading-5 text-muted-foreground">
                                     The one-time code is sent to your registered email address.
                                 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Card> */}
+
+            <Card className="overflow-hidden border-border/60 shadow-sm">
+                <div className="bg-linear-to-r from-sky-500/15 via-cyan-500/10 to-emerald-500/15 px-8 py-8">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <div className="space-y-2">
+                            <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-sm font-medium backdrop-blur">
+                                <ShieldCheck className="h-4 w-4" />
+                                Account Security
+                            </div>
+                            <h2 className="text-3xl font-semibold tracking-tight">
+                                {title}
+                            </h2>
+                            <p className="max-w-2xl text-sm text-muted-foreground">
+                                {description}
+                            </p>
+                        </div>
+
+                        <div className="rounded-2xl border bg-background/80 px-4 py-3 backdrop-blur">
+                            <div className="text-xs uppercase tracking-wide text-muted-foreground">
+                                Security rule
+                            </div>
+                            <div className="mt-1 text-xs text-muted-foreground">
+                                After a successful password change, you will be signed out and asked to log in again.
                             </div>
                         </div>
                     </div>
