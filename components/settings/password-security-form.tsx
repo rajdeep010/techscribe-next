@@ -49,28 +49,6 @@ export function PasswordSecurityForm({
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const passwordChecks = useMemo(
-        () => [
-            {
-                label: "At least 8 characters",
-                passed: newPassword.length >= 8,
-            },
-            {
-                label: "Passwords match",
-                passed:
-                    confirmPassword.length > 0 && newPassword === confirmPassword,
-            },
-            {
-                label: "Different from current password",
-                passed:
-                    currentPassword.length > 0 &&
-                    newPassword.length > 0 &&
-                    currentPassword !== newPassword,
-            },
-        ],
-        [confirmPassword, currentPassword, newPassword]
-    );
-
     async function handleRequestOtp(event: React.SyntheticEvent<HTMLFormElement>) {
         event.preventDefault();
         setErrorMessage("");
@@ -148,81 +126,6 @@ export function PasswordSecurityForm({
     return (
         <div className="relative flex flex-1 flex-col gap-6">
             <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 rounded-[2rem] bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.18),transparent_34%),radial-gradient(circle_at_top_right,rgba(16,185,129,0.16),transparent_30%),radial-gradient(circle_at_bottom,rgba(99,102,241,0.12),transparent_35%)]" />
-
-            {/* <Card className="overflow-hidden border-white/50 bg-background/80 shadow-[0_20px_80px_-32px_rgba(15,23,42,0.35)] backdrop-blur">
-                <div className="relative overflow-hidden px-6 py-7 sm:px-8 sm:py-8">
-                    <div className="absolute inset-0 bg-gradient-to-r from-sky-500/12 via-cyan-500/8 to-emerald-500/12" />
-                    <div className="absolute -left-12 top-0 h-40 w-40 rounded-full bg-sky-500/10 blur-3xl" />
-                    <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-emerald-500/10 blur-3xl" />
-
-                    <div className="relative flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
-                        <div className="max-w-3xl space-y-4">
-                            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/60 bg-background/75 px-3 py-1.5 text-sm font-medium shadow-sm backdrop-blur">
-                                <Sparkles className="h-4 w-4 text-sky-500" />
-                                Security Center
-                            </div>
-
-                            <div className="space-y-2">
-                                <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                                    {title}
-                                </h2>
-                                <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-                                    {description}
-                                </p>
-                            </div>
-
-                            <div className="flex flex-wrap gap-3">
-                                <div className="rounded-2xl border bg-background/80 px-4 py-3 backdrop-blur">
-                                    <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                                        Step 1
-                                    </div>
-                                    <div className="mt-1 text-sm font-medium">
-                                        Verify current password
-                                    </div>
-                                </div>
-                                <div className="rounded-2xl border bg-background/80 px-4 py-3 backdrop-blur">
-                                    <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                                        Step 2
-                                    </div>
-                                    <div className="mt-1 text-sm font-medium">
-                                        Receive email OTP
-                                    </div>
-                                </div>
-                                <div className="rounded-2xl border bg-background/80 px-4 py-3 backdrop-blur">
-                                    <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                                        Step 3
-                                    </div>
-                                    <div className="mt-1 text-sm font-medium">
-                                        Confirm and sign in again
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="grid gap-3 sm:grid-cols-2 xl:w-[340px]">
-                            <div className="rounded-2xl border bg-background/85 px-4 py-4 shadow-sm backdrop-blur">
-                                <div className="flex items-center gap-2 text-sm font-medium">
-                                    <ShieldCheck className="h-4 w-4 text-emerald-500" />
-                                    Session protection
-                                </div>
-                                <p className="mt-2 text-xs leading-5 text-muted-foreground">
-                                    After success, the active session is closed to protect account access.
-                                </p>
-                            </div>
-
-                            <div className="rounded-2xl border bg-background/85 px-4 py-4 shadow-sm backdrop-blur">
-                                <div className="flex items-center gap-2 text-sm font-medium">
-                                    <MailCheck className="h-4 w-4 text-sky-500" />
-                                    Email verification
-                                </div>
-                                <p className="mt-2 text-xs leading-5 text-muted-foreground">
-                                    The one-time code is sent to your registered email address.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Card> */}
 
             <Card className="overflow-hidden border-border/60 shadow-sm">
                 <div className="bg-linear-to-r from-sky-500/15 via-cyan-500/10 to-emerald-500/15 px-8 py-8">
@@ -383,34 +286,6 @@ export function PasswordSecurityForm({
                                         </InputGroupButton>
                                     </InputGroup>
                                 </div>
-                            </div>
-
-                            <div className="grid gap-3 sm:grid-cols-3">
-                                {passwordChecks.map((item) => (
-                                    <div
-                                        key={item.label}
-                                        className="rounded-2xl border bg-muted/30 px-4 py-3"
-                                    >
-                                        <div className="flex items-center gap-2">
-                                            <CheckCircle2
-                                                className={
-                                                    item.passed
-                                                        ? "h-4 w-4 text-emerald-500"
-                                                        : "h-4 w-4 text-muted-foreground"
-                                                }
-                                            />
-                                            <span
-                                                className={
-                                                    item.passed
-                                                        ? "text-sm font-medium text-foreground"
-                                                        : "text-sm text-muted-foreground"
-                                                }
-                                            >
-                                                {item.label}
-                                            </span>
-                                        </div>
-                                    </div>
-                                ))}
                             </div>
 
                             {errorMessage ? (
