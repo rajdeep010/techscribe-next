@@ -5,9 +5,7 @@ export function Footer() {
     return (
         <footer className="border-t bg-muted/50">
             <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
-                {/* Main Footer Content */}
                 <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-6">
-                    {/* Programming Help */}
                     <div>
                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
                             Programming Help
@@ -41,7 +39,6 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Academic Subjects */}
                     <div>
                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
                             Academic Subjects
@@ -75,7 +72,6 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Business & Management */}
                     <div>
                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
                             Business Help
@@ -109,7 +105,6 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Writing Services */}
                     <div>
                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
                             Writing Services
@@ -143,7 +138,6 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Company */}
                     <div>
                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
                             Company
@@ -165,7 +159,7 @@ export function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" className="text-muted-foreground transition-colors hover:text-primary">
+                                <Link href="/blogs" className="text-muted-foreground transition-colors hover:text-primary">
                                     Blog
                                 </Link>
                             </li>
@@ -177,7 +171,6 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Legal */}
                     <div>
                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
                             Legal
@@ -212,111 +205,61 @@ export function Footer() {
                     </div>
                 </div>
 
-                {/* Contact Info & Payment Section */}
                 <div className="mt-12 grid gap-8 border-t pt-8 md:grid-cols-2 lg:grid-cols-3">
-                    {/* Contact Information */}
                     <div>
                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
                             Contact Us
                         </h3>
                         <div className="space-y-3 text-sm text-muted-foreground">
-                            <div className="flex items-start gap-2">
-                                <Mail className="mt-0.5 h-4 w-4 text-primary" />
-                                <div>
-                                    <div>support@techscribe.com</div>
-                                    <div>info@techscribe.com</div>
-                                </div>
+                            <div className="flex items-start gap-3">
+                                <Mail className="mt-0.5 h-4 w-4 shrink-0" />
+                                <span>support@techscribe.com</span>
                             </div>
-                            <div className="flex items-start gap-2">
-                                <Phone className="mt-0.5 h-4 w-4 text-primary" />
-                                <div>
-                                    <div>+1 (555) 123-4567</div>
-                                    <div>+44 20 1234 5678</div>
-                                </div>
+                            <div className="flex items-start gap-3">
+                                <Phone className="mt-0.5 h-4 w-4 shrink-0" />
+                                <span>+1 (555) 123-4567</span>
                             </div>
-                            <div className="flex items-start gap-2">
-                                <MapPin className="mt-0.5 h-4 w-4 text-primary" />
-                                <div>123 Academic Street, Education City, ED 12345</div>
+                            <div className="flex items-start gap-3">
+                                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+                                <span>123 Academic Street, Education City, EC 12345</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Payment Methods */}
-                    <div>
-                        <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
-                            Payment Methods
-                        </h3>
-                        <div className="flex flex-wrap items-center gap-3">
-                            <div className="rounded border bg-background px-3 py-2 text-xs font-medium">
-                                VISA
-                            </div>
-                            <div className="rounded border bg-background px-3 py-2 text-xs font-medium">
-                                Mastercard
-                            </div>
-                            <div className="rounded border bg-background px-3 py-2 text-xs font-medium">
-                                PayPal
-                            </div>
-                            <div className="rounded border bg-background px-3 py-2 text-xs font-medium">
-                                Amex
-                            </div>
-                            <div className="rounded border bg-background px-3 py-2 text-xs font-medium">
-                                GPay
-                            </div>
-                            <div className="rounded border bg-background px-3 py-2 text-xs font-medium">
-                                UPI
-                            </div>
-                        </div>
-                        <div className="mt-3 text-xs text-muted-foreground">
-                            All payments are secured with SSL encryption
-                        </div>
-                    </div>
-
-                    {/* Social Media */}
                     <div>
                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
                             Follow Us
                         </h3>
-                        <div className="flex gap-3">
-                            <Link
-                                href="#"
-                                className="flex h-10 w-10 items-center justify-center rounded-full border bg-background transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
-                                aria-label="Facebook"
-                            >
+                        <div className="flex items-center gap-3">
+                            <Link href="#" className="rounded-full border p-2 text-muted-foreground transition-colors hover:text-primary">
                                 <Facebook className="h-4 w-4" />
                             </Link>
-                            <Link
-                                href="#"
-                                className="flex h-10 w-10 items-center justify-center rounded-full border bg-background transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
-                                aria-label="Twitter"
-                            >
+                            <Link href="#" className="rounded-full border p-2 text-muted-foreground transition-colors hover:text-primary">
                                 <Twitter className="h-4 w-4" />
                             </Link>
-                            <Link
-                                href="#"
-                                className="flex h-10 w-10 items-center justify-center rounded-full border bg-background transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
-                                aria-label="Instagram"
-                            >
+                            <Link href="#" className="rounded-full border p-2 text-muted-foreground transition-colors hover:text-primary">
                                 <Instagram className="h-4 w-4" />
                             </Link>
-                            <Link
-                                href="#"
-                                className="flex h-10 w-10 items-center justify-center rounded-full border bg-background transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
-                                aria-label="LinkedIn"
-                            >
+                            <Link href="#" className="rounded-full border p-2 text-muted-foreground transition-colors hover:text-primary">
                                 <Linkedin className="h-4 w-4" />
                             </Link>
                         </div>
-                        <div className="mt-4 text-xs text-muted-foreground">
-                            Join our community of 50,000+ students
-                        </div>
+                    </div>
+
+                    <div>
+                        <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
+                            Secure Payments
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                            We support secure and encrypted payments for all services.
+                        </p>
                     </div>
                 </div>
 
-                {/* Bottom Bar - Copyright */}
-                <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-                    <div>© {new Date().getFullYear()} TechScribe. All rights reserved.</div>
-                    <div className="mt-1">
-                        Trusted by students worldwide for academic excellence since 2020.
+                <div className="mt-10 border-t pt-6 text-sm text-muted-foreground">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <p>© 2026 TechScribe. All rights reserved.</p>
+                        <p>Built for clean academic workflows and public reading.</p>
                     </div>
                 </div>
             </div>

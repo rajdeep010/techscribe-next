@@ -15,7 +15,6 @@ import { ThemeToggle } from "@/components/common/theme-toggle-button";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 
-
 export function Navbar() {
     const pathname = usePathname();
     const isLoginPage = pathname === "/login";
@@ -23,7 +22,6 @@ export function Navbar() {
 
     const { data: session, status } = useSession();
     const isAuthenticated = status === "authenticated";
-
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -70,7 +68,7 @@ export function Navbar() {
                                     <ul className="grid w-[240px] gap-1 p-2">
                                         <li>
                                             <NavigationMenuLink asChild>
-                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
+                                                <Link href="/blogs" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
                                                     Blog
                                                 </Link>
                                             </NavigationMenuLink>
@@ -117,7 +115,6 @@ export function Navbar() {
                                     </Link>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
-
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
@@ -153,9 +150,11 @@ export function Navbar() {
                                                         : `/u/${session.user.username}`
                                                     : "/"
                                             }
-                                        >Dashboard</Link>
+                                        >
+                                            Dashboard
+                                        </Link>
                                     </Button>
-                                    <Button variant="outline" onClick={() => signOut({ callbackUrl: "/" })}>
+                                    <Button variant="default" onClick={() => signOut({ callbackUrl: "/" })}>
                                         Logout
                                     </Button>
                                 </>
@@ -171,7 +170,6 @@ export function Navbar() {
                             )}
                         </>
                     )}
-
                 </div>
 
                 <div className="flex md:hidden items-center gap-2">
@@ -183,10 +181,9 @@ export function Navbar() {
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="right" className="w-[300px] sm:w-[400px] px-6 py-4">
-                            {/* <VisuallyHidden> */}
                             <SheetTitle>TechScribe</SheetTitle>
-                            {/* </VisuallyHidden> */}
-                            <nav className="flex flex-col gap-4 mt-8">
+
+                            <nav className="mt-8 flex flex-col gap-4">
                                 <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
                                     Services
                                 </Link>
@@ -202,30 +199,26 @@ export function Navbar() {
                                 <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
                                     Contact Us
                                 </Link>
-                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
+                                <Link href="/blogs" className="text-base font-medium transition-colors hover:text-primary">
                                     Blog
                                 </Link>
                                 <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
                                     Samples
                                 </Link>
-                                {/* <div className="flex flex-col gap-2 pt-6 border-t">
-                                    <Button variant="outline" className="w-full">Sign In</Button>
-                                    <Button className="w-full">Get Started</Button>
-                                </div> */}
 
-                                <div className="flex flex-col gap-2 pt-6 border-t">
+                                <div className="flex flex-col gap-2 border-t pt-6">
                                     {isAuthenticated ? (
                                         <>
                                             <Button variant="outline" className="w-full" asChild>
                                                 <Link
-  href={
-    session?.user?.username
-      ? session.user.role === "admin"
-        ? `/admin/${session.user.username}`
-        : `/u/${session.user.username}`
-      : "/"
-  }
->
+                                                    href={
+                                                        session?.user?.username
+                                                            ? session.user.role === "admin"
+                                                                ? `/admin/${session.user.username}`
+                                                                : `/u/${session.user.username}`
+                                                            : "/"
+                                                    }
+                                                >
                                                     Dashboard
                                                 </Link>
                                             </Button>

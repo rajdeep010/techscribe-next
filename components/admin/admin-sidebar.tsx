@@ -6,16 +6,18 @@ import {
     LayoutDashboard,
     FileText,
     Users,
-    UserCheck,
     Database,
     Bell,
     Shield,
     Settings,
-    HelpCircle,
     LogOut,
     UserCircle,
     ChevronsUpDown,
+    PenSquare,
+    Newspaper,
 } from "lucide-react";
+import { signOut } from "next-auth/react";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -48,12 +50,10 @@ import {
     SidebarRail,
 } from "@/components/ui/sidebar";
 import { useUser } from "@/context/UserProvider";
-import { signOut } from "next-auth/react";
-
-
 
 export function AdminSidebar() {
     const { user } = useUser();
+
     if (!user) return null;
 
     const mainMenu = [
@@ -71,6 +71,19 @@ export function AdminSidebar() {
             title: "Audit Logs",
             url: `/admin/${user.username}/audit`,
             icon: <FileText className="h-5 w-5" />,
+        },
+    ];
+
+    const contentMenu = [
+        {
+            title: "Blogs",
+            url: `/admin/${user.username}/blogs`,
+            icon: <Newspaper className="h-5 w-5" />,
+        },
+        {
+            title: "Write",
+            url: `/admin/${user.username}/write`,
+            icon: <PenSquare className="h-5 w-5" />,
         },
     ];
 
@@ -157,12 +170,31 @@ export function AdminSidebar() {
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
+
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu className="gap-1">
                             {mainMenu.map((item) => (
+                                <SidebarMenuItem key={item.title}>
+                                    <SidebarMenuButton asChild tooltip={item.title}>
+                                        <Link href={item.url}>
+                                            {item.icon}
+                                            <span>{item.title}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+
+                <SidebarGroup>
+                    <SidebarGroupLabel>Publishing</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                        <SidebarMenu className="gap-1">
+                            {contentMenu.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild tooltip={item.title}>
                                         <Link href={item.url}>
@@ -212,6 +244,7 @@ export function AdminSidebar() {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
+
             <SidebarFooter>
                 <SidebarMenu>
                     <SidebarMenuItem>
@@ -238,6 +271,7 @@ export function AdminSidebar() {
                                     <ChevronsUpDown className="ml-auto size-4" />
                                 </SidebarMenuButton>
                             </DropdownMenuTrigger>
+
                             <DropdownMenuContent
                                 className="w-[--radix-dropdown-menu-trigger-width] min-w-56"
                                 side="bottom"
@@ -260,7 +294,9 @@ export function AdminSidebar() {
                                         </ItemContent>
                                     </Item>
                                 </DropdownMenuLabel>
+
                                 <DropdownMenuSeparator />
+
                                 <DropdownMenuGroup>
                                     <DropdownMenuItem asChild>
                                         <Link href={`/admin/${user.username}`}>
@@ -276,7 +312,9 @@ export function AdminSidebar() {
                                         </Link>
                                     </DropdownMenuItem>
                                 </DropdownMenuGroup>
+
                                 <DropdownMenuSeparator />
+
                                 <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
                                     <LogOut className="mr-2 h-4 w-4" />
                                     Log out
@@ -286,6 +324,7 @@ export function AdminSidebar() {
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarFooter>
+
             <SidebarRail />
         </Sidebar>
     );
