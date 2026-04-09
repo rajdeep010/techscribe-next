@@ -135,11 +135,13 @@ export function PublicBlogsClient({
                             </div>
                         </div>
 
-                        <Card className="overflow-hidden border-border/60 bg-card/80 shadow-sm">
-                            <div className="grid ">
-                                <div className="bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.88),rgba(22,163,74,0.62))] px-4 py-8 text-white">
+                        <Card className="overflow-hidden border-border/60 bg-card/80 shadow-sm border-b">
+                            <div className="relative overflow-hidden">
+                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.16),transparent_36%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.22),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.18),transparent_36%)]" />
+
+                                <div className="relative bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(240,253,250,0.95),rgba(239,246,255,0.94))] px-4 py-8 text-slate-900 dark:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9),rgba(22,163,74,0.62))] dark:text-white">
                                     <div className="space-y-5 px-6 lg:px-12">
-                                        <Badge className="rounded-full bg-white/12 px-3 py-1 text-white hover:bg-white/12">
+                                        <Badge className="rounded-full border border-slate-200/80 bg-white/80 px-3 py-1 text-slate-700 hover:bg-white/80 dark:border-white/10 dark:bg-white/12 dark:text-white dark:hover:bg-white/12">
                                             Featured
                                         </Badge>
 
@@ -147,17 +149,21 @@ export function PublicBlogsClient({
                                             {featuredBlog.title}
                                         </h3>
 
-                                        <p className="max-w-4xl text-sm leading-7 text-white/80 sm:text-base">
+                                        <p className="max-w-4xl text-sm leading-7 text-slate-700 sm:text-base dark:text-white/80">
                                             {featuredBlog.excerpt || "Open this article to read the full post."}
                                         </p>
 
-                                        <div className="flex flex-wrap items-center gap-4 text-sm text-white/70">
+                                        <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 dark:text-white/70">
                                             <span>{formatDate(featuredBlog.publishedAt)}</span>
                                             <span>•</span>
                                             <span>{getReadingTime(featuredBlog.contentHtml)}</span>
                                         </div>
 
-                                        <Button asChild variant="secondary" className="rounded-full px-5">
+                                        <Button
+                                            asChild
+                                            variant="secondary"
+                                            className="rounded-full border border-slate-200/70 bg-white/85 px-5 text-slate-900 hover:bg-white dark:border-white/10 dark:bg-white/12 dark:text-white dark:hover:bg-white/18"
+                                        >
                                             <Link href={`/blogs/${featuredBlog.id}`}>
                                                 Read article
                                                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -165,29 +171,6 @@ export function PublicBlogsClient({
                                         </Button>
                                     </div>
                                 </div>
-
-                                {/* <div className="flex flex-col justify-between gap-6 bg-muted/30 p-8 sm:p-10">
-                                    <div className="space-y-3">
-                                        <div className="text-sm font-medium">Reading experience</div>
-                                        <div className="rounded-3xl border border-border/60 bg-background/80 p-5">
-                                            <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                                                Clean article view
-                                            </div>
-                                            <div className="mt-2 text-sm leading-6 text-muted-foreground">
-                                                Open the full post in a distraction-light article layout using the same editor content.
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="rounded-3xl border border-border/60 bg-background/80 p-5">
-                                        <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                                            Access
-                                        </div>
-                                        <div className="mt-2 text-sm leading-6 text-muted-foreground">
-                                            Every published article is available publicly without authentication.
-                                        </div>
-                                    </div>
-                                </div> */}
                             </div>
                         </Card>
 
