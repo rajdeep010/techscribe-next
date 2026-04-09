@@ -248,11 +248,25 @@ export function Footer() {
 
                     <div>
                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
-                            Secure Payments
+                            Payment Methods
                         </h3>
-                        <p className="text-sm text-muted-foreground">
-                            We support secure and encrypted payments for all services.
-                        </p>
+                        <div className="flex flex-wrap items-center gap-3">
+                            <div className="rounded border bg-background px-3 py-2 text-xs font-medium">
+                                VISA
+                            </div>
+                            <div className="rounded border bg-background px-3 py-2 text-xs font-medium">
+                                Mastercard
+                            </div>
+                            <div className="rounded border bg-background px-3 py-2 text-xs font-medium">
+                                PayPal
+                            </div>
+                            <div className="rounded border bg-background px-3 py-2 text-xs font-medium">
+                                UPI
+                            </div>
+                        </div>
+                        <div className="mt-3 text-xs text-muted-foreground">
+                            All payments are secured with SSL encryption
+                        </div>
                     </div>
                 </div>
 
