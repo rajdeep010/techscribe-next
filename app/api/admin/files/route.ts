@@ -1,9 +1,11 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 
-import { requireAdminSession } from "@/lib/auth/admin"
-import { formatBytes } from "@/lib/assignments/files"
-import dbConnect from "@/lib/dbConnect"
-import AssignmentFileModel from "@/model/AssignmentFile"
+import { requireAdminSession } from "@/lib/auth/admin";
+import { formatBytes } from "@/lib/assignments/files";
+import dbConnect from "@/lib/dbConnect";
+import AssignmentFileModel from "@/model/AssignmentFile";
+import "@/model/Assignment";
+import "@/model/User";
 
 function serializeAssignmentFile(file: any) {
     return {

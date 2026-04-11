@@ -7,12 +7,15 @@ import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { ThemeToggle } from "@/components/common/theme-toggle-button";
 import { formatBytes } from "@/lib/assignments/files";
 import dbConnect from "@/lib/dbConnect";
-import AssignmentFileModel from "@/model/AssignmentFile";
 import {
     SidebarInset,
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
+import AssignmentFileModel from "@/model/AssignmentFile";
+import "@/model/Assignment";
+import "@/model/User";
+
 
 function serializeAssignmentFile(file: any) {
     return {
