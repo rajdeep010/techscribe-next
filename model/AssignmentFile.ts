@@ -20,6 +20,7 @@ export interface AssignmentFile extends Document {
     mimeType: string
     sizeBytes: number
     status: AssignmentFileStatus
+    statusBeforePendingDelete?: "active" | "replaced" | "locked" | null
     isVisibleToUser: boolean
     deleteAfter?: Date | null
     markedForDeletionAt?: Date | null
@@ -86,6 +87,11 @@ const assignmentFileSchema = new Schema<AssignmentFile>(
             enum: ["active", "replaced", "locked", "pending-delete", "deleted"],
             default: "active",
             index: true,
+        },
+        statusBeforePendingDelete: {
+            type: String,
+            enum: ["active", "replaced", "locked"],
+            default: null,
         },
         isVisibleToUser: {
             type: Boolean,

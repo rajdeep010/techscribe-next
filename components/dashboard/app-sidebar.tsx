@@ -69,13 +69,13 @@ export function SidebarIconExample() {
         {
             title: "Dashboard",
             url: dashboardBase,
-            icon: <LayoutDashboard className="h-5 w-5" />,
+            icon: <LayoutDashboard className="h-6 w-6" />,
             isActive: pathname === dashboardBase,
         },
         {
             title: "Tasks",
             url: tasksBase,
-            icon: <ListTodo className="h-5 w-5" />,
+            icon: <ListTodo className="h-6 w-6" />,
             isActive:
                 pathname === tasksBase ||
                 (pathname.startsWith(`${tasksBase}/`) && pathname !== `${tasksBase}/new`),
@@ -83,13 +83,13 @@ export function SidebarIconExample() {
         {
             title: "New Task",
             url: `${tasksBase}/new`,
-            icon: <PlusCircle className="h-5 w-5" />,
+            icon: <PlusCircle className="h-6 w-6" />,
             isActive: pathname === `${tasksBase}/new`,
         },
         {
             title: "Queries",
             url: `/u/${user.username}/queries`,
-            icon: <MessagesSquare className="h-5 w-5" />,
+            icon: <MessagesSquare className="h-6 w-6" />,
             isActive: matchesPrefix(pathname, `/u/${user.username}/queries`),
         },
     ];
@@ -97,20 +97,20 @@ export function SidebarIconExample() {
     const techscribe = [
         {
             title: "Experts",
-            url: "/#experts",
-            icon: <Users className="h-5 w-5" />,
-            isActive: pathname === "/",
+            url: "/experts",
+            icon: <Users className="h-6 w-6" />,
+            isActive: matchesPrefix(pathname, "/experts"),
         },
         {
             title: "Reviews",
             url: "/reviews",
-            icon: <Star className="h-5 w-5" />,
+            icon: <Star className="h-6 w-6" />,
             isActive: matchesPrefix(pathname, "/reviews"),
         },
         {
             title: "About Us",
             url: "/about",
-            icon: <Info className="h-5 w-5" />,
+            icon: <Info className="h-6 w-6" />,
             isActive: matchesPrefix(pathname, "/about"),
         },
     ];
@@ -119,22 +119,26 @@ export function SidebarIconExample() {
         {
             title: "Help & Support",
             url: `/u/${user.username}/help`,
-            icon: <LifeBuoy className="h-5 w-5" />,
+            icon: <LifeBuoy className="h-6 w-6" />,
             isActive: matchesPrefix(pathname, `/u/${user.username}/help`),
         },
         {
             title: "Security",
             url: `/u/${user.username}/security`,
-            icon: <Shield className="h-5 w-5" />,
+            icon: <Shield className="h-6 w-6" />,
             isActive: matchesPrefix(pathname, `/u/${user.username}/security`),
         },
         {
             title: "Settings",
             url: `/u/${user.username}/settings`,
-            icon: <Settings className="h-5 w-5" />,
+            icon: <Settings className="h-6 w-6" />,
             isActive: matchesPrefix(pathname, `/u/${user.username}/settings`),
         },
     ];
+
+    function matchesPrefix(pathname: string, target: string) {
+        return pathname === target || pathname.startsWith(`${target}/`);
+    }
 
     const avatarSrc = user.avatar || "https://github.com/shadcn.png";
 
@@ -219,11 +223,7 @@ export function SidebarIconExample() {
                         <SidebarMenu className="mt-2 gap-2">
                             {techscribe.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton
-                                        asChild
-                                        tooltip={item.title}
-                                        isActive={item.isActive}
-                                    >
+                                    <SidebarMenuButton asChild tooltip={item.title} isActive={item.isActive}>
                                         <Link href={item.url}>
                                             {item.icon}
                                             <span>{item.title}</span>

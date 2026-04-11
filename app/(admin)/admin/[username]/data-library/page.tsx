@@ -1,12 +1,52 @@
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { ThemeToggle } from "@/components/common/theme-toggle-button";
-import { AdminSidebar } from "@/components/admin/admin-sidebar";
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { AdminDataLibrary } from "@/components/admin/admin-data-library";
+import { AdminSidebar } from "@/components/admin/admin-sidebar";
+import { ThemeToggle } from "@/components/common/theme-toggle-button";
+import { formatBytes } from "@/lib/assignments/files";
+import dbConnect from "@/lib/dbConnect";
+import AssignmentFileModel from "@/model/AssignmentFile";
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar";
 
-export default async function AdminUsersPage({
+function serializeAssignmentFile(file: any) {
+    return {
+        id: String(file._id),
+        originalName: file.originalName,
+        mimeType: file.mimeType,
+        sizeBytes: file.sizeBytes,
+        sizeLabel: formatBytes(file.sizeBytes),
+        status: file.status,
+        storageProvider: file.storageProvider,
+        bucket: file.bucket,
+        storagePath: file.storagePath,
+        isVisibleToUser: Boolean(file.isVisibleToUser),
+        createdAt: new Date(file.createdAt).toISOString(),
+        markedForDeletionAt: file.markedForDeletionAt
+            ? new Date(file.markedForDeletionAt).toISOString()
+            : null,
+        deleteAfter: file.deleteAfter ? new Date(file.deleteAfter).toISOString() : null,
+        downloadUrl: `/api/files/${String(file._id)}/download`,
+        assignment: {
+            id: String(file.assignment?._id ?? ""),
+            title: file.assignment?.title ?? "Untitled assignment",
+            status: file.assignment?.status ?? "submitted",
+        },
+        owner: {
+            id: String(file.ownerUser?._id ?? ""),
+            name: file.ownerUser?.name ?? "",
+            username: file.ownerUser?.username ?? "",
+            email: file.ownerUser?.email ?? "",
+        },
+    };
+}
+
+export default async function AdminDataLibraryPage({
     params,
 }: {
     params: Promise<{ username: string }>;
@@ -26,6 +66,17 @@ export default async function AdminUsersPage({
         redirect(`/admin/${session.user.username}/data-library`);
     }
 
+    await dbConnect();
+
+    const files = await AssignmentFileModel.find({
+        status: { $ne: "deleted" },
+    })
+        .populate("assignment", "title status")
+        .populate("ownerUser", "name username email")
+        .sort({ createdAt: -1 })
+        .lean();
+
+    const initialFiles = files.map(serializeAssignmentFile);
 
     return (
         <SidebarProvider>
@@ -42,7 +93,7 @@ export default async function AdminUsersPage({
                 </header>
 
                 <div className="flex min-h-0 flex-1 flex-col gap-6 p-6">
-                    data-library page coming soon...
+                    <AdminDataLibrary initialFiles={initialFiles} />
                 </div>
             </SidebarInset>
         </SidebarProvider>

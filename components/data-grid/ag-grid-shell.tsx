@@ -72,6 +72,9 @@ export function AgGridShell<TData>({
     emptyMessage = "No rows found.",
     csvFileName,
     height = 520,
+    rowHeight = 56,
+    headerHeight = 44,
+    floatingFiltersHeight = 40,
 }: {
     title: string;
     description?: string;
@@ -86,6 +89,9 @@ export function AgGridShell<TData>({
     emptyMessage?: string;
     csvFileName?: string;
     height?: number;
+    rowHeight?: number;
+    headerHeight?: number;
+    floatingFiltersHeight?: number;
 }) {
     const gridApiRef = useRef<GridApi<TData> | null>(null);
     const [columnVisibility, setColumnVisibility] = useState<Record<string, boolean>>({});
@@ -245,9 +251,9 @@ export function AgGridShell<TData>({
                                     flex: 1,
                                     suppressHeaderMenuButton: true,
                                 }}
-                                rowHeight={56}
-                                headerHeight={44}
-                                floatingFiltersHeight={40}
+                                rowHeight={rowHeight}
+                                headerHeight={headerHeight}
+                                floatingFiltersHeight={floatingFiltersHeight}
                                 animateRows
                                 pagination
                                 paginationPageSize={8}
