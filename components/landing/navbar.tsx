@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,20 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 import { ThemeToggle } from "@/components/common/theme-toggle-button";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { publicServices } from "@/lib/site-content/public-pages";
+
+const resourceLinks = [
+    { label: "Blog", href: "/blogs" },
+    { label: "Reviews", href: "/reviews" },
+    { label: "Experts", href: "/experts" },
+];
+
+const primaryLinks = [
+    { label: "Experts", href: "/experts" },
+    { label: "Reviews", href: "/reviews" },
+    { label: "About Us", href: "/about" },
+    { label: "Contact Us", href: "/contact" },
+];
 
 export function Navbar() {
     const pathname = usePathname();
@@ -36,28 +51,24 @@ export function Navbar() {
                             <NavigationMenuItem>
                                 <NavigationMenuTrigger>Services</NavigationMenuTrigger>
                                 <NavigationMenuContent>
-                                    <ul className="grid w-[320px] gap-1 p-2">
-                                        <li>
-                                            <NavigationMenuLink asChild>
-                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
-                                                    Assignment Help
-                                                </Link>
-                                            </NavigationMenuLink>
-                                        </li>
-                                        <li>
-                                            <NavigationMenuLink asChild>
-                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
-                                                    Proofreading
-                                                </Link>
-                                            </NavigationMenuLink>
-                                        </li>
-                                        <li>
-                                            <NavigationMenuLink asChild>
-                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
-                                                    Tutoring
-                                                </Link>
-                                            </NavigationMenuLink>
-                                        </li>
+                                    <ul className="grid w-[360px] gap-1 p-2">
+                                        {publicServices.map((item) => (
+                                            <li key={item.title}>
+                                                <NavigationMenuLink asChild>
+                                                    <Link
+                                                        href={item.href}
+                                                        className="block rounded-md px-3 py-2 transition-colors hover:bg-accent hover:text-accent-foreground"
+                                                    >
+                                                        <div className="text-sm font-medium">
+                                                            {item.title}
+                                                        </div>
+                                                        {/* <div className="mt-1 text-xs text-muted-foreground">
+                                                            {item.description}
+                                                        </div> */}
+                                                    </Link>
+                                                </NavigationMenuLink>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </NavigationMenuContent>
                             </NavigationMenuItem>
@@ -66,60 +77,39 @@ export function Navbar() {
                                 <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
                                 <NavigationMenuContent>
                                     <ul className="grid w-[240px] gap-1 p-2">
-                                        <li>
-                                            <NavigationMenuLink asChild>
-                                                <Link href="/blogs" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
-                                                    Blog
-                                                </Link>
-                                            </NavigationMenuLink>
-                                        </li>
-                                        <li>
-                                            <NavigationMenuLink asChild>
-                                                <Link href="#" className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground">
-                                                    Samples
-                                                </Link>
-                                            </NavigationMenuLink>
-                                        </li>
+                                        {resourceLinks.map((item) => (
+                                            <li key={item.label}>
+                                                <NavigationMenuLink asChild>
+                                                    <Link
+                                                        href={item.href}
+                                                        className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                                                    >
+                                                        {item.label}
+                                                    </Link>
+                                                </NavigationMenuLink>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </NavigationMenuContent>
                             </NavigationMenuItem>
 
-                            <NavigationMenuItem>
-                                <NavigationMenuLink asChild>
-                                    <Link href="#" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                                        Experts
-                                    </Link>
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
-
-                            <NavigationMenuItem>
-                                <NavigationMenuLink asChild>
-                                    <Link href="#" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                                        Reviews
-                                    </Link>
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
-
-                            <NavigationMenuItem>
-                                <NavigationMenuLink asChild>
-                                    <Link href="#" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                                        About Us
-                                    </Link>
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
-
-                            <NavigationMenuItem>
-                                <NavigationMenuLink asChild>
-                                    <Link href="#" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                                        Contact Us
-                                    </Link>
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
+                            {primaryLinks.map((item) => (
+                                <NavigationMenuItem key={item.label}>
+                                    <NavigationMenuLink asChild>
+                                        <Link
+                                            href={item.href}
+                                            className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    </NavigationMenuLink>
+                                </NavigationMenuItem>
+                            ))}
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
 
-                <div className="hidden md:flex items-center gap-2">
+                <div className="hidden items-center gap-2 md:flex">
                     <ThemeToggle />
                     {isLoginPage && (
                         <>
@@ -172,7 +162,7 @@ export function Navbar() {
                     )}
                 </div>
 
-                <div className="flex md:hidden items-center gap-2">
+                <div className="flex items-center gap-2 md:hidden">
                     <ThemeToggle />
                     <Sheet>
                         <SheetTrigger asChild>
@@ -180,31 +170,39 @@ export function Navbar() {
                                 <Menu className="h-5 w-5" />
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="right" className="w-[300px] sm:w-[400px] px-6 py-4">
+                        <SheetContent side="right" className="w-[300px] px-6 py-4 sm:w-[400px]">
                             <SheetTitle>TechScribe</SheetTitle>
 
                             <nav className="mt-8 flex flex-col gap-4">
-                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
-                                    Services
-                                </Link>
-                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
-                                    Experts
-                                </Link>
-                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
-                                    Reviews
-                                </Link>
-                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
-                                    About Us
-                                </Link>
-                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
-                                    Contact Us
-                                </Link>
-                                <Link href="/blogs" className="text-base font-medium transition-colors hover:text-primary">
-                                    Blog
-                                </Link>
-                                <Link href="#" className="text-base font-medium transition-colors hover:text-primary">
-                                    Samples
-                                </Link>
+                                {publicServices.map((item) => (
+                                    <Link
+                                        key={item.title}
+                                        href={item.href}
+                                        className="text-base font-medium transition-colors hover:text-primary"
+                                    >
+                                        {item.title}
+                                    </Link>
+                                ))}
+
+                                {primaryLinks.map((item) => (
+                                    <Link
+                                        key={item.label}
+                                        href={item.href}
+                                        className="text-base font-medium transition-colors hover:text-primary"
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ))}
+
+                                {resourceLinks.map((item) => (
+                                    <Link
+                                        key={item.label}
+                                        href={item.href}
+                                        className="text-base font-medium transition-colors hover:text-primary"
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ))}
 
                                 <div className="flex flex-col gap-2 border-t pt-6">
                                     {isAuthenticated ? (

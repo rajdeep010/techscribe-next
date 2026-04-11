@@ -1,23 +1,24 @@
 "use client";
 
-import * as React from "react";
 import Link from "next/link";
-import {
-    LayoutDashboard,
-    FileText,
-    Users,
-    Database,
-    Bell,
-    Shield,
-    Settings,
-    LogOut,
-    UserCircle,
-    ChevronsUpDown,
-    PenSquare,
-    Newspaper,
-} from "lucide-react";
+import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import {
+    Bell,
+    ChevronsUpDown,
+    Database,
+    FileText,
+    LayoutDashboard,
+    LogOut,
+    Newspaper,
+    PenSquare,
+    Settings,
+    Shield,
+    UserCircle,
+    Users,
+} from "lucide-react";
 
+import { useUser } from "@/context/UserProvider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -49,72 +50,88 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from "@/components/ui/sidebar";
-import { useUser } from "@/context/UserProvider";
+
+function matchesPrefix(pathname: string, target: string) {
+    return pathname === target || pathname.startsWith(`${target}/`);
+}
 
 export function AdminSidebar() {
     const { user } = useUser();
+    const pathname = usePathname();
 
     if (!user) return null;
+
+    const adminBase = `/admin/${user.username}`;
 
     const mainMenu = [
         {
             title: "Dashboard",
-            url: `/admin/${user.username}`,
+            url: adminBase,
             icon: <LayoutDashboard className="h-5 w-5" />,
+            isActive: pathname === adminBase,
         },
         {
             title: "Analytics",
-            url: `/admin/${user.username}/analytics`,
+            url: `${adminBase}/analytics`,
             icon: <LayoutDashboard className="h-5 w-5" />,
+            isActive: matchesPrefix(pathname, `${adminBase}/analytics`),
         },
         {
             title: "Audit Logs",
-            url: `/admin/${user.username}/audit`,
+            url: `${adminBase}/audit`,
             icon: <FileText className="h-5 w-5" />,
+            isActive: matchesPrefix(pathname, `${adminBase}/audit`),
         },
     ];
 
-    const contentMenu = [
+    const publishingMenu = [
         {
             title: "Blogs",
-            url: `/admin/${user.username}/blogs`,
+            url: `${adminBase}/blogs`,
             icon: <Newspaper className="h-5 w-5" />,
+            isActive: matchesPrefix(pathname, `${adminBase}/blogs`),
         },
         {
             title: "Write",
-            url: `/admin/${user.username}/write`,
+            url: `${adminBase}/write`,
             icon: <PenSquare className="h-5 w-5" />,
+            isActive: pathname === `${adminBase}/write`,
         },
     ];
 
     const adminMenu = [
         {
             title: "Users",
-            url: `/admin/${user.username}/users`,
+            url: `${adminBase}/users`,
             icon: <Users className="h-5 w-5" />,
+            isActive: matchesPrefix(pathname, `${adminBase}/users`),
         },
         {
             title: "Data Library",
-            url: `/admin/${user.username}/data-library`,
+            url: `${adminBase}/data-library`,
             icon: <Database className="h-5 w-5" />,
+            isActive: matchesPrefix(pathname, `${adminBase}/data-library`),
         },
         {
             title: "Notifications",
-            url: `/admin/${user.username}/notifications`,
+            url: `${adminBase}/notifications`,
             icon: <Bell className="h-5 w-5" />,
+            isActive: matchesPrefix(pathname, `${adminBase}/notifications`),
         },
     ];
 
-    const settingsMenu = [
+    const systemMenu = [
         {
             title: "Settings",
-            url: `/admin/${user.username}/settings`,
+            url: `${adminBase}/settings`,
             icon: <Settings className="h-5 w-5" />,
+            isActive: matchesPrefix(pathname, `${adminBase}/settings`),
         },
         {
             title: "Security",
-            url: `/admin/${user.username}/security`,
+            url: `${adminBase}/security`,
             icon: <Shield className="h-5 w-5" />,
+            isActive: matchesPrefix(pathname, `${adminBase}/security`),
         },
     ];
 
@@ -131,7 +148,7 @@ export function AdminSidebar() {
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 256 256"
                                         >
-                                            <rect width="256" height="256" fill="none"></rect>
+                                            <rect width="256" height="256" fill="none" />
                                             <line
                                                 x1="208"
                                                 y1="128"
@@ -142,7 +159,7 @@ export function AdminSidebar() {
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
                                                 strokeWidth="32"
-                                            ></line>
+                                            />
                                             <line
                                                 x1="192"
                                                 y1="40"
@@ -153,14 +170,13 @@ export function AdminSidebar() {
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
                                                 strokeWidth="32"
-                                            ></line>
+                                            />
                                         </svg>
                                     </span>
                                 </Button>
+
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-bold text-xl">
-                                        TechScribe
-                                    </span>
+                                    <span className="truncate text-xl font-bold">TechScribe</span>
                                     <span className="truncate text-xs text-muted-foreground">
                                         Admin Panel
                                     </span>
@@ -178,7 +194,11 @@ export function AdminSidebar() {
                         <SidebarMenu className="gap-1">
                             {mainMenu.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild tooltip={item.title}>
+                                    <SidebarMenuButton
+                                        asChild
+                                        tooltip={item.title}
+                                        isActive={item.isActive}
+                                    >
                                         <Link href={item.url}>
                                             {item.icon}
                                             <span>{item.title}</span>
@@ -194,9 +214,13 @@ export function AdminSidebar() {
                     <SidebarGroupLabel>Publishing</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu className="gap-1">
-                            {contentMenu.map((item) => (
+                            {publishingMenu.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild tooltip={item.title}>
+                                    <SidebarMenuButton
+                                        asChild
+                                        tooltip={item.title}
+                                        isActive={item.isActive}
+                                    >
                                         <Link href={item.url}>
                                             {item.icon}
                                             <span>{item.title}</span>
@@ -214,7 +238,11 @@ export function AdminSidebar() {
                         <SidebarMenu className="gap-1">
                             {adminMenu.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild tooltip={item.title}>
+                                    <SidebarMenuButton
+                                        asChild
+                                        tooltip={item.title}
+                                        isActive={item.isActive}
+                                    >
                                         <Link href={item.url}>
                                             {item.icon}
                                             <span>{item.title}</span>
@@ -230,9 +258,13 @@ export function AdminSidebar() {
                     <SidebarGroupLabel>System</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu className="gap-1">
-                            {settingsMenu.map((item) => (
+                            {systemMenu.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild tooltip={item.title}>
+                                    <SidebarMenuButton
+                                        asChild
+                                        tooltip={item.title}
+                                        isActive={item.isActive}
+                                    >
                                         <Link href={item.url}>
                                             {item.icon}
                                             <span>{item.title}</span>
@@ -260,14 +292,14 @@ export function AdminSidebar() {
                                             {user.name.slice(0, 2).toUpperCase()}
                                         </AvatarFallback>
                                     </Avatar>
+
                                     <div className="grid flex-1 text-left text-sm leading-tight">
                                         <span className="truncate font-semibold">
                                             {user.name}
                                         </span>
-                                        <span className="truncate text-xs">
-                                            {user.email}
-                                        </span>
+                                        <span className="truncate text-xs">{user.email}</span>
                                     </div>
+
                                     <ChevronsUpDown className="ml-auto size-4" />
                                 </SidebarMenuButton>
                             </DropdownMenuTrigger>
@@ -299,14 +331,14 @@ export function AdminSidebar() {
 
                                 <DropdownMenuGroup>
                                     <DropdownMenuItem asChild>
-                                        <Link href={`/admin/${user.username}`}>
+                                        <Link href={adminBase}>
                                             <UserCircle className="mr-2 h-4 w-4" />
                                             Account
                                         </Link>
                                     </DropdownMenuItem>
 
                                     <DropdownMenuItem asChild>
-                                        <Link href={`/admin/${user.username}/settings`}>
+                                        <Link href={`${adminBase}/settings`}>
                                             <Settings className="mr-2 h-4 w-4" />
                                             Settings
                                         </Link>

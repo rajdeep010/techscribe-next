@@ -335,3 +335,93 @@ export type AdminUsersAction =
     | { type: "SET_VERIFICATION_FILTER"; payload: AdminUserVerificationFilter }
     | { type: "SET_PROMOTING_USER"; payload: string | null }
     | { type: "PROMOTE_USER"; payload: { userId: string } };
+
+
+export type AssignmentStatus =
+    | "submitted"
+    | "under-review"
+    | "assigned"
+    | "in-progress"
+    | "awaiting-user"
+    | "delivered"
+    | "completed"
+    | "cancelled"
+    | "archived";
+
+export type AssignmentReviewer = {
+    id: string;
+    name: string;
+    username: string;
+} | null;
+
+export type AssignmentFileItem = {
+    id: string;
+    originalName: string;
+    mimeType: string;
+    sizeBytes: number;
+    sizeLabel: string;
+    status: "active" | "replaced" | "locked" | "pending-delete" | "deleted";
+    createdAt: string;
+    downloadUrl: string;
+};
+
+export type AssignmentListItem = {
+    id: string;
+    title: string;
+    description: string;
+    subject: string;
+    deliveryDeadline: string;
+    status: AssignmentStatus;
+    fileCount: number;
+    totalFileSizeBytes: number;
+    assignedReviewer: AssignmentReviewer;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type AssignmentDetailItem = AssignmentListItem & {
+    files: AssignmentFileItem[];
+};
+
+export type UserAssignmentsState = {
+    assignments: AssignmentListItem[];
+    isLoading: boolean;
+    error: string | null;
+    searchQuery: string;
+    creatingAssignment: boolean;
+    uploadingForAssignmentId: string | null;
+};
+
+export type UserAssignmentsAction =
+    | { type: "SET_LOADING"; payload: boolean }
+    | { type: "SET_ASSIGNMENTS"; payload: AssignmentListItem[] }
+    | { type: "SET_ERROR"; payload: string | null }
+    | { type: "SET_SEARCH_QUERY"; payload: string }
+    | { type: "SET_CREATING_ASSIGNMENT"; payload: boolean }
+    | { type: "SET_UPLOADING_ASSIGNMENT"; payload: string | null }
+    | { type: "ADD_ASSIGNMENT"; payload: AssignmentListItem };
+
+export type AdminAssignmentListItem = AssignmentListItem & {
+    user: {
+        id: string;
+        name: string;
+        username: string;
+        email: string;
+    };
+};
+
+export type AdminAssignmentsState = {
+    assignments: AdminAssignmentListItem[];
+    isLoading: boolean;
+    error: string | null;
+    searchQuery: string;
+    assigningAssignmentId: string | null;
+};
+
+export type AdminAssignmentsAction =
+    | { type: "SET_LOADING"; payload: boolean }
+    | { type: "SET_ASSIGNMENTS"; payload: AdminAssignmentListItem[] }
+    | { type: "SET_ERROR"; payload: string | null }
+    | { type: "SET_SEARCH_QUERY"; payload: string }
+    | { type: "SET_ASSIGNING_ASSIGNMENT"; payload: string | null }
+    | { type: "ASSIGN_REVIEWER"; payload: { assignmentId: string; reviewer: NonNullable<AssignmentReviewer>; status: AssignmentStatus } };
