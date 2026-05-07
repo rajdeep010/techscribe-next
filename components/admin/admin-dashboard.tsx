@@ -49,11 +49,11 @@ export default function AdminDashboard() {
 
                 <div className="flex min-w-0 flex-1 flex-col gap-6 p-6">
                     <AdminStatsCards stats={mockStats} />
-                    <AdminAreaChart
+                    {/* <AdminAreaChart
                         data={mockChartData}
                         title="Total Visitors"
                         description="Total for the last 3 months"
-                    />
+                    /> */}
                     <AdminAssignmentsProvider>
                         <AdminAssignmentsTable adminOptions={adminOptions} />
                     </AdminAssignmentsProvider>

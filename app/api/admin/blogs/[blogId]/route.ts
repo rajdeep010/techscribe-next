@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import { revalidatePath } from "next/cache"
 import { NextResponse } from "next/server"
 
 import { requireAdminSession } from "@/lib/auth/admin"
@@ -138,6 +139,9 @@ export async function PATCH(
         }
 
         await existingBlog.save()
+
+        revalidatePath("/blogs")
+        revalidatePath(`/blogs/${blogId}`)
 
         return NextResponse.json({
             success: true,

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 
 import { requireAdminSession } from "@/lib/auth/admin"
 import dbConnect from "@/lib/dbConnect"
@@ -100,6 +101,12 @@ export async function POST(request: Request) {
             status: parsed.data.status,
             publishedAt: parsed.data.status === "published" ? new Date() : null,
         })
+
+        revalidatePath("/blogs")
+
+        if (blog.status === "published") {
+            revalidatePath(`/blogs/${String(blog._id)}`)
+        }
 
         return NextResponse.json({
             success: true,

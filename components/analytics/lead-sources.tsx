@@ -26,7 +26,7 @@ export function LeadSources({ sources }: LeadSourcesProps) {
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 <div className="flex items-center justify-center">
-                    <ResponsiveContainer width="100%" height={250}>
+                    <ResponsiveContainer width="100%" height={240}>
                         <PieChart>
                             <Pie
                                 data={chartData}
@@ -104,14 +104,14 @@ export function LeadSources({ sources }: LeadSourcesProps) {
             </CardContent>
 
             {/* Action Buttons */}
-            <CardFooter className="flex gap-2 pt-4">
+            {/* <CardFooter className="flex gap-2 pt-4">
                 <Button variant="outline" size="sm" className="flex-1">
                     View Full Report
                 </Button>
                 <Button variant="outline" size="sm" className="flex-1">
                     Download CSV
                 </Button>
-            </CardFooter>
+            </CardFooter> */}
         </Card>
     );
 }
