@@ -90,7 +90,7 @@ export async function POST(request: Request) {
         user.avatar = uploadedRef.path
         await user.save()
 
-        if (isStoredAvatarPath(previousAvatar)) {
+        if (typeof previousAvatar === "string" && isStoredAvatarPath(previousAvatar)) {
             try {
                 await storageProvider.deleteFile({
                     provider: uploadedRef.provider,
