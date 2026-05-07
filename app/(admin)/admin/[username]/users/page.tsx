@@ -6,6 +6,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import dbConnect from "@/lib/dbConnect";
+import { getUserAvatarUrl } from "@/lib/user-avatar";
 import UserModel from "@/model/User";
 import { AdminUsersManagement } from "@/components/admin/admin-users-management";
 
@@ -44,7 +45,7 @@ export default async function AdminUsersPage({
         role: user.role ?? "user",
         isVerified: Boolean(user.isVerified),
         location: user.location || "",
-        avatar: user.avatar || "",
+        avatar: getUserAvatarUrl({ userId: String(user._id), avatar: user.avatar }),
         createdAt: new Date(user.createdAt).toISOString(),
         updatedAt: new Date(user.updatedAt).toISOString(),
     }));

@@ -15,6 +15,7 @@ declare module "next-auth" {
         profile?: string;
         location?: string;
         about?: string;
+        avatar?: string;
         role?: AppUserRole;
     }
 
@@ -30,6 +31,7 @@ declare module "next-auth" {
             profile?: string;
             location?: string;
             about?: string;
+            avatar?: string;
             role?: AppUserRole;
         } & DefaultSession["user"];
     }
@@ -47,6 +49,7 @@ declare module "next-auth/jwt" {
         profile?: string;
         location?: string;
         about?: string;
+        avatar?: string;
         role?: AppUserRole;
     }
 }

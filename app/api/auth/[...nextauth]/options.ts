@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import { loginSchema } from "@/lib/validations/auth";
 import { normalizeEmail, normalizeUsername } from "@/lib/auth";
+import { getUserAvatarUrl } from "@/lib/user-avatar";
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -59,6 +60,10 @@ export const authOptions: NextAuthOptions = {
                     profile: user.profile ?? "",
                     location: user.location ?? "",
                     about: user.about ?? "",
+                    avatar: getUserAvatarUrl({
+                        userId: user._id.toString(),
+                        avatar: user.avatar,
+                    }),
                     role: user.role ?? "user",
                 };
             },
@@ -77,6 +82,7 @@ export const authOptions: NextAuthOptions = {
                 token.profile = user.profile;
                 token.location = user.location;
                 token.about = user.about;
+                token.avatar = user.avatar;
                 token.role = user.role ?? "user";
             }
 
@@ -86,6 +92,7 @@ export const authOptions: NextAuthOptions = {
                 token.profile = session.user.profile ?? token.profile;
                 token.location = session.user.location ?? token.location;
                 token.about = session.user.about ?? token.about;
+                token.avatar = session.user.avatar ?? token.avatar;
             }
 
             return token;
@@ -102,6 +109,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.profile = token.profile;
                 session.user.location = token.location;
                 session.user.about = token.about;
+                session.user.avatar = token.avatar;
                 session.user.role = token.role ?? "user";
             }
 

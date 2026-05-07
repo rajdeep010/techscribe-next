@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import { requireAdminSession } from "@/lib/auth/admin";
+import { getUserAvatarUrl } from "@/lib/user-avatar";
 import UserModel from "@/model/User";
 
 export async function GET() {
@@ -29,7 +30,7 @@ export async function GET() {
             role: user.role ?? "user",
             isVerified: Boolean(user.isVerified),
             location: user.location || "",
-            avatar: user.avatar || "",
+            avatar: getUserAvatarUrl({ userId: String(user._id), avatar: user.avatar }),
             createdAt: new Date(user.createdAt).toISOString(),
             updatedAt: new Date(user.updatedAt).toISOString(),
         }));

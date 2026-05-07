@@ -17,6 +17,7 @@ export type StorageUploadInput = {
 export type StorageSignedUrlInput = StorageFileRef & {
     expiresInSeconds: number
     downloadFileName?: string
+    download?: boolean
 }
 
 export type StorageSignedUrlResult = {

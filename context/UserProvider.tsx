@@ -17,7 +17,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
                 name: session.user.name ?? session.user.username ?? "",
                 email: session.user.email ?? "",
                 role: session.user.role ?? "user",
-                avatar: session.user.profile || undefined,
+                avatar: session.user.avatar || undefined,
                 language: "english",
             }
             : null,

@@ -58,10 +58,12 @@ export class SupabaseStorageProvider implements StorageProvider {
     async createSignedDownloadUrl(
         input: StorageSignedUrlInput
     ): Promise<StorageSignedUrlResult> {
+        const downloadOption = input.download === false ? undefined : input.downloadFileName ?? true
+
         const { data, error } = await this.client.storage
             .from(input.bucket)
             .createSignedUrl(input.path, input.expiresInSeconds, {
-                download: input.downloadFileName ?? true,
+                download: downloadOption,
             })
 
         if (error || !data?.signedUrl) {
