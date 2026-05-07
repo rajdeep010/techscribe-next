@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import AuthProvider from "@/context/AuthProvider";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geist = Geist({
   subsets: ["latin"],
@@ -42,6 +43,8 @@ export default function RootLayout({
             <Toaster position="top-right" richColors />
           </TooltipProvider>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
