@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/context/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import AuthProvider from "@/context/AuthProvider";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next"
 
 const geist = Geist({
   subsets: ["latin"],
