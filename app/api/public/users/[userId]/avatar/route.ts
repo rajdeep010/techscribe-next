@@ -28,18 +28,20 @@ export async function GET(
             return NextResponse.redirect(DEFAULT_AVATAR_URL)
         }
 
-        if (!isStoredAvatarPath(avatar)) {
-            if (avatar.startsWith("/")) {
-                return NextResponse.redirect(new URL(avatar, request.url))
+        const avatarValue = String(avatar)
+
+        if (!isStoredAvatarPath(avatarValue)) {
+            if (avatarValue.startsWith("/")) {
+                return NextResponse.redirect(new URL(avatarValue, request.url))
             }
 
-            return NextResponse.redirect(avatar)
+            return NextResponse.redirect(avatarValue)
         }
 
         const signed = await storageProvider.createSignedDownloadUrl({
             provider: "supabase",
             bucket: AVATAR_IMAGES_BUCKET,
-            path: avatar,
+            path: avatarValue,
             expiresInSeconds: AVATAR_URL_TTL_SECONDS,
             download: false,
         })
