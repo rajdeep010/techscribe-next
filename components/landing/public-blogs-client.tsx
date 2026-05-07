@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { useDeferredValue, useState } from "react"
+import { useDeferredValue } from "react"
 import { ArrowRight, BookOpenText, Clock3, Search, Sparkles, X } from "lucide-react"
 
-import type { PublicBlogListItem } from "@/app/blogs/page"
+import { usePublicBlogs } from "@/context/PublicBlogsProvider"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -30,13 +30,10 @@ function getReadingTime(value: string) {
     return `${minutes} min read`
 }
 
-export function PublicBlogsClient({
-    blogs,
-}: {
-    blogs: PublicBlogListItem[]
-}) {
-    const [query, setQuery] = useState("")
-    const deferredQuery = useDeferredValue(query)
+export function PublicBlogsClient() {
+    const { blogs, searchQuery, setSearchQuery, isLoading, error } = usePublicBlogs()
+
+    const deferredQuery = useDeferredValue(searchQuery)
     const normalizedQuery = deferredQuery.trim().toLowerCase()
 
     const filteredBlogs = normalizedQuery
@@ -74,8 +71,8 @@ export function PublicBlogsClient({
                                 <Input
                                     type="text"
                                     inputMode="search"
-                                    value={query}
-                                    onChange={(event) => setQuery(event.target.value)}
+                                    value={searchQuery}
+                                    onChange={(event) => setSearchQuery(event.target.value)}
                                     placeholder="Filter blog titles"
                                     autoComplete="off"
                                     autoCorrect="off"
@@ -87,12 +84,12 @@ export function PublicBlogsClient({
                                 />
                             </div>
 
-                            {query ? (
+                            {searchQuery ? (
                                 <Button
                                     type="button"
                                     variant="outline"
                                     className="h-12 rounded-full px-5"
-                                    onClick={() => setQuery("")}
+                                    onClick={() => setSearchQuery("")}
                                 >
                                     <X className="mr-2 h-4 w-4" />
                                     Clear
@@ -111,7 +108,7 @@ export function PublicBlogsClient({
                             </div>
                             {normalizedQuery ? (
                                 <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-3 py-1.5 backdrop-blur">
-                                    Filter: "{query.trim()}"
+                                    Filter: "{searchQuery.trim()}"
                                 </div>
                             ) : null}
                         </div>
@@ -120,6 +117,14 @@ export function PublicBlogsClient({
             </section>
 
             <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+                {error ? (
+                    <Card className="mb-6 border-destructive/30 bg-destructive/5">
+                        <CardContent className="p-4 text-sm text-destructive">
+                            {error}
+                        </CardContent>
+                    </Card>
+                ) : null}
+
                 {featuredBlog ? (
                     <div className="space-y-8">
                         <div className="flex items-center justify-between gap-4">
@@ -232,12 +237,16 @@ export function PublicBlogsClient({
                                 <h2 className="text-2xl font-semibold tracking-tight">
                                     {normalizedQuery
                                         ? "No published blog matches your filter yet."
-                                        : "Public blog posts will appear here once an article is published."}
+                                            : isLoading
+                                                ? "Loading published blogs..."
+                                                : "Public blog posts will appear here once an article is published."}
                                 </h2>
                                 <p className="text-sm leading-6 text-muted-foreground">
                                     {normalizedQuery
                                         ? "Try another title filter or clear it to browse every published post."
-                                        : "Drafts stay inside the admin area until you change a post to published."}
+                                            : isLoading
+                                                ? "Please wait while the latest posts are loaded."
+                                                : "Drafts stay inside the admin area until you change a post to published."}
                                 </p>
                             </div>
                             {normalizedQuery ? (
@@ -245,7 +254,7 @@ export function PublicBlogsClient({
                                     type="button"
                                     variant="outline"
                                     className="rounded-full"
-                                    onClick={() => setQuery("")}
+                                        onClick={() => setSearchQuery("")}
                                 >
                                     <X className="mr-2 h-4 w-4" />
                                     Clear filter

@@ -47,7 +47,7 @@ export default function AnalyticsPage() {
                 <div className="flex flex-1 flex-col gap-6 p-6">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight">Analytics Dashboard</h1>
-                        <div className="text-muted-foreground mt-2">
+                        <div className="text-muted-foreground mt-2 text-sm">
                             Track your performance metrics and business insights
                         </div>
                     </div>
@@ -59,7 +59,7 @@ export default function AnalyticsPage() {
                     </div>
 
                     {/* Uncomment this */}
-                    <RevenueGrowth />
+                    {/* <RevenueGrowth /> */}
 
                     <div className="grid gap-6 lg:grid-cols-2">
                         <LeadSources sources={analyticsData.leadSources} />
