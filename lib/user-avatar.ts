@@ -44,7 +44,7 @@ export function buildUserAvatarStoragePath({
     return `users/${userId}/avatars/${Date.now()}-${crypto.randomUUID()}.${extension}`
 }
 
-export function isStoredAvatarPath(value?: string | null) {
+export function isStoredAvatarPath(value?: string | null): value is string {
     if (!value || value === DEFAULT_AVATAR_URL) {
         return false
     }
