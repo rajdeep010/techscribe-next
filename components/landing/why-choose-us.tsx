@@ -36,19 +36,32 @@ const reasons = [
 
 export function WhyChooseUs() {
     return (
-        <section className="mx-auto max-w-6xl px-4 sm:px-6">
+        <section className="mx-auto max-w-6xl rounded-3xl border border-emerald-500/15 bg-gradient-to-br from-emerald-500/7 via-background to-primary/6 px-4 py-8 sm:px-6 dark:border-emerald-400/25 dark:from-emerald-400/10 dark:to-primary/10">
             <div className="mb-8 text-center">
-                <h2 className="text-3xl font-bold tracking-tight">Why We're the #1 Assignment Help Provider</h2>
+                <h2 className="text-3xl font-bold tracking-tight">Why We&apos;re the #1 Assignment Help Provider</h2>
                 <div className="mt-2 text-lg text-muted-foreground">
                     Trusted by over 50,000+ students worldwide for delivering excellence, every time.
                 </div>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {reasons.map((reason) => (
-                    <Card key={reason.title} className="transition-shadow hover:shadow-lg">
+                {reasons.map((reason, index) => (
+                    <Card
+                        key={reason.title}
+                        className="border-primary/15 bg-card/85 transition-shadow hover:shadow-lg dark:border-primary/25"
+                    >
                         <CardContent className="space-y-3 p-6">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                                <reason.icon className="h-6 w-6 text-primary" />
+                            <div className={`flex h-12 w-12 items-center justify-center rounded-lg border ${index % 3 === 0
+                                ? "border-primary/25 bg-primary/10"
+                                : index % 3 === 1
+                                    ? "border-emerald-500/25 bg-emerald-500/10 dark:border-emerald-400/30 dark:bg-emerald-400/10"
+                                    : "border-cyan-500/25 bg-cyan-500/10 dark:border-cyan-400/30 dark:bg-cyan-400/10"
+                                }`}>
+                                <reason.icon className={`h-6 w-6 ${index % 3 === 0
+                                    ? "text-primary"
+                                    : index % 3 === 1
+                                        ? "text-emerald-700 dark:text-emerald-300"
+                                        : "text-cyan-700 dark:text-cyan-300"
+                                    }`} />
                             </div>
                             <h3 className="text-lg font-semibold">{reason.title}</h3>
                             <div className="text-sm leading-relaxed text-muted-foreground">{reason.text}</div>

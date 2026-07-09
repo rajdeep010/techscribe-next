@@ -235,7 +235,7 @@ export function AgGridShell<TData>({
                 ) : (
                     <div className="px-4 py-4">
                         <div
-                            className="ag-theme-quartz techscribe-ag-grid w-full overflow-hidden rounded-2xl"
+                            className="ag-theme-quartz mah-ag-grid w-full overflow-hidden rounded-2xl"
                             style={{ height }}
                         >
                             <AgGridReact<TData>

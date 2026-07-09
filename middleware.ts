@@ -1,7 +1,18 @@
 import { getToken } from "next-auth/jwt"
 import { NextRequest, NextResponse } from "next/server"
 
-const PUBLIC_PATHS = ["/", "/login", "/signup", "/verify", "/blogs"]
+const PUBLIC_PATHS = [
+    "/",
+    "/login",
+    "/signup",
+    "/verify",
+    "/blogs",
+    "/about",
+    "/reviews",
+    "/experts",
+    "/contact",
+    "/simple",
+]
 
 function isPublicPath(pathname: string) {
     return (

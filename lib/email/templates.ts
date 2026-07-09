@@ -7,7 +7,7 @@ function baseEmailShell(title: string, content: string) {
         <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:20px;overflow:hidden;">
           <div style="padding:24px 24px 8px 24px;background:linear-gradient(135deg,#eff6ff,#f8fafc);border-bottom:1px solid #e2e8f0;">
             <div style="font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2563eb;">
-              TechScribe
+              MyAssignmentHelp
             </div>
             <h1 style="margin:12px 0 0 0;font-size:28px;line-height:1.2;color:#0f172a;">
               ${title}
@@ -26,7 +26,7 @@ function baseEmailShell(title: string, content: string) {
 }
 
 export function userOtpEmail(username: string, verifyCode: string) {
-  const subject = "Verify your TechScribe account";
+  const subject = "Verify your my assignment help account";
   const html = baseEmailShell(
     "Verify your account",
     `
@@ -64,7 +64,7 @@ export function userOtpEmail(username: string, verifyCode: string) {
 }
 
 export function accountVerifiedEmail(username: string) {
-  const subject = "Your TechScribe account is verified";
+  const subject = "Your my assignment help account is verified";
   const html = baseEmailShell(
     "Account verified",
     `
@@ -75,7 +75,7 @@ export function accountVerifiedEmail(username: string) {
         Your account has been verified successfully. You can now sign in and access your dashboard.
       </p>
       <p style="margin:0;font-size:14px;line-height:1.7;color:#475569;">
-        Thanks for joining TechScribe.
+        Thanks for joining my assignment help.
       </p>
     `
   );
@@ -91,7 +91,7 @@ export function accountVerifiedEmail(username: string) {
 }
 
 export function passwordChangeOtpEmail(username: string, code: string) {
-  const subject = "Confirm your TechScribe password change";
+  const subject = "Confirm your my assignment help password change";
   const html = baseEmailShell(
     "Confirm your password change",
     `

@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 
 const EMAIL_FROM = process.env.EMAIL_FROM;
 const EMAIL_PASS = process.env.EMAIL_PASS;
-const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || "TechScribe";
+const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || "MyAssignmentHelp";
 
 if (!EMAIL_FROM || !EMAIL_PASS) {
     throw new Error(

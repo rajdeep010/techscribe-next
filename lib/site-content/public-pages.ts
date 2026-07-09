@@ -22,7 +22,7 @@ export const aboutPageData = {
     eyebrow: "Who We Are",
     title: "Academic support built for clarity, speed, and trust",
     description:
-        "TechScribe helps students turn confusing assignment requirements into clean, high-quality deliverables. We focus on expert guidance, structured workflows, and dependable support rather than vague promises.",
+        "my assignment help helps students turn confusing assignment requirements into clean, high-quality deliverables. We focus on expert guidance, structured workflows, and dependable support rather than vague promises.",
     highlights: [
         "Clear task intake and guided submission flow",
         "Verified academic support across technical and non-technical subjects",
@@ -105,7 +105,7 @@ export const expertsPageData = {
     highlights: [
         "Subject-specific expertise",
         "Strong communication and revision handling",
-        "Experience with applied academic writing and structured submissions",
+        "Experience with applied academic writing",
     ],
     experts: expertsData,
 };
@@ -118,8 +118,8 @@ export const contactPageData = {
     channels: [
         {
             label: "Email",
-            value: "support@techscribe.com",
-            href: "mailto:support@techscribe.com",
+            value: "support@myassignmenthelp.com",
+            href: "mailto:support@myassignmenthelp.com",
         },
         {
             label: "Phone",

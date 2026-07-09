@@ -6,14 +6,14 @@ export const heroData: HeroData = {
     description: "Achieve excellence with AI-free, plagiarism-free assignments crafted by verified PhD scholars and industry professionals. Guaranteed grades, on-time delivery, and 24/7 support.",
     primaryCta: {
         label: "Get Started Now",
-        href: "#",
+        href: "/login",
     },
     secondaryCta: {
         label: "View Sample Work",
-        href: "#",
+        href: "/login",
     },
     stats: {
-        rating: "4.9★ Rating",
+        rating: "4.9 Rated",
         orders: "50,000+ Happy Students",
         support: "24/7 Live Support",
     },

@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useDeferredValue } from "react"
-import { ArrowRight, BookOpenText, Clock3, Search, Sparkles, X } from "lucide-react"
+import { ArrowRight, BookOpenText, Clock3, PenSquare, Search, Sparkles, X } from "lucide-react"
 
 import { usePublicBlogs } from "@/context/PublicBlogsProvider"
 import { Badge } from "@/components/ui/badge"
@@ -40,83 +40,87 @@ export function PublicBlogsClient() {
         ? blogs.filter((blog) => blog.title.toLowerCase().includes(normalizedQuery))
         : blogs
 
-    const featuredBlog = filteredBlogs[0]
-    const otherBlogs = filteredBlogs.slice(1)
+    const allBlogs = filteredBlogs
 
     return (
-        <>
-            <section className="relative overflow-hidden border-b">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.14),transparent_32%),radial-gradient(circle_at_top_right,rgba(59,130,246,0.16),transparent_28%),linear-gradient(to_bottom,transparent,rgba(15,23,42,0.03))]" />
-                <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
-                    <div className="max-w-4xl space-y-6">
-                        <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur">
-                            <Sparkles className="h-3.5 w-3.5" />
-                            Public library
+        <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:py-10">
+            <div className="relative mb-7 overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/8 via-cyan-500/8 to-emerald-500/8 p-4 dark:border-primary/30 dark:from-primary/12 dark:via-cyan-400/10 dark:to-emerald-400/10 sm:p-5">
+                <div
+                    className="pointer-events-none absolute -right-12 -top-16 hidden h-56 w-56 opacity-10 lg:block"
+                    style={{
+                        backgroundImage: "url('/undraw_blogging_38kl.svg')",
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "contain",
+                        backgroundPosition: "center",
+                    }}
+                />
+                <div
+                    className="pointer-events-none absolute -left-16 -bottom-20 hidden h-60 w-60 opacity-8 lg:block"
+                    style={{
+                        backgroundImage: "url('/undraw_writing-online_x665.svg')",
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "contain",
+                        backgroundPosition: "center",
+                    }}
+                />
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-3 py-1 text-xs font-medium text-muted-foreground">
+                        <Sparkles className="h-3.5 w-3.5" />
+                        Blog library
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                        <div className="inline-flex items-center gap-1.5 rounded-full bg-background/80 px-3 py-1.5">
+                            <BookOpenText className="h-4 w-4 text-primary" />
+                            {filteredBlogs.length} post{filteredBlogs.length === 1 ? "" : "s"}
                         </div>
-
-                        <div className="space-y-4">
-                            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-                                Essays, guides, and editorial insights from the TechScribe team.
-                            </h1>
-
-                            <p className="max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
-                                Browse practical blog posts written inside TechScribe.
-                                Filter by title and open every published article in a clean, public reading view.
-                            </p>
-                        </div>
-
-                        <div className="flex max-w-2xl flex-col gap-3 sm:flex-row">
-                            <div className="relative flex-1">
-                                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                                <Input
-                                    type="text"
-                                    inputMode="search"
-                                    value={searchQuery}
-                                    onChange={(event) => setSearchQuery(event.target.value)}
-                                    placeholder="Filter blog titles"
-                                    autoComplete="off"
-                                    autoCorrect="off"
-                                    autoCapitalize="none"
-                                    spellCheck={false}
-                                    data-1p-ignore="true"
-                                    data-lpignore="true"
-                                    className="h-12 rounded-full border-border/60 bg-background/90 pl-11 pr-4 backdrop-blur"
-                                />
-                            </div>
-
-                            {searchQuery ? (
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    className="h-12 rounded-full px-5"
-                                    onClick={() => setSearchQuery("")}
-                                >
-                                    <X className="mr-2 h-4 w-4" />
-                                    Clear
-                                </Button>
-                            ) : null}
-                        </div>
-
-                        <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-                            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-3 py-1.5 backdrop-blur">
-                                <BookOpenText className="h-4 w-4" />
-                                {filteredBlogs.length} published post{filteredBlogs.length === 1 ? "" : "s"}
-                            </div>
-                            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-3 py-1.5 backdrop-blur">
-                                <Clock3 className="h-4 w-4" />
-                                Fresh editorial updates
-                            </div>
-                            {normalizedQuery ? (
-                                <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-3 py-1.5 backdrop-blur">
-                                    Filter: "{searchQuery.trim()}"
-                                </div>
-                            ) : null}
+                        <div className="inline-flex items-center gap-1.5 rounded-full bg-background/80 px-3 py-1.5">
+                            <Clock3 className="h-4 w-4 text-cyan-600 dark:text-cyan-300" />
+                            Updated regularly
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+                <div className="flex flex-col gap-3 sm:flex-row">
+                    <div className="relative flex-1">
+                        <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        <Input
+                            type="text"
+                            inputMode="search"
+                            value={searchQuery}
+                            onChange={(event) => setSearchQuery(event.target.value)}
+                            placeholder="Search blog titles"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            autoCapitalize="none"
+                            spellCheck={false}
+                            data-1p-ignore="true"
+                            data-lpignore="true"
+                            className="h-11 rounded-full border-border/70 bg-background/90 pl-11 pr-4 mt-2"
+                        />
+                    </div>
+
+                    {searchQuery ? (
+                        <Button
+                            type="button"
+                            variant="outline"
+                            className="h-11 rounded-full px-5"
+                            onClick={() => setSearchQuery("")}
+                        >
+                            <X className="mr-2 h-4 w-4" />
+                            Clear
+                        </Button>
+                    ) : null}
+                </div>
+
+                {normalizedQuery ? (
+                    <div className="text-sm text-muted-foreground">
+                        Filter active: &ldquo;{searchQuery.trim()}&rdquo;
+                    </div>
+                ) : null}
+            </div>
+
+            <section>
                 {error ? (
                     <Card className="mb-6 border-destructive/30 bg-destructive/5">
                         <CardContent className="p-4 text-sm text-destructive">
@@ -125,107 +129,79 @@ export function PublicBlogsClient() {
                     </Card>
                 ) : null}
 
-                {featuredBlog ? (
+                {allBlogs.length > 0 ? (
                     <div className="space-y-8">
                         <div className="flex items-center justify-between gap-4">
                             <div>
                                 <div className="text-sm font-medium text-primary">
-                                    {normalizedQuery ? "Top result" : "Featured post"}
+                                    {normalizedQuery ? "Top result" : "Latest posts"}
                                 </div>
                                 <h2 className="mt-2 text-2xl font-semibold tracking-tight">
                                     {normalizedQuery
-                                        ? "Start with the best title match"
-                                        : "Start with the latest published article"}
+                                        ? "Best matches for your search"
+                                        : "Browse the newest published articles"}
                                 </h2>
                             </div>
                         </div>
 
-                        <Card className="overflow-hidden border-border/60 bg-card/80 shadow-sm border-b">
-                            <div className="relative overflow-hidden">
-                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.16),transparent_36%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.22),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.18),transparent_36%)]" />
+                        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                            {allBlogs.map((blog, index) => {
+                                const isLatest = index === 0 && !normalizedQuery
+                                const toneClass =
+                                    index % 3 === 0
+                                        ? "text-primary"
+                                        : index % 3 === 1
+                                            ? "text-emerald-600 dark:text-emerald-300"
+                                            : "text-cyan-600 dark:text-cyan-300"
 
-                                <div className="relative bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(240,253,250,0.95),rgba(239,246,255,0.94))] px-4 py-8 text-slate-900 dark:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.9),rgba(22,163,74,0.62))] dark:text-white">
-                                    <div className="space-y-5 px-6 lg:px-12">
-                                        <Badge className="rounded-full border border-slate-200/80 bg-white/80 px-3 py-1 text-slate-700 hover:bg-white/80 dark:border-white/10 dark:bg-white/12 dark:text-white dark:hover:bg-white/12">
-                                            Featured
-                                        </Badge>
+                                return (
+                                    <Card
+                                        key={blog.id}
+                                        className={`bg-card/85 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md ${isLatest
+                                            ? "border-primary/35 bg-gradient-to-br from-primary/10 via-cyan-500/8 to-emerald-500/8 dark:border-primary/45 dark:from-primary/15 dark:via-cyan-400/12 dark:to-emerald-400/12"
+                                            : "border-primary/15 dark:border-primary/25"
+                                            }`}
+                                    >
+                                        <CardContent className="space-y-5 p-6">
+                                            <div className="space-y-3">
+                                                <div className="flex items-center justify-between gap-3">
+                                                    <Badge variant="outline" className="rounded-full">
+                                                        {formatDate(blog.publishedAt)}
+                                                    </Badge>
+                                                    <span className="text-xs text-muted-foreground">
+                                                        {getReadingTime(blog.contentHtml)}
+                                                    </span>
+                                                </div>
 
-                                        <h3 className="max-w-5xl text-3xl font-semibold tracking-tight sm:text-4xl">
-                                            {featuredBlog.title}
-                                        </h3>
-
-                                        <p className="max-w-4xl text-sm leading-7 text-slate-700 sm:text-base dark:text-white/80">
-                                            {featuredBlog.excerpt || "Open this article to read the full post."}
-                                        </p>
-
-                                        <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 dark:text-white/70">
-                                            <span>{formatDate(featuredBlog.publishedAt)}</span>
-                                            <span>•</span>
-                                            <span>{getReadingTime(featuredBlog.contentHtml)}</span>
-                                        </div>
-
-                                        <Button
-                                            asChild
-                                            variant="secondary"
-                                            className="rounded-full border border-slate-200/70 bg-white/85 px-5 text-slate-900 hover:bg-white dark:border-white/10 dark:bg-white/12 dark:text-white dark:hover:bg-white/18"
-                                        >
-                                            <Link href={`/blogs/${featuredBlog.id}`}>
-                                                Read article
-                                                <ArrowRight className="ml-2 h-4 w-4" />
-                                            </Link>
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </Card>
-
-                        {otherBlogs.length > 0 ? (
-                            <div className="space-y-5 pt-4">
-                                <div>
-                                    <div className="text-sm font-medium text-primary">More posts</div>
-                                    <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-                                        Explore the rest of the published library
-                                    </h2>
-                                </div>
-
-                                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                                    {otherBlogs.map((blog) => (
-                                        <Card
-                                            key={blog.id}
-                                            className="border-border/60 bg-card/80 shadow-sm transition-transform duration-200 hover:-translate-y-1"
-                                        >
-                                            <CardContent className="space-y-5 p-6">
-                                                <div className="space-y-3">
-                                                    <div className="flex items-center justify-between gap-3">
-                                                        <Badge variant="outline" className="rounded-full">
-                                                            {formatDate(blog.publishedAt)}
-                                                        </Badge>
-                                                        <span className="text-xs text-muted-foreground">
-                                                            {getReadingTime(blog.contentHtml)}
-                                                        </span>
-                                                    </div>
-
+                                                <div className="flex items-start justify-between gap-3">
                                                     <h3 className="text-xl font-semibold tracking-tight">
                                                         {blog.title}
                                                     </h3>
-
-                                                    <p className="line-clamp-4 text-sm leading-6 text-muted-foreground">
-                                                        {blog.excerpt || "Open this article to read the full post."}
-                                                    </p>
+                                                    {/* <PenSquare className={`mt-0.5 h-5 w-5 shrink-0 ${toneClass}`} /> */}
                                                 </div>
 
-                                                <Button asChild variant="outline" className="w-full rounded-full">
-                                                    <Link href={`/blogs/${blog.id}`}>
-                                                        Open post
-                                                        <ArrowRight className="ml-2 h-4 w-4" />
-                                                    </Link>
-                                                </Button>
-                                            </CardContent>
-                                        </Card>
-                                    ))}
-                                </div>
-                            </div>
-                        ) : null}
+                                                {isLatest ? (
+                                                    <Badge className="rounded-full border border-primary/30 bg-primary/12 text-primary hover:bg-primary/12 dark:border-primary/40 dark:bg-primary/20">
+                                                        Latest
+                                                    </Badge>
+                                                ) : null}
+
+                                                <p className="line-clamp-4 text-sm leading-6 text-muted-foreground">
+                                                    {blog.excerpt || "Open this article to read the full post."}
+                                                </p>
+                                            </div>
+
+                                            <Button asChild variant="outline" className="w-full rounded-full">
+                                                <Link href={`/blogs/${blog.id}`}>
+                                                    Open post
+                                                    <ArrowRight className="ml-2 h-4 w-4" />
+                                                </Link>
+                                            </Button>
+                                        </CardContent>
+                                    </Card>
+                                )
+                            })}
+                        </div>
                     </div>
                 ) : (
                     <Card className="border-dashed border-border/70 bg-muted/20">
@@ -264,6 +240,6 @@ export function PublicBlogsClient() {
                     </Card>
                 )}
             </section>
-        </>
+        </section>
     )
 }

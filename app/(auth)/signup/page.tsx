@@ -220,7 +220,7 @@ export default function SignupPage() {
                         <div className="flex-1 border-t"></div>
                     </div>
 
-                    <div className="space-y-3">
+                    {/* <div className="space-y-3">
                         <Button variant="outline" className="w-full" size="lg" type="button">
                             <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
                                 <path
@@ -242,7 +242,7 @@ export default function SignupPage() {
                             </svg>
                             Continue with Google
                         </Button>
-                    </div>
+                    </div> */}
 
                     <div className="mt-6 text-center text-sm text-muted-foreground">
                         Already have an account?{" "}

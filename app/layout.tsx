@@ -8,13 +8,14 @@ import AuthProvider from "@/context/AuthProvider";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { WhatsAppFloat } from "@/components/common/whatsapp-float";
 
 const geist = Geist({
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "TechScribe",
+  title: "MyAssignmentHelp",
   description: "Assignment help platform",
 };
 
@@ -39,6 +40,7 @@ export default function RootLayout({
                 strategy="beforeInteractive"
               />
               {children}
+              <WhatsAppFloat />
             </AuthProvider>
             <Toaster position="top-right" richColors />
           </TooltipProvider>

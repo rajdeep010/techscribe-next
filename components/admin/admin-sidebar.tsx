@@ -176,7 +176,7 @@ export function AdminSidebar() {
                                 </Button>
 
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate text-xl font-bold">TechScribe</span>
+                                    <span className="truncate text-xl font-bold">MyAssignmentHelp</span>
                                     <span className="truncate text-xs text-muted-foreground">
                                         Admin Panel
                                     </span>
