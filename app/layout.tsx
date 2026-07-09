@@ -14,7 +14,7 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "TechScribe",
+  title: "MyAssignmentHelp",
   description: "Assignment help platform",
 };
 

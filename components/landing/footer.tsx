@@ -213,7 +213,7 @@ export function Footer() {
                         <div className="space-y-3 text-sm text-muted-foreground">
                             <div className="flex items-start gap-3">
                                 <Mail className="mt-0.5 h-4 w-4 shrink-0" />
-                                <span>support@techscribe.com</span>
+                                <span>support@myassignmenthelp.com</span>
                             </div>
                             <div className="flex items-start gap-3">
                                 <Phone className="mt-0.5 h-4 w-4 shrink-0" />
@@ -272,7 +272,7 @@ export function Footer() {
 
                 <div className="mt-10 border-t pt-6 text-sm text-muted-foreground">
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <p>© 2026 TechScribe. All rights reserved.</p>
+                        <p>© 2026 MyAssignmentHelp. All rights reserved.</p>
                         <p>Built for clean academic workflows and public reading.</p>
                     </div>
                 </div>

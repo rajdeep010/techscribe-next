@@ -94,7 +94,7 @@ export function SidebarIconExample() {
         },
     ];
 
-    const techscribe = [
+    const publicResources = [
         {
             title: "Experts",
             url: "/experts",
@@ -183,7 +183,7 @@ export function SidebarIconExample() {
                                 </Button>
 
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate text-xl font-bold">TechScribe</span>
+                                    <span className="truncate text-xl font-bold">MyAssignmentHelp</span>
                                     <span className="text-xs text-muted-foreground">
                                         User panel
                                     </span>
@@ -218,10 +218,10 @@ export function SidebarIconExample() {
                 </SidebarGroup>
 
                 <SidebarGroup>
-                    <SidebarGroupLabel>TechScribe</SidebarGroupLabel>
+                    <SidebarGroupLabel>Public Resources</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu className="mt-2 gap-2">
-                            {techscribe.map((item) => (
+                            {publicResources.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild tooltip={item.title} isActive={item.isActive}>
                                         <Link href={item.url}>

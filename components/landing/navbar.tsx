@@ -42,7 +42,7 @@ export function Navbar() {
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
                 <Link href="/" className="text-xl font-bold tracking-tight">
-                    TechScribe
+                    MyAssignmentHelp
                 </Link>
 
                 <div className="hidden md:block">
@@ -113,7 +113,7 @@ export function Navbar() {
                     <ThemeToggle />
                     {isLoginPage && (
                         <>
-                            <span className="text-sm text-muted-foreground">Don't have an account?</span>
+                            <span className="text-sm text-muted-foreground">Don&apos;t have an account?</span>
                             <Button asChild>
                                 <Link href="/signup">Sign Up</Link>
                             </Button>
@@ -171,7 +171,7 @@ export function Navbar() {
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="right" className="w-[300px] px-6 py-4 sm:w-[400px]">
-                            <SheetTitle>TechScribe</SheetTitle>
+                            <SheetTitle>MyAssignmentHelp</SheetTitle>
 
                             <nav className="mt-8 flex flex-col gap-4">
                                 {publicServices.map((item) => (
