@@ -105,7 +105,7 @@ export const expertsPageData = {
     highlights: [
         "Subject-specific expertise",
         "Strong communication and revision handling",
-        "Experience with applied academic writing and structured submissions",
+        "Experience with applied academic writing",
     ],
     experts: expertsData,
 };

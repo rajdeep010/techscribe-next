@@ -18,7 +18,7 @@ import { signOut, useSession } from "next-auth/react";
 import { publicServices } from "@/lib/site-content/public-pages";
 
 const resourceLinks = [
-    { label: "Blog", href: "/blogs" },
+    { label: "Blogs", href: "/blogs" },
     { label: "Reviews", href: "/reviews" },
     { label: "Experts", href: "/experts" },
 ];
