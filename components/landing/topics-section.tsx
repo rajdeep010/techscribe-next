@@ -49,10 +49,6 @@ const topics = [
         title: "Programming Assignments",
         description: "Clean, documented code in Python, Java, C++, and more."
     },
-    {
-        title: "Statistics Projects",
-        description: "Data analysis, SPSS, R, and statistical modeling support."
-    },
 ];
 
 const topicIcons = [

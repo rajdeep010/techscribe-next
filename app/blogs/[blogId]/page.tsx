@@ -147,7 +147,7 @@ export default async function BlogDetailPage({
                                     {/* <p className="text-sm text-muted-foreground">Click any post to load it on the left.</p> */}
                                 </div>
 
-                                <div className="max-h-screen space-y-3 overflow-y-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                                <div className="max-h-[80vh] space-y-3 overflow-y-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                                     {sidebarBlogs.map((item) => {
                                         const itemId = String(item._id)
 
