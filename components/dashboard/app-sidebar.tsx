@@ -10,6 +10,7 @@ import {
     LifeBuoy,
     ListTodo,
     LogOut,
+    MessageCircleMore,
     MessagesSquare,
     PlusCircle,
     Settings,
@@ -20,6 +21,7 @@ import {
 } from "lucide-react";
 
 import { useUser } from "@/context/UserProvider";
+import { useUserChatUnread } from "@/hooks/chat/use-user-chat-unread";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -58,6 +60,7 @@ function matchesPrefix(pathname: string, target: string) {
 
 export function SidebarIconExample() {
     const { user } = useUser();
+    const { unreadCount } = useUserChatUnread();
     const pathname = usePathname();
 
     if (!user) return null;
@@ -65,7 +68,13 @@ export function SidebarIconExample() {
     const dashboardBase = `/u/${user.username}`;
     const tasksBase = `/u/${user.username}/tasks`;
 
-    const workspace = [
+    const workspace: Array<{
+        title: string;
+        url: string;
+        icon: React.ReactNode;
+        isActive: boolean;
+        unreadCount?: number;
+    }> = [
         {
             title: "Dashboard",
             url: dashboardBase,
@@ -91,6 +100,13 @@ export function SidebarIconExample() {
             url: `/u/${user.username}/queries`,
             icon: <MessagesSquare className="h-6 w-6" />,
             isActive: matchesPrefix(pathname, `/u/${user.username}/queries`),
+        },
+        {
+            title: "Support Chat",
+            url: `/u/${user.username}/support-chat`,
+            icon: <MessageCircleMore className="h-6 w-6" />,
+            isActive: matchesPrefix(pathname, `/u/${user.username}/support-chat`),
+            unreadCount,
         },
     ];
 
@@ -135,10 +151,6 @@ export function SidebarIconExample() {
             isActive: matchesPrefix(pathname, `/u/${user.username}/settings`),
         },
     ];
-
-    function matchesPrefix(pathname: string, target: string) {
-        return pathname === target || pathname.startsWith(`${target}/`);
-    }
 
     const avatarSrc = user.avatar || "https://github.com/shadcn.png";
 
@@ -207,8 +219,18 @@ export function SidebarIconExample() {
                                         isActive={item.isActive}
                                     >
                                         <Link href={item.url}>
-                                            {item.icon}
+                                            <span className="relative inline-flex">
+                                                {item.icon}
+                                                {item.unreadCount && item.unreadCount > 0 ? (
+                                                    <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-background" />
+                                                ) : null}
+                                            </span>
                                             <span>{item.title}</span>
+                                            {item.unreadCount && item.unreadCount > 0 ? (
+                                                <span className="ml-auto inline-flex min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-[10px] font-semibold text-white">
+                                                    {item.unreadCount > 99 ? "99+" : item.unreadCount}
+                                                </span>
+                                            ) : null}
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
