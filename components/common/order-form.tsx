@@ -155,7 +155,7 @@ export function OrderForm() {
                 </div>
 
                 {/* Submit Button */}
-                <Button type="submit" size="lg" className="w-full">
+                <Button type="submit" className="h-11 w-full rounded-md text-sm font-semibold">
                     Do My Assignment
                 </Button>
             </form>

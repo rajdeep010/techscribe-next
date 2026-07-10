@@ -1,7 +1,8 @@
-import { BookOpen, CreditCard, CheckCircle2 } from "lucide-react";
+import { ArrowRight, BookOpen, CreditCard, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { howItWorksData } from "@/lib/template-data";
+import Link from "next/link";
 
 const iconMap = {
     "book-open": BookOpen,
@@ -27,7 +28,7 @@ export function HowItWorks() {
     ];
 
     return (
-        <section className="mx-auto max-w-6xl rounded-3xl border border-primary/15 bg-gradient-to-br from-primary/6 via-emerald-500/6 to-cyan-500/6 px-4 py-8 sm:px-6 dark:border-primary/25 dark:from-primary/10 dark:via-emerald-400/8 dark:to-cyan-400/8">
+        <section className="mx-auto max-w-6xl rounded-3xl border border-primary/15 bg-background/95 px-4 py-8 shadow-[0_14px_34px_-22px_hsl(var(--primary)/0.7),0_6px_14px_-10px_hsl(var(--primary)/0.35)] sm:px-6 dark:border-primary/30 dark:bg-card/95 dark:shadow-[0_18px_40px_-22px_hsl(var(--primary)/0.85),0_8px_18px_-10px_hsl(var(--primary)/0.5)]">
             <div className="mb-10 text-center">
                 <div className="text-sm font-semibold uppercase tracking-wider text-primary">
                     {eyebrow}
@@ -72,8 +73,11 @@ export function HowItWorks() {
             </div>
 
             <div className="mt-10 text-center">
-                <Button size="lg" className="px-8">
-                    {cta.label}
+                <Button size="lg" className="h-11 rounded-md px-5 text-sm font-semibold" asChild>
+                    <Link href={cta.href} className="inline-flex items-center gap-2">
+                        {cta.label}
+                        <ArrowRight className="h-4 w-4" />
+                    </Link>
                 </Button>
             </div>
         </section>

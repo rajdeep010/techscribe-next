@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { LayoutDashboard, LogIn, LogOut, Menu, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     NavigationMenu,
@@ -114,16 +114,22 @@ export function Navbar() {
                     {isLoginPage && (
                         <>
                             <span className="text-sm text-muted-foreground">Don&apos;t have an account?</span>
-                            <Button asChild>
-                                <Link href="/signup">Sign Up</Link>
+                            <Button className="h-11 rounded-md px-5 text-sm font-semibold" asChild>
+                                <Link href="/signup" className="inline-flex items-center gap-2">
+                                    <UserPlus className="h-4 w-4" />
+                                    Sign Up
+                                </Link>
                             </Button>
                         </>
                     )}
                     {isSignupPage && (
                         <>
                             <span className="text-sm text-muted-foreground">Already have an account?</span>
-                            <Button asChild>
-                                <Link href="/login">Sign In</Link>
+                            <Button className="h-11 rounded-md px-5 text-sm font-semibold" asChild>
+                                <Link href="/login" className="inline-flex items-center gap-2">
+                                    <LogIn className="h-4 w-4" />
+                                    Sign In
+                                </Link>
                             </Button>
                         </>
                     )}
@@ -131,7 +137,7 @@ export function Navbar() {
                         <>
                             {isAuthenticated ? (
                                 <>
-                                    <Button variant="ghost" asChild>
+                                    <Button variant="ghost" className="h-11 rounded-md px-5 text-sm font-semibold" asChild>
                                         <Link
                                             href={
                                                 session?.user?.username
@@ -140,21 +146,32 @@ export function Navbar() {
                                                         : `/u/${session.user.username}`
                                                     : "/"
                                             }
+                                            className="inline-flex items-center gap-2"
                                         >
+                                            <LayoutDashboard className="h-4 w-4" />
                                             Dashboard
                                         </Link>
                                     </Button>
-                                    <Button variant="default" onClick={() => signOut({ callbackUrl: "/" })}>
-                                        Logout
+                                    <Button className="h-11 rounded-md px-5 text-sm font-semibold" variant="default" onClick={() => signOut({ callbackUrl: "/" })}>
+                                        <span className="inline-flex items-center gap-2">
+                                            <LogOut className="h-4 w-4" />
+                                            Logout
+                                        </span>
                                     </Button>
                                 </>
                             ) : (
                                 <>
-                                    <Button variant="ghost" asChild>
-                                        <Link href="/login">Sign In</Link>
+                                    <Button variant="ghost" className="h-11 rounded-md px-5 text-sm font-semibold" asChild>
+                                        <Link href="/login" className="inline-flex items-center gap-2">
+                                            <LogIn className="h-4 w-4" />
+                                            Sign In
+                                        </Link>
                                     </Button>
-                                    <Button asChild>
-                                        <Link href="/signup">Get Started</Link>
+                                    <Button className="h-11 rounded-md px-5 text-sm font-semibold" asChild>
+                                        <Link href="/signup" className="inline-flex items-center gap-2">
+                                            <UserPlus className="h-4 w-4" />
+                                            Get Started
+                                        </Link>
                                     </Button>
                                 </>
                             )}
@@ -207,7 +224,7 @@ export function Navbar() {
                                 <div className="flex flex-col gap-2 border-t pt-6">
                                     {isAuthenticated ? (
                                         <>
-                                            <Button variant="outline" className="w-full" asChild>
+                                            <Button variant="outline" className="h-11 w-full rounded-md text-sm font-semibold" asChild>
                                                 <Link
                                                     href={
                                                         session?.user?.username
@@ -216,25 +233,36 @@ export function Navbar() {
                                                                 : `/u/${session.user.username}`
                                                             : "/"
                                                     }
+                                                    className="inline-flex items-center justify-center gap-2"
                                                 >
+                                                    <LayoutDashboard className="h-4 w-4" />
                                                     Dashboard
                                                 </Link>
                                             </Button>
                                             <Button
-                                                className="w-full"
+                                                className="h-11 w-full rounded-md text-sm font-semibold"
                                                 variant="outline"
                                                 onClick={() => signOut({ callbackUrl: "/" })}
                                             >
-                                                Logout
+                                                <span className="inline-flex items-center gap-2">
+                                                    <LogOut className="h-4 w-4" />
+                                                    Logout
+                                                </span>
                                             </Button>
                                         </>
                                     ) : (
                                         <>
-                                            <Button variant="outline" className="w-full" asChild>
-                                                <Link href="/login">Sign In</Link>
+                                            <Button variant="outline" className="h-11 w-full rounded-md text-sm font-semibold" asChild>
+                                                <Link href="/login" className="inline-flex items-center justify-center gap-2">
+                                                    <LogIn className="h-4 w-4" />
+                                                    Sign In
+                                                </Link>
                                             </Button>
-                                            <Button className="w-full" asChild>
-                                                <Link href="/signup">Get Started</Link>
+                                            <Button className="h-11 w-full rounded-md text-sm font-semibold" asChild>
+                                                <Link href="/signup" className="inline-flex items-center justify-center gap-2">
+                                                    <UserPlus className="h-4 w-4" />
+                                                    Get Started
+                                                </Link>
                                             </Button>
                                         </>
                                     )}

@@ -15,7 +15,7 @@ export function LandingPage() {
             {/* <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.18),transparent_34%),radial-gradient(circle_at_top_right,rgba(14,165,233,0.14),transparent_30%),linear-gradient(to_bottom,rgba(255,255,255,0.08),rgba(15,23,42,0.05))] dark:bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.14),transparent_32%),radial-gradient(circle_at_top_right,rgba(59,130,246,0.16),transparent_28%),linear-gradient(to_bottom,transparent,rgba(15,23,42,0.03))]" /> */}
 
             <Navbar />
-            <main className="relative z-10 space-y-20 pb-20">
+            <main className="space-y-20 pb-20">
                 <Hero />
                 <CountryFlagsSwiper />
                 <ExpertsSection />

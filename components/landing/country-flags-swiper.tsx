@@ -3,18 +3,14 @@
 import Image from "next/image";
 
 const countries = [
-    { code: "us", name: "USA" },
     { code: "gb", name: "UK" },
+    { code: "us", name: "USA" },
     { code: "ca", name: "Canada" },
     { code: "au", name: "Australia" },
-    { code: "nz", name: "New Zealand" },
-    { code: "in", name: "India" },
-    { code: "ae", name: "UAE" },
-    { code: "sg", name: "Singapore" },
-    { code: "de", name: "Germany" },
-    { code: "fr", name: "France" },
-    { code: "nl", name: "Netherlands" },
     { code: "ie", name: "Ireland" },
+    { code: "de", name: "Germany" },
+    { code: "nz", name: "New Zealand" },
+    { code: "ae", name: "UAE" },
 ];
 
 export function CountryFlagsSwiper() {
@@ -58,9 +54,6 @@ export function CountryFlagsSwiper() {
                     min-width: 18rem;
                     min-height: 14rem;
                     border-radius: 1rem;
-                    background: color-mix(in oklab, var(--background) 92%, transparent);
-                    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-                    padding: 0.5rem;
                 }
 
                 @keyframes country-marquee {

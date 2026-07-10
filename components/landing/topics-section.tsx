@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 import {
     BookOpenText,
     Briefcase,
@@ -64,9 +65,22 @@ const topicIcons = [
     Sigma,
 ];
 
+const topicImages = [
+    "/happy1-horz.jpg",
+    "/help3-horz.jpg",
+    "/help6-horz.jpg",
+    "/help7-horz.jpg",
+    "/help1-vert.jpg",
+    "/help2-vert.jpg",
+    "/help4-vert.jpg",
+    "/help5-vert.jpg",
+    "/happy2-horz.jpg",
+    "/help6-horz.jpg",
+];
+
 export function TopicsSection() {
     return (
-        <section className="mx-auto max-w-6xl rounded-3xl border border-cyan-500/15 bg-gradient-to-br from-cyan-500/8 via-background to-primary/6 px-4 py-8 sm:px-6 dark:border-cyan-400/25 dark:from-cyan-400/10 dark:to-primary/10">
+        <section className="mx-auto max-w-6xl rounded-3xl border border-primary/15 bg-background/95 px-4 py-8 shadow-[0_14px_34px_-22px_hsl(var(--primary)/0.7),0_6px_14px_-10px_hsl(var(--primary)/0.35)] sm:px-6 dark:border-primary/30 dark:bg-card/95 dark:shadow-[0_18px_40px_-22px_hsl(var(--primary)/0.85),0_8px_18px_-10px_hsl(var(--primary)/0.5)]">
             <div className="mb-8 text-center">
                 <h2 className="text-3xl font-bold tracking-tight">Topics We Cover</h2>
                 <div className="mt-2 text-lg text-muted-foreground">
@@ -84,18 +98,32 @@ export function TopicsSection() {
                                 : "border-cyan-500/25 bg-cyan-500/10 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300";
 
                     return (
-                    <Card key={topic.title} className="border-primary/15 bg-card/85 transition-all hover:shadow-md hover:border-primary/40 dark:border-primary/25">
-                        <CardContent className="p-6">
-                            <div className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl border ${accent}`}>
-                                <Icon className="h-5 w-5" />
-                            </div>
-                            <h3 className="text-base font-bold">{topic.title}</h3>
-                            <div className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                                {topic.description}
-                            </div>
-                        </CardContent>
-                    </Card>
-                )})}
+                        <Card key={topic.title} className="overflow-hidden border-primary/15 bg-card/85 transition-all hover:shadow-md hover:border-primary/40 dark:border-primary/25">
+                            <CardContent className="py-4 px-6">
+                                <div className="-mx-2 -mt-2 mb-4 overflow-hidden rounded-xl">
+                                    <Image
+                                        src={topicImages[index % topicImages.length]}
+                                        alt={topic.title}
+                                        width={680}
+                                        height={420}
+                                        className="h-64 w-full object-cover"
+                                    />
+                                </div>
+
+                                <div className="flex gap-2 items-center justify-start">
+                                    <div className={`mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg border ${accent}`}>
+                                        <Icon className="h-4 w-4" />
+                                    </div>
+                                    <h3 className="text-base font-bold">{topic.title}</h3>
+                                </div>
+
+                                <div className="text-sm leading-relaxed text-muted-foreground">
+                                    {topic.description}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )
+                })}
             </div>
         </section>
     );

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ShieldCheck, Sparkles, Target } from "lucide-react";
+import { ArrowRight, MessageCircle, ShieldCheck, Sparkles, Target } from "lucide-react";
 
 import { Footer } from "@/components/landing/footer";
 import { Navbar } from "@/components/landing/navbar";
@@ -79,12 +79,18 @@ export default function AboutPage() {
                             reviewer assignment, storage governance, and clearer task handling.
                             The public pages should reflect that same clarity instead of generic marketing copy.
                         </p>
-                        <div className="flex flex-wrap gap-3 pt-2">
-                            <Button asChild className="rounded-xl">
-                                <Link href="/contact">Contact Us</Link>
+                        <div className="flex flex-wrap gap-3 pt-2 relative z-50">
+                            <Button asChild className="h-11 rounded-md px-5 text-sm font-semibold">
+                                <Link href="/contact" className="inline-flex items-center gap-2">
+                                    <MessageCircle className="h-4 w-4" />
+                                    Contact Us
+                                </Link>
                             </Button>
-                            <Button asChild variant="outline" className="rounded-xl">
-                                <Link href="/reviews">Read Reviews</Link>
+                            <Button asChild variant="outline" className="h-11 rounded-md px-5 text-sm font-semibold">
+                                <Link href="/reviews" className="inline-flex items-center gap-2">
+                                    Read Reviews
+                                    <ArrowRight className="h-4 w-4" />
+                                </Link>
                             </Button>
                         </div>
                     </div>

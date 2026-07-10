@@ -47,7 +47,7 @@ export default function ContactPage() {
                                     <p className="text-sm leading-6 text-muted-foreground">
                                         {service.description}
                                     </p>
-                                    <Button asChild variant="outline" className="rounded-xl">
+                                    <Button asChild variant="outline" className="h-11 rounded-md px-5 text-sm font-semibold">
                                         <Link href={service.href} className="inline-flex items-center gap-1.5">
                                             Ask About This Service
                                             <ArrowUpRight className="h-4 w-4" />
