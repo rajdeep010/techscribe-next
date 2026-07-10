@@ -9,6 +9,7 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { WhatsAppFloat } from "@/components/common/whatsapp-float";
+import { ChatWidget } from "@/components/chat/chat-widget";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({
               />
               {children}
               <WhatsAppFloat />
+              <ChatWidget />
             </AuthProvider>
             <Toaster position="top-right" richColors />
           </TooltipProvider>

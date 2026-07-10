@@ -9,6 +9,7 @@ import {
     Database,
     FileText,
     LayoutDashboard,
+    MessageCircleMore,
     LogOut,
     Newspaper,
     PenSquare,
@@ -19,6 +20,7 @@ import {
 } from "lucide-react";
 
 import { useUser } from "@/context/UserProvider";
+import { useAdminChatUnread } from "@/hooks/chat/use-admin-chat-unread";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -57,6 +59,7 @@ function matchesPrefix(pathname: string, target: string) {
 
 export function AdminSidebar() {
     const { user } = useUser();
+    const { unreadCount } = useAdminChatUnread();
     const pathname = usePathname();
 
     if (!user) return null;
@@ -99,7 +102,13 @@ export function AdminSidebar() {
         },
     ];
 
-    const adminMenu = [
+    const adminMenu: Array<{
+        title: string;
+        url: string;
+        icon: React.ReactNode;
+        isActive: boolean;
+        unreadCount?: number;
+    }> = [
         {
             title: "Users",
             url: `${adminBase}/users`,
@@ -117,6 +126,13 @@ export function AdminSidebar() {
             url: `${adminBase}/notifications`,
             icon: <Bell className="h-5 w-5" />,
             isActive: matchesPrefix(pathname, `${adminBase}/notifications`),
+        },
+        {
+            title: "Support Chat",
+            url: `${adminBase}/support-chat`,
+            icon: <MessageCircleMore className="h-5 w-5" />,
+            isActive: matchesPrefix(pathname, `${adminBase}/support-chat`),
+            unreadCount,
         },
     ];
 
@@ -244,8 +260,18 @@ export function AdminSidebar() {
                                         isActive={item.isActive}
                                     >
                                         <Link href={item.url}>
-                                            {item.icon}
+                                            <span className="relative inline-flex">
+                                                {item.icon}
+                                                {item.unreadCount && item.unreadCount > 0 ? (
+                                                    <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-background" />
+                                                ) : null}
+                                            </span>
                                             <span>{item.title}</span>
+                                            {item.unreadCount && item.unreadCount > 0 ? (
+                                                <span className="ml-auto inline-flex min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-[10px] font-semibold text-white">
+                                                    {item.unreadCount > 99 ? "99+" : item.unreadCount}
+                                                </span>
+                                            ) : null}
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
