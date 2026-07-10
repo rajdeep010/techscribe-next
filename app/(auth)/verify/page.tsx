@@ -210,8 +210,7 @@ function VerifyPageContent() {
 
                         <Button
                             type="submit"
-                            className="w-full"
-                            size="lg"
+                            className="h-11 w-full rounded-md text-sm font-semibold"
                             disabled={isSubmitting || isResending}
                         >
                             {isSubmitting ? "Verifying..." : "Verify Account"}
@@ -222,8 +221,7 @@ function VerifyPageContent() {
                         <Button
                             type="button"
                             variant="outline"
-                            className="w-full"
-                            size="lg"
+                            className="h-11 w-full rounded-md text-sm font-semibold"
                             onClick={handleResendOtp}
                             disabled={isSubmitting || isResending}
                         >

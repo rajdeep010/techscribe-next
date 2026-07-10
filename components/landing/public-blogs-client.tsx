@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useDeferredValue } from "react"
-import { ArrowRight, BookOpenText, Clock3, PenSquare, Search, Sparkles, X } from "lucide-react"
+import { ArrowRight, BookOpenText, Clock3, Search, Sparkles, X } from "lucide-react"
 
 import { usePublicBlogs } from "@/context/PublicBlogsProvider"
 import { Badge } from "@/components/ui/badge"
@@ -104,7 +104,7 @@ export function PublicBlogsClient() {
                         <Button
                             type="button"
                             variant="outline"
-                            className="h-11 rounded-full px-5"
+                            className="h-11 rounded-md px-5 text-sm font-semibold"
                             onClick={() => setSearchQuery("")}
                         >
                             <X className="mr-2 h-4 w-4" />
@@ -147,12 +147,6 @@ export function PublicBlogsClient() {
                         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                             {allBlogs.map((blog, index) => {
                                 const isLatest = index === 0 && !normalizedQuery
-                                const toneClass =
-                                    index % 3 === 0
-                                        ? "text-primary"
-                                        : index % 3 === 1
-                                            ? "text-emerald-600 dark:text-emerald-300"
-                                            : "text-cyan-600 dark:text-cyan-300"
 
                                 return (
                                     <Card
@@ -191,7 +185,7 @@ export function PublicBlogsClient() {
                                                 </p>
                                             </div>
 
-                                            <Button asChild variant="outline" className="w-full rounded-full">
+                                            <Button asChild variant="outline" className="h-11 w-full rounded-md text-sm font-semibold">
                                                 <Link href={`/blogs/${blog.id}`}>
                                                     Open post
                                                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -229,7 +223,7 @@ export function PublicBlogsClient() {
                                 <Button
                                     type="button"
                                     variant="outline"
-                                    className="rounded-full"
+                                    className="h-11 rounded-md px-5 text-sm font-semibold"
                                         onClick={() => setSearchQuery("")}
                                 >
                                     <X className="mr-2 h-4 w-4" />

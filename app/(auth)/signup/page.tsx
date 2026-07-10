@@ -74,7 +74,7 @@ export default function SignupPage() {
 
             toast.success("Signup successful. Verify your email to continue.");
             router.push(`/verify?email=${encodeURIComponent(data.email)}`);
-        } catch (error) {
+        } catch {
             setErrorMessage("Something went wrong. Please try again.");
         } finally {
             setIsSubmitting(false);
@@ -209,7 +209,7 @@ export default function SignupPage() {
                             <p className="text-sm text-red-600">{errorMessage}</p>
                         ) : null}
 
-                        <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                        <Button type="submit" className="h-11 w-full rounded-md text-sm font-semibold" disabled={isSubmitting}>
                             {isSubmitting ? "Creating account..." : "Create Account"}
                         </Button>
                     </form>

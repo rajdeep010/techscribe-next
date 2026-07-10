@@ -1,14 +1,15 @@
 import Image from "next/image";
-import { Award, ShieldCheck, Star } from "lucide-react";
+import { ArrowRight, Award, ShieldCheck, Star, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { expertsData } from "@/lib/template-data";
+import Link from "next/link";
 
 
 
 export function ExpertsSection() {
     return (
-        <section className="mx-auto max-w-6xl rounded-3xl border border-primary/15 bg-gradient-to-br from-primary/6 via-cyan-500/6 to-emerald-500/6 px-4 py-8 sm:px-6 dark:border-primary/25 dark:from-primary/10 dark:via-cyan-400/8 dark:to-emerald-400/8">
+        <section className="mx-auto max-w-6xl rounded-3xl border border-primary/15 bg-background/95 px-4 py-8 shadow-[0_14px_34px_-22px_hsl(var(--primary)/0.7),0_6px_14px_-10px_hsl(var(--primary)/0.35)] sm:px-6 dark:border-primary/30 dark:bg-card/95 dark:shadow-[0_18px_40px_-22px_hsl(var(--primary)/0.85),0_8px_18px_-10px_hsl(var(--primary)/0.5)]">
             <div className="mb-6 flex items-end justify-between">
                 <div>
                     <h2 className="text-2xl font-semibold">Top Assignment Experts</h2>
@@ -16,7 +17,12 @@ export function ExpertsSection() {
                         Work with specialists from top universities worldwide.
                     </div>
                 </div>
-                <Button variant="outline" className="hidden sm:inline-flex">View All Experts</Button>
+                <Button variant="outline" className="hidden h-11 rounded-md px-5 text-sm font-semibold sm:inline-flex" asChild>
+                    <Link href="/experts" className="inline-flex items-center gap-2">
+                        View All Experts
+                        <ArrowRight className="h-4 w-4" />
+                    </Link>
+                </Button>
             </div>
 
             <div className="grid gap-6 md:grid-cols-3">
@@ -50,7 +56,12 @@ export function ExpertsSection() {
                                 <span className="text-muted-foreground">• {expert.orders} orders</span>
                                 <Award className="ml-auto h-4 w-4 text-primary" />
                             </div>
-                            <Button className="w-full">Hire Expert</Button>
+                            <Button className="h-11 w-full rounded-md text-sm font-semibold" asChild>
+                                <Link href={`/contact?expert=${encodeURIComponent(expert.name)}`} className="inline-flex items-center gap-2">
+                                    <UserPlus className="h-4 w-4" />
+                                    Hire Expert
+                                </Link>
+                            </Button>
                         </CardContent>
                     </Card>
                 ))}

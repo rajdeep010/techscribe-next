@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 
 type LoginFormState = {
     identifier: string;
@@ -159,7 +158,7 @@ export default function LoginPage() {
                             </p>
                         ) : null}
 
-                        <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                        <Button type="submit" className="h-11 w-full rounded-md text-sm font-semibold" disabled={isSubmitting}>
                             {isSubmitting ? "Signing in..." : "Sign In"}
                         </Button>
                     </form>
@@ -195,7 +194,7 @@ export default function LoginPage() {
                     </div> */}
 
                     <div className="mt-6 text-center text-sm text-muted-foreground">
-                        Don't have an account?{" "}
+                        Don&apos;t have an account?{" "}
                         <Link href="/signup" className="font-medium text-primary hover:underline">
                             Sign up for free
                         </Link>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import { ArrowRight, MessageCircle, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { gradientCtaData } from "@/lib/template-data";
@@ -22,8 +22,8 @@ export function GradientCta() {
     const Icon = icons[icon];
 
     return (
-        <section className="mx-auto max-w-6xl px-4 sm:px-6">
-            <Card className="overflow-hidden rounded-2xl border-0 shadow-lg">
+        <section className="mx-auto max-w-7xl px-4 sm:px-6">
+            <Card className="overflow-hidden rounded-2xl border border-primary/20 shadow-[0_14px_32px_-18px_hsl(var(--primary)/0.75),0_6px_14px_-10px_hsl(var(--primary)/0.35)] dark:border-primary/30 dark:shadow-[0_18px_40px_-20px_hsl(var(--primary)/0.9),0_8px_18px_-10px_hsl(var(--primary)/0.55)]">
                 <div className={`bg-gradient-to-r ${gradientClassName}`}>
                     <CardContent className="flex flex-col items-start gap-6 p-8 text-white sm:flex-row sm:items-center sm:justify-between sm:p-10">
                         <div className="flex items-start gap-4">
@@ -40,18 +40,24 @@ export function GradientCta() {
                                 <div className="mt-2 text-sm text-white/90">{description}</div>
                             </div>
                         </div>
-                        <div className="flex flex-wrap gap-3">
-                            <Button asChild size="lg" variant="secondary" className="font-semibold shadow-md">
-                                <Link href={primaryCta.href}>{primaryCta.label}</Link>
+                        <div className="flex md:flex-wrap gap-3">
+                            <Button asChild size="lg" variant="secondary" className="h-11 rounded-md px-5 text-sm font-semibold shadow-md">
+                                <Link href={primaryCta.href} className="inline-flex items-center gap-2">
+                                    {primaryCta.label}
+                                    <ArrowRight className="h-4 w-4" />
+                                </Link>
                             </Button>
                             {secondaryCta && (
                                 <Button
                                     asChild
                                     size="lg"
                                     variant="outline"
-                                    className="border-white/30 bg-white/10 font-semibold text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
+                                    className="h-11 rounded-md border-white/30 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
                                 >
-                                    <Link href={secondaryCta.href}>{secondaryCta.label}</Link>
+                                    <Link href={secondaryCta.href} className="inline-flex items-center gap-2">
+                                        <MessageCircle className="h-4 w-4" />
+                                        {secondaryCta.label}
+                                    </Link>
                                 </Button>
                             )}
                         </div>

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { OrderForm } from "../common/order-form";
 import { heroData } from "@/lib/template-data";
-import { Clock3, ShieldCheck, Sparkles, Star } from "lucide-react";
+import { ArrowRight, Clock3, MessageCircle, ShieldCheck, Star } from "lucide-react";
 import Link from "next/link";
 
 export function Hero() {
@@ -12,7 +12,7 @@ export function Hero() {
         <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-4 sm:px-6 md:grid-cols-2 md:pt-4">
             <div className="space-y-5">
                 <div className="text-sm font-medium text-primary">{eyebrow}</div>
-                <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+                <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
                     {titleParts.length === 2 ? (
                         <>
                             {titleParts[0]}
@@ -27,11 +27,17 @@ export function Hero() {
                 </h1>
                 <div className="text-muted-foreground">{description}</div>
                 <div className="flex flex-wrap gap-3">
-                    <Button size="lg" asChild>
-                        <Link href={primaryCta.href}>{primaryCta.label}</Link>
+                    <Button size="lg" className="h-11 rounded-md px-5 text-sm font-semibold" asChild>
+                        <Link href={primaryCta.href} className="inline-flex items-center gap-2">
+                            {primaryCta.label}
+                            <ArrowRight className="h-4 w-4" />
+                        </Link>
                     </Button>
-                    <Button size="lg" variant="outline" asChild>
-                        <Link href={secondaryCta.href}>{secondaryCta.label}</Link>
+                    <Button size="lg" variant="outline" className="h-11 rounded-md px-5 text-sm font-semibold" asChild>
+                        <Link href={secondaryCta.href} className="inline-flex items-center gap-2">
+                            <MessageCircle className="h-4 w-4" />
+                            {secondaryCta.label}
+                        </Link>
                     </Button>
                 </div>
                 <ul className="flex flex-wrap gap-4 text-sm text-muted-foreground">

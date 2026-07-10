@@ -2,7 +2,7 @@ import { Expert, GradientCtaData, FAQ, HeroData, HowItWorksData, ColumnDef, TabI
 
 export const heroData: HeroData = {
     eyebrow: "Trusted by 50,000+ Students Worldwide",
-    title: "Get Premium Assignment Help from Top Academic Experts",
+    title: "Get Premium Assignment Help from Top Experts",
     description: "Achieve excellence with AI-free, plagiarism-free assignments crafted by verified PhD scholars and industry professionals. Guaranteed grades, on-time delivery, and 24/7 support.",
     primaryCta: {
         label: "Get Started Now",
@@ -46,7 +46,7 @@ export const howItWorksData: HowItWorksData = {
     ],
     cta: {
         label: "Get Started Now",
-        href: "#",
+        href: "/contact",
     },
 };
 
@@ -56,11 +56,11 @@ export const gradientCtaData: GradientCtaData = {
     description: "Get matched with top-rated subject experts and receive high-quality, original work delivered on time.",
     primaryCta: {
         label: "Get Free Quote",
-        href: "#",
+        href: "/contact",
     },
     secondaryCta: {
         label: "View Samples",
-        href: "#",
+        href: "/blogs",
     },
     icon: "sparkles",
     gradientClassName: "from-indigo-600 via-purple-600 to-pink-600",
