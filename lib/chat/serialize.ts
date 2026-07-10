@@ -4,7 +4,7 @@ import { ConversationDocument } from "@/model/Conversation";
 import { MessageDocument } from "@/model/Message";
 
 export function serializeConversation(
-    conversation: HydratedDocument<ConversationDocument>
+    conversation: ConversationDocument | HydratedDocument<ConversationDocument>
 ): ChatConversation {
     return {
         id: String(conversation._id),
@@ -22,7 +22,9 @@ export function serializeConversation(
     };
 }
 
-export function serializeMessage(message: HydratedDocument<MessageDocument>): ChatMessage {
+export function serializeMessage(
+    message: MessageDocument | HydratedDocument<MessageDocument>
+): ChatMessage {
     return {
         id: String(message._id),
         conversationId: String(message.conversationId),

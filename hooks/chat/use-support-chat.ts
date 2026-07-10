@@ -238,7 +238,7 @@ export function useSupportChat() {
 
         realtime.connection.on(handleConnectionState);
 
-        const handler = (message: { data: { message?: ChatMessage } }) => {
+        const handler = (message: { data?: { message?: ChatMessage } }) => {
             const incoming = message.data?.message;
 
             if (!incoming) {

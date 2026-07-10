@@ -57,7 +57,7 @@ export async function PATCH(
         }
 
         if (action === "open" || action === "close") {
-            access.conversation.status = action;
+            access.conversation.status = action === "close" ? "closed" : "open";
         }
 
         if (action === "mark-read") {
