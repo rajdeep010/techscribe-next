@@ -323,6 +323,12 @@
   border-right: none;
 }
 
+/* Long wrapped text (e.g. audit-log diff summaries) should top-align instead of
+   vertical-centering, which looks odd once a cell grows to multiple lines. */
+.mah-ag-grid .ag-cell.audit-summary-cell {
+  align-items: flex-start;
+}
+
 .mah-ag-grid .ag-pinned-right-cols-container .ag-cell,
 .mah-ag-grid .ag-pinned-right-header .ag-header-cell {
   background: color-mix(in oklab, var(--ag-background-color) 96%, transparent);

@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import {
     Select,
@@ -13,151 +12,210 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Paperclip, Plus, Minus } from "lucide-react";
+import { ArrowRight, CheckCircle2, ClipboardCheck, Loader2, Lock, Upload } from "lucide-react";
+
+const assignmentTypes = [
+    "Essay / Report",
+    "Research Paper",
+    "Dissertation",
+    "Presentation (PPT)",
+    "Case Study",
+    "Referencing / Editing",
+    "Other",
+];
+
+const countryCodes = [
+    { value: "+91", label: "IN (+91)" },
+    { value: "+1", label: "US (+1)" },
+    { value: "+44", label: "UK (+44)" },
+    { value: "+61", label: "AU (+61)" },
+    { value: "+353", label: "IE (+353)" },
+];
 
 export function OrderForm() {
-    const [pages, setPages] = React.useState(1);
-    const [words, setWords] = React.useState(250);
+    const formRef = React.useRef<HTMLFormElement>(null);
+    const [countryCode, setCountryCode] = React.useState("+91");
+    const [assignmentType, setAssignmentType] = React.useState("");
+    const [fileName, setFileName] = React.useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
+    const [isSubmitted, setIsSubmitted] = React.useState(false);
 
-    const handlePagesChange = (increment: boolean) => {
-        const newPages = increment ? pages + 1 : Math.max(1, pages - 1);
-        setPages(newPages);
-        setWords(newPages * 250);
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        // Temporary function - will be replaced with context
-        console.log("Form submitted");
-    };
+        const form = e.currentTarget;
+        const data = new FormData(form);
+
+        const whatsappNumber = `${countryCode}${(data.get("whatsapp-number") as string) || ""}`.trim();
+        const deadline = (data.get("deadline") as string) || "";
+
+        const payload = new FormData();
+        payload.set("source", "order-form");
+        payload.set("whatsappNumber", whatsappNumber);
+        payload.set("assignmentType", assignmentType);
+        payload.set("deadline", deadline);
+        payload.set(
+            "message",
+            `Free brief check requested for ${assignmentType || "an assignment"}${deadline ? ` (deadline: ${deadline})` : ""}.`
+        );
+        const file = (form.elements.namedItem("brief-upload") as HTMLInputElement)?.files?.[0];
+        if (file) {
+            payload.set("attachment", file);
+        }
+
+        setIsSubmitting(true);
+        try {
+            const response = await fetch("/api/public/inquiries", {
+                method: "POST",
+                body: payload,
+            });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                toast.error(result.message || "Something went wrong. Please try again.");
+                return;
+            }
+
+            toast.success("Request received! We'll get back to you shortly.");
+            setIsSubmitted(true);
+            form.reset();
+            setFileName(null);
+            setAssignmentType("");
+            setCountryCode("+91");
+        } catch {
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
+
+    if (isSubmitted) {
+        return (
+            <div className="flex w-full flex-col items-center justify-center gap-3 rounded-2xl border bg-card p-10 text-center shadow-xl">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                    <CheckCircle2 className="h-7 w-7" />
+                </div>
+                <h2 className="text-lg font-bold">Request received!</h2>
+                <p className="text-sm text-muted-foreground">
+                    Thanks for reaching out. Our team will contact you on WhatsApp shortly.
+                </p>
+                <Button variant="outline" className="mt-2 h-10 rounded-md text-sm font-semibold" onClick={() => setIsSubmitted(false)}>
+                    Submit another request
+                </Button>
+            </div>
+        );
+    }
 
     return (
-        <div className="w-full rounded-2xl border bg-card px-6 py-2 shadow-lg sm:p-8">
-            <div className="mb-6 text-center">
-                <h2 className="text-2xl font-bold">AI-Free Assignment Help From 5000+ Real Experts</h2>
-                <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                        ✓ Guaranteed Grade or Refund
-                    </span>
-                    <span className="flex items-center gap-1">✓ No AI</span>
-                    <span className="flex items-center gap-1">✓ 24/7 Support</span>
+        <div className="w-full rounded-2xl border bg-card p-6 shadow-xl sm:p-8">
+            <div className="mb-5 flex items-start gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <ClipboardCheck className="h-5 w-5" />
+                </div>
+                <div>
+                    <h2 className="text-lg font-bold sm:text-xl">Get a Free Assignment Brief Check</h2>
+                    <div className="mt-1 text-sm text-muted-foreground">
+                        Share your brief and our experts will review it.
+                    </div>
                 </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Service Type Radio */}
-                <RadioGroup defaultValue="writing" className="flex flex-wrap gap-4">
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="writing" id="writing" />
-                        <Label htmlFor="writing" className="cursor-pointer font-normal">
-                            Writing
-                        </Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="technical" id="technical" />
-                        <Label htmlFor="technical" className="cursor-pointer font-normal">
-                            Technical
-                        </Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="online-class" id="online-class" />
-                        <Label htmlFor="online-class" className="cursor-pointer font-normal">
-                            Online Class
-                        </Label>
-                    </div>
-                </RadioGroup>
-
-                {/* Email and Phone */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-2">
-                        <Input type="email" placeholder="Email" required />
-                    </div>
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                    <Label htmlFor="whatsapp-number" className="text-sm text-muted-foreground">
+                        WhatsApp Number
+                    </Label>
                     <div className="flex gap-2">
-                        <Select defaultValue="+91">
-                            <SelectTrigger className="w-[110px]">
+                        <Select value={countryCode} onValueChange={setCountryCode}>
+                            <SelectTrigger className="w-[110px]" aria-label="Country code">
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="+1">US (+1)</SelectItem>
-                                <SelectItem value="+44">UK (+44)</SelectItem>
-                                <SelectItem value="+91">IN (+91)</SelectItem>
-                                <SelectItem value="+61">AU (+61)</SelectItem>
+                                {countryCodes.map((code) => (
+                                    <SelectItem key={code.value} value={code.value}>
+                                        {code.label}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
-                        <Input type="tel" placeholder="Phone no." className="flex-1" />
-                    </div>
-                </div>
-
-                {/* Subject and Deadline */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-2">
-                        <Input placeholder="Subject/Course Code" />
-                    </div>
-                    <div className="space-y-2">
-                        <Input type="datetime-local" placeholder="Deadline" />
-                    </div>
-                </div>
-
-                {/* Pages Counter */}
-                <div className="space-y-2">
-                    <Label className="text-sm text-muted-foreground">Pages</Label>
-                    <div className="flex items-center gap-4 rounded-lg border">
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handlePagesChange(false)}
-                            disabled={pages <= 1}
-                        >
-                            <Minus className="h-4 w-4" />
-                        </Button>
-                        <div className="flex-1 text-center">
-                            <span className="text-lg font-semibold">{pages}</span>
-                        </div>
-                        <div className="text-sm text-muted-foreground">{words} words</div>
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handlePagesChange(true)}
-                        >
-                            <Plus className="h-4 w-4" />
-                        </Button>
-                    </div>
-                </div>
-
-                {/* Description and File Upload */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-2 sm:col-span-2 md:col-span-1">
-                        <Textarea
-                            placeholder="Description (Write/Attach)"
-                            className="min-h-[120px] resize-none"
+                        <Input
+                            id="whatsapp-number"
+                            name="whatsapp-number"
+                            type="tel"
+                            placeholder="WhatsApp number"
+                            className="flex-1"
+                            disabled={isSubmitting}
+                            required
                         />
                     </div>
-                    <div className="space-y-2">
-                        <div className="flex h-[120px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors hover:border-primary">
-                            <Paperclip className="h-6 w-6 text-muted-foreground" />
-                            <span className="mt-2 text-sm text-muted-foreground">Attach file</span>
-                        </div>
-                    </div>
                 </div>
 
-                {/* Terms Checkbox */}
-                <div className="flex items-start space-x-2">
-                    <Checkbox id="terms" />
-                    <Label
-                        htmlFor="terms"
-                        className="cursor-pointer text-sm font-normal leading-relaxed text-muted-foreground"
-                    >
-                        I accept the T&C, agree to receive offers & updates
+                <div className="space-y-2">
+                    <Label htmlFor="assignment-type" className="text-sm text-muted-foreground">
+                        Assignment Type
                     </Label>
+                    <Select value={assignmentType} onValueChange={setAssignmentType}>
+                        <SelectTrigger id="assignment-type" className="w-full">
+                            <SelectValue placeholder="Select assignment type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {assignmentTypes.map((type) => (
+                                <SelectItem key={type} value={type}>
+                                    {type}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
                 </div>
 
-                {/* Submit Button */}
-                <Button type="submit" className="h-11 w-full rounded-md text-sm font-semibold">
-                    Do My Assignment
+                <div className="space-y-2">
+                    <Label htmlFor="deadline" className="text-sm text-muted-foreground">
+                        Deadline
+                    </Label>
+                    <Input id="deadline" name="deadline" type="date" disabled={isSubmitting} />
+                </div>
+
+                <div className="space-y-2">
+                    <Label htmlFor="brief-upload" className="text-sm text-muted-foreground">
+                        Upload Brief / Rubric{" "}
+                        <span className="text-xs">(PDF, DOCX, PPT — max 20MB)</span>
+                    </Label>
+                    <label
+                        htmlFor="brief-upload"
+                        className="flex h-20 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed text-center transition-colors hover:border-primary"
+                    >
+                        <Upload className="h-5 w-5 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">
+                            {fileName ?? "Click to upload your brief or rubric"}
+                        </span>
+                    </label>
+                    <input
+                        id="brief-upload"
+                        name="brief-upload"
+                        type="file"
+                        accept=".pdf,.doc,.docx,.ppt,.pptx"
+                        className="sr-only"
+                        disabled={isSubmitting}
+                        onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
+                    />
+                </div>
+
+                <Button type="submit" className="h-11 w-full rounded-md text-sm font-semibold" disabled={isSubmitting}>
+                    <span className="inline-flex items-center gap-2">
+                        {isSubmitting ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                            <>
+                                Submit for Free Review
+                                <ArrowRight className="h-4 w-4" />
+                            </>
+                        )}
+                    </span>
                 </Button>
+
+                <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+                    <Lock className="h-3.5 w-3.5" />
+                    100% Confidential & Secure
+                </div>
             </form>
         </div>
     );

@@ -23,7 +23,7 @@ import {
 import { useUser } from "@/context/UserProvider";
 import { useUserChatUnread } from "@/hooks/chat/use-user-chat-unread";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/common/logo";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -161,41 +161,10 @@ export function SidebarIconExample() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href="/">
-                                <Button size="icon-sm" asChild className="size-8">
-                                    <span>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 256 256"
-                                        >
-                                            <rect width="256" height="256" fill="none" />
-                                            <line
-                                                x1="208"
-                                                y1="128"
-                                                x2="128"
-                                                y2="208"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="32"
-                                            />
-                                            <line
-                                                x1="192"
-                                                y1="40"
-                                                x2="40"
-                                                y2="192"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="32"
-                                            />
-                                        </svg>
-                                    </span>
-                                </Button>
+                                <Logo showText={false} markClassName="size-8 text-sm" />
 
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate text-xl font-bold">MyAssignmentHelp</span>
+                                    <span className="truncate text-xl font-bold">Assignment Consultants</span>
                                     <span className="text-xs text-muted-foreground">
                                         User panel
                                     </span>

@@ -1,13 +1,11 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts"
 
 import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
@@ -17,87 +15,88 @@ import {
     ChartTooltipContent,
     type ChartConfig,
 } from "@/components/ui/chart"
-
-export const description = "A line chart with a label"
-
-const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
-]
+import { formatCurrency } from "@/lib/utils"
 
 const chartConfig = {
-    desktop: {
-        label: "Desktop",
+    value: {
+        label: "Revenue",
         color: "var(--chart-1)",
-    },
-    mobile: {
-        label: "Mobile",
-        color: "var(--chart-2)",
     },
 } satisfies ChartConfig
 
-export function RevenueGrowth() {
+export function RevenueGrowth({
+    data,
+    title = "Revenue Growth",
+    description = "Recorded revenue per month",
+    footerNote = "Showing recorded revenue for the last 6 months",
+}: {
+    data: { date: string; value: number }[]
+    title?: string
+    description?: string
+    footerNote?: string
+}) {
+    const hasData = data.some((point) => point.value > 0)
+
     return (
         <Card className="px-8 py-4">
             <CardHeader>
-                <CardTitle>Line Chart - Label</CardTitle>
-                <CardDescription>January - June 2024</CardDescription>
+                <CardTitle>{title}</CardTitle>
+                <CardDescription>{description}</CardDescription>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={chartConfig}>
-                    <LineChart
-                        accessibilityLayer
-                        data={chartData}
-                        margin={{
-                            top: 20,
-                            left: 12,
-                            right: 12,
-                        }}
-                    >
-                        <CartesianGrid vertical={false} />
-                        <XAxis
-                            dataKey="month"
-                            tickLine={false}
-                            axisLine={false}
-                            tickMargin={8}
-                            tickFormatter={(value) => value.slice(0, 3)}
-                        />
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent indicator="line" />}
-                        />
-                        <Line
-                            dataKey="desktop"
-                            type="natural"
-                            stroke="var(--color-desktop)"
-                            strokeWidth={2}
-                            dot={{
-                                fill: "var(--color-desktop)",
-                            }}
-                            activeDot={{
-                                r: 6,
+                {!hasData ? (
+                    <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
+                        No revenue recorded yet for this period.
+                    </div>
+                ) : (
+                    <ChartContainer config={chartConfig}>
+                        <LineChart
+                            accessibilityLayer
+                            data={data}
+                            margin={{
+                                top: 20,
+                                left: 12,
+                                right: 12,
                             }}
                         >
-                            <LabelList
-                                position="top"
-                                offset={12}
-                                className="fill-foreground"
-                                fontSize={12}
+                            <CartesianGrid vertical={false} />
+                            <XAxis
+                                dataKey="date"
+                                tickLine={false}
+                                axisLine={false}
+                                tickMargin={8}
                             />
-                        </Line>
-                    </LineChart>
-                </ChartContainer>
+                            <ChartTooltip
+                                cursor={false}
+                                content={<ChartTooltipContent indicator="line" />}
+                            />
+                            <Line
+                                dataKey="value"
+                                type="natural"
+                                stroke="var(--color-value)"
+                                strokeWidth={2}
+                                dot={{
+                                    fill: "var(--color-value)",
+                                }}
+                                activeDot={{
+                                    r: 6,
+                                }}
+                            >
+                                <LabelList
+                                    position="top"
+                                    offset={12}
+                                    className="fill-foreground"
+                                    fontSize={12}
+                                    formatter={(value: number) => formatCurrency(value)}
+                                />
+                            </Line>
+                        </LineChart>
+                    </ChartContainer>
+                )}
             </CardContent>
             <div className="flex-col items-start gap-2 text-sm my-4">
-                <div className="flex gap-2 leading-none font-medium">
-                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-                </div>
                 <div className="text-muted-foreground leading-none">
-                    Showing total visitors for the last 6 months
+                    {footerNote}
                 </div>
             </div>
         </Card>

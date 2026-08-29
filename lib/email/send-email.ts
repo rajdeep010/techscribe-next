@@ -1,9 +1,10 @@
 import "server-only";
 import nodemailer from "nodemailer";
+import { CONTACT_INFO } from "@/lib/site-content/contact-info";
 
 const EMAIL_FROM = process.env.EMAIL_FROM;
 const EMAIL_PASS = process.env.EMAIL_PASS;
-const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || "MyAssignmentHelp";
+const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || CONTACT_INFO.brandName;
 
 if (!EMAIL_FROM || !EMAIL_PASS) {
     throw new Error(
@@ -21,11 +22,18 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+type SendEmailAttachment = {
+    filename: string;
+    content: Buffer;
+    contentType?: string;
+};
+
 type SendEmailOptions = {
     to: string | string[];
     subject: string;
     html: string;
     text?: string;
+    attachments?: SendEmailAttachment[];
 };
 
 export async function sendEmail({
@@ -33,6 +41,7 @@ export async function sendEmail({
     subject,
     html,
     text,
+    attachments,
 }: SendEmailOptions): Promise<string> {
     try {
         const info = await transporter.sendMail({
@@ -41,6 +50,7 @@ export async function sendEmail({
             subject,
             html,
             text,
+            attachments,
         });
 
         console.log('✅ Email sent:', info.messageId);

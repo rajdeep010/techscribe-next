@@ -10,7 +10,7 @@ export type GradientCtaData = {
         label: string;
         href: string;
     };
-    icon: "sparkles";
+    icon: "sparkles" | "rocket";
     gradientClassName?: string;
 };
 
@@ -45,7 +45,29 @@ export type HeroData = {
         orders: string;
         support: string;
     };
+    trustBadges?: {
+        icon: string;
+        label: string;
+    }[];
     showForm?: boolean;
+};
+
+export type StatItem = {
+    icon: string;
+    value: string;
+    label: string;
+};
+
+export type PainPoint = {
+    icon: string;
+    label: string;
+};
+
+export type AcademicService = {
+    icon: string;
+    title: string;
+    description: string;
+    href?: string;
 };
 
 export type HowItWorksStep = {

@@ -1,6 +1,7 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { faqsData } from "@/lib/template-data";
-import { HelpCircle, ShieldCheck } from "lucide-react";
+import { HelpCircle } from "lucide-react";
+import { SectionHeading } from "./section-heading";
 
 export function FAQSection() {
     const midpoint = Math.ceil(faqsData.length / 2);
@@ -8,17 +9,12 @@ export function FAQSection() {
     const rightColumn = faqsData.slice(midpoint);
 
     return (
-        <section className="mx-auto max-w-6xl rounded-3xl border border-primary/15 bg-background/95 px-4 py-8 shadow-[0_14px_34px_-22px_hsl(var(--primary)/0.7),0_6px_14px_-10px_hsl(var(--primary)/0.35)] sm:px-6 dark:border-primary/30 dark:bg-card/95 dark:shadow-[0_18px_40px_-22px_hsl(var(--primary)/0.85),0_8px_18px_-10px_hsl(var(--primary)/0.5)]">
-            <div className="mb-12 text-center">
-                <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-violet-700 dark:border-violet-400/30 dark:bg-violet-400/10 dark:text-violet-300">
-                    <ShieldCheck className="h-3.5 w-3.5" />
-                    Quick Answers
-                </div>
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Frequently Asked Questions</h2>
-                <div className="mt-3 text-lg text-muted-foreground">
-                    Everything you need to know about our assignment help services.
-                </div>
-            </div>
+        <section id="faq" className="mx-auto max-w-6xl scroll-mt-24 px-4 sm:px-6">
+            <SectionHeading
+                title="Frequently Asked Questions"
+                description="Everything you need to know about our assignment help services."
+                className="mb-12"
+            />
             <div className="grid gap-8 md:grid-cols-2">
                 <div>
                     <Accordion type="single" collapsible className="space-y-4">

@@ -6,12 +6,53 @@ import { ThemeToggle } from "@/components/common/theme-toggle-button";
 import { AdminStatsCards } from "./admin-stats";
 import { AdminAreaChart } from "./admin-area-chart";
 import { AdminSidebar } from "./admin-sidebar";
-import { mockChartData, mockStats } from "@/lib/template-data";
 import { AdminAssignmentsProvider } from "@/context/AdminAssignmentsProvider";
 import { AdminAssignmentsTable } from "./admin-assignments-table";
+import type { AdminStat, ChartDataPoint } from "@/lib/types";
+import type { DashboardStats } from "@/lib/admin/analytics";
+import { formatCurrency } from "@/lib/utils";
+
+function toStatCards(stats: DashboardStats): AdminStat[] {
+    return [
+        {
+            title: "Total Revenue",
+            value: formatCurrency(stats.totalRevenue.value),
+            change: stats.totalRevenue.change,
+            trend: stats.totalRevenue.trend,
+            description: "vs previous 30 days",
+            icon: "dollar-sign",
+        },
+        {
+            title: "New Customers",
+            value: stats.newCustomers.value.toLocaleString(),
+            change: stats.newCustomers.change,
+            trend: stats.newCustomers.trend,
+            description: "New signups vs previous 30 days",
+            icon: "users",
+        },
+        {
+            title: "Active Accounts",
+            value: stats.activeAccounts.value.toLocaleString(),
+            change: stats.activeAccounts.change,
+            trend: stats.activeAccounts.trend,
+            description: "Verified accounts, all time",
+            icon: "activity",
+        },
+        {
+            title: "Growth Rate",
+            value: stats.assignmentVolume.change,
+            change: stats.assignmentVolume.change,
+            trend: stats.assignmentVolume.trend,
+            description: "Assignment submissions vs previous 30 days",
+            icon: "trending-up",
+        },
+    ];
+}
 
 export default function AdminDashboard() {
     const [adminOptions, setAdminOptions] = useState<Array<{ id: string; label: string }>>([]);
+    const [stats, setStats] = useState<AdminStat[] | null>(null);
+    const [assignmentVolume, setAssignmentVolume] = useState<ChartDataPoint[]>([]);
 
     useEffect(() => {
         async function loadAdmins() {
@@ -21,8 +62,8 @@ export default function AdminDashboard() {
             if (!response.ok) return;
 
             const admins = (data.users || [])
-                .filter((user: any) => user.role === "admin")
-                .map((user: any) => ({
+                .filter((user: { role: string }) => user.role === "admin")
+                .map((user: { id: string; name?: string; username: string }) => ({
                     id: user.id,
                     label: user.name?.trim() || `@${user.username}`,
                 }));
@@ -30,7 +71,18 @@ export default function AdminDashboard() {
             setAdminOptions(admins);
         }
 
+        async function loadDashboardStats() {
+            const response = await fetch("/api/admin/dashboard-stats", { cache: "no-store" });
+            const data = await response.json();
+
+            if (!response.ok || !data.success) return;
+
+            setStats(toStatCards(data.stats));
+            setAssignmentVolume(data.assignmentVolume);
+        }
+
         loadAdmins();
+        loadDashboardStats();
     }, []);
 
     return (
@@ -48,12 +100,15 @@ export default function AdminDashboard() {
                 </header>
 
                 <div className="flex min-w-0 flex-1 flex-col gap-6 p-6">
-                    <AdminStatsCards stats={mockStats} />
-                    {/* <AdminAreaChart
-                        data={mockChartData}
-                        title="Total Visitors"
-                        description="Total for the last 3 months"
-                    /> */}
+                    {stats && <AdminStatsCards stats={stats} />}
+                    {assignmentVolume.length > 0 && (
+                        <AdminAreaChart
+                            data={assignmentVolume}
+                            title="Assignment Volume"
+                            description="New assignments submitted over time"
+                            valueLabel="Assignments"
+                        />
+                    )}
                     <AdminAssignmentsProvider>
                         <AdminAssignmentsTable adminOptions={adminOptions} />
                     </AdminAssignmentsProvider>

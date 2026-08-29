@@ -16,6 +16,7 @@ export interface User extends Document {
     pendingPassword?: string;
     location?: string;
     avatar?: string;
+    whatsappNumber?: string;
     role?: "user" | "admin";
     createdAt: Date;
     updatedAt: Date;
@@ -95,6 +96,11 @@ const UserSchema: Schema<User> = new Schema(
         avatar: {
             type: String,
             default: "https://github.com/shadcn.png",
+        },
+        whatsappNumber: {
+            type: String,
+            trim: true,
+            default: "",
         },
         role: {
             type: String,

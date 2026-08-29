@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChartDataPoint, TimeFilter } from "@/lib/types";
@@ -11,18 +11,21 @@ interface AdminAreaChartProps {
     data: ChartDataPoint[];
     title: string;
     description: string;
+    valueLabel?: string;
 }
 
-export function AdminAreaChart({ data, title, description }: AdminAreaChartProps) {
+const FILTER_DAYS: Record<TimeFilter, number> = {
+    "Last 3 months": 90,
+    "Last 30 days": 30,
+    "Last 7 days": 7,
+};
+
+export function AdminAreaChart({ data, title, description, valueLabel = "Value" }: AdminAreaChartProps) {
     const [timeFilter, setTimeFilter] = useState<TimeFilter>("Last 3 months");
     const { theme } = useTheme();
 
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
     const filters: TimeFilter[] = ["Last 3 months", "Last 30 days", "Last 7 days"];
+    const visibleData = data.slice(-FILTER_DAYS[timeFilter]);
 
     return (
         <Card className="py-8 px-4">
@@ -49,7 +52,7 @@ export function AdminAreaChart({ data, title, description }: AdminAreaChartProps
                 <div className="h-[300px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart
-                            data={data}
+                            data={visibleData}
                             margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
                         >
                             <defs>
@@ -107,7 +110,7 @@ export function AdminAreaChart({ data, title, description }: AdminAreaChartProps
                                                     </div>
                                                     <div className="flex flex-col">
                                                         <span className="text-[0.70rem] uppercase text-muted-foreground font-medium">
-                                                            Visitors
+                                                            {valueLabel}
                                                         </span>
                                                         <span className="font-bold text-sm text-primary">
                                                             {payload[0].value?.toLocaleString()}

@@ -1,76 +1,189 @@
+import Image from "next/image";
+import {
+    Award,
+    Globe2,
+    Lightbulb,
+    ShieldCheck,
+    Star,
+    TrendingUp,
+    Trophy,
+    Users,
+} from "lucide-react";
+
 import { Footer } from "@/components/landing/footer";
 import { Navbar } from "@/components/landing/navbar";
-import { Badge } from "@/components/ui/badge";
+import { HeroBanner } from "@/components/landing/hero-banner";
+import { GradientCta } from "@/components/landing/gradient-cta";
+import { SectionHeading } from "@/components/landing/section-heading";
+import { StatRow } from "@/components/landing/stat-row";
+import { TestimonialsGrid } from "@/components/landing/testimonials-carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 import { reviewsPageData } from "@/lib/site-content/public-pages";
-import { MessageSquareQuote, Star, TrendingUp } from "lucide-react";
+
+const highlightIcons = [ShieldCheck, Users, Award];
+const statIcons = [Users, ShieldCheck, Star, Globe2];
+const resultIcons = [TrendingUp, Lightbulb, Trophy];
 
 export default function ReviewsPage() {
+    const faqMidpoint = Math.ceil(reviewsPageData.faqs.length / 2);
+
     return (
         <div className="min-h-screen bg-background text-foreground">
-            <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(54,197,94,0.14),transparent_32%),radial-gradient(circle_at_top_right,rgba(59,130,246,0.16),transparent_28%),linear-gradient(to_bottom,transparent,rgba(15,23,42,0.03))]" />
             <Navbar />
-            <main className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-                <section className="space-y-6 rounded-3xl border border-primary/15 bg-gradient-to-br from-cyan-500/8 via-background to-primary/8 p-6 dark:border-primary/25 dark:from-cyan-400/10 dark:to-primary/10 sm:p-8">
-                    <Badge variant="outline" className="rounded-full border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300">
-                        {reviewsPageData.eyebrow}
-                    </Badge>
 
-                    <div className="max-w-3xl space-y-4">
-                        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-                            {reviewsPageData.title}
-                        </h1>
-                        <p className="text-base leading-6 text-muted-foreground sm:text-lg sm:leading-7">
-                            {reviewsPageData.description}
-                        </p>
+            <HeroBanner
+                align="split"
+                className="pb-16 sm:pb-20"
+                title={reviewsPageData.title}
+                description={reviewsPageData.description}
+                trustBadges={reviewsPageData.highlights.map((label, index) => ({
+                    icon: highlightIcons[index % highlightIcons.length],
+                    label,
+                }))}
+                media={
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
+                        <Image
+                            src="/happy2-horz.jpg"
+                            alt="A student celebrating academic success"
+                            fill
+                            sizes="(min-width: 1024px) 40vw, 100vw"
+                            className="object-cover"
+                            priority
+                        />
                     </div>
+                }
+            />
 
-                    <div className="grid gap-4 sm:grid-cols-3">
-                        {reviewsPageData.metrics.map((metric, index) => (
-                            <Card key={metric.label} className="border-primary/20 bg-card/90 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-primary/30">
-                                <CardContent className="p-6">
-                                    <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 text-primary dark:border-primary/35 dark:bg-primary/15">
-                                        {index === 0 ? <Star className="h-4 w-4" /> : index === 1 ? <TrendingUp className="h-4 w-4" /> : <MessageSquareQuote className="h-4 w-4" />}
-                                    </div>
-                                    <div className="text-sm text-muted-foreground">
-                                        {metric.label}
-                                    </div>
-                                    <div className="mt-2 text-3xl font-semibold">
-                                        {metric.value}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </section>
-
-                <section className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                    {reviewsPageData.testimonials.map((item, index) => (
-                        <Card key={`${item.name}-${item.role}`} className="border-primary/20 bg-card/90 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-primary/30">
-                            <CardContent className="space-y-5 p-6">
-                                <div className="flex items-center gap-1.5 text-yellow-500">
-                                    <Star className="h-4 w-4 fill-current" />
-                                    <Star className="h-4 w-4 fill-current" />
-                                    <Star className="h-4 w-4 fill-current" />
-                                    <Star className="h-4 w-4 fill-current" />
-                                    <Star className="h-4 w-4 fill-current" />
+            <main>
+                {/* <section className="mx-auto -mt-4 max-w-6xl px-4 sm:-mt-10 sm:px-6">
+                    <Card className="relative bg-gradient-to-br from-violet-200 via-primary via-violet-500 to-violet-200  z-10 border-0 shadow-[0_20px_45px_-25px_hsl(var(--primary)/0.55)]">
+                        <CardContent className="flex flex-col items-center gap-3 p-8 text-center sm:flex-row sm:justify-center sm:gap-8 sm:text-left">
+                            <div className="flex flex-col items-center gap-2 sm:items-start">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30">
+                                    <Star className="h-5 w-5" />
                                 </div>
-                                <p className="text-sm leading-6 text-muted-foreground">
-                                    <span className={index % 2 === 0 ? "text-emerald-600 dark:text-emerald-300" : "text-cyan-600 dark:text-cyan-300"}>
-                                        &ldquo;
-                                    </span>
-                                    {item.quote}
-                                    <span className={index % 2 === 0 ? "text-emerald-600 dark:text-emerald-300" : "text-cyan-600 dark:text-cyan-300"}>
-                                        &rdquo;
-                                    </span>
-                                </p>
-                                <div className="border-t pt-4">
-                                    <div className="font-medium">{item.name}</div>
-                                    <div className="text-sm text-muted-foreground">{item.role}</div>
+                                <div className="text-sm">Overall Rating</div>
+                                <div className="text-5xl font-bold">{reviewsPageData.overallRating.value}</div>
+                                <div className="flex items-center gap-1 text-yellow-400">
+                                    {Array.from({ length: 5 }).map((_, i) => (
+                                        <Star key={i} className="h-5 w-5 fill-current" />
+                                    ))}
+                                </div>
+                                <div className="text-sm">{reviewsPageData.overallRating.basedOn}</div>
+                            </div>
+                            <p className="max-w-md border-t border-violet/15 pt-4 text-sm italic sm:border-t-0 sm:border-l sm:pl-8 sm:pt-0">
+                                &ldquo;{reviewsPageData.overallRating.quote}&rdquo;
+                            </p>
+                        </CardContent>
+                    </Card>
+                </section> */}
+
+                <section className="mx-auto max-w-6xl space-y-16 px-4 pb-16 pt-10 sm:px-6">
+                    <div>
+                        <SectionHeading title="What Students Are Saying" align="left" className="mb-6" />
+                        <TestimonialsGrid testimonials={reviewsPageData.testimonials.slice(0, 4)} />
+                    </div>
+
+                    <StatRow
+                        items={reviewsPageData.stats.map((stat, index) => ({
+                            icon: statIcons[index % statIcons.length],
+                            value: stat.value,
+                            label: stat.label,
+                        }))}
+                    />
+
+                    <div className="grid gap-6 lg:grid-cols-2">
+                        <Card className="border-primary/15 bg-card/85 dark:border-primary/25">
+                            <CardContent className="space-y-4 p-6">
+                                <h2 className="text-lg font-bold">What Students Love Most</h2>
+                                <div className="space-y-3">
+                                    {reviewsPageData.loveMost.map((item) => (
+                                        <div key={item.label}>
+                                            <div className="mb-1 flex items-center justify-between text-sm">
+                                                <span className="font-medium">{item.label}</span>
+                                                <span className="text-muted-foreground">{item.percent}%</span>
+                                            </div>
+                                            <div className="h-2 w-full overflow-hidden rounded-full bg-primary/10">
+                                                <div
+                                                    className="h-full rounded-full bg-primary"
+                                                    style={{ width: `${item.percent}%` }}
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                    Based on student feedback from verified reviews.
                                 </div>
                             </CardContent>
                         </Card>
-                    ))}
+
+                        <Card className="border-primary/15 bg-card/85 dark:border-primary/25">
+                            <CardContent className="space-y-4 p-6">
+                                <h2 className="text-lg font-bold">Results Shared with Permission</h2>
+                                <div className="space-y-3">
+                                    {reviewsPageData.results.map((result, index) => {
+                                        const Icon = resultIcons[index % resultIcons.length];
+                                        return (
+                                            <div key={result.title} className="flex items-start gap-3 rounded-lg bg-primary/5 p-3 dark:bg-primary/10">
+                                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                                                    <Icon className="h-5 w-5" />
+                                                </div>
+                                                <div>
+                                                    <div className="text-sm font-semibold">{result.title}</div>
+                                                    <div className="text-xs text-muted-foreground">{result.description}</div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                    Results shared with permission from our students.
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                    <div>
+                        <SectionHeading title="Frequently Asked Questions" className="mb-8" />
+                        <div className="grid gap-4 md:grid-cols-2">
+                            {[reviewsPageData.faqs.slice(0, faqMidpoint), reviewsPageData.faqs.slice(faqMidpoint)].map(
+                                (column, columnIndex) => (
+                                    <Accordion key={columnIndex} type="single" collapsible className="space-y-3">
+                                        {column.map((faq, index) => (
+                                            <AccordionItem
+                                                key={faq.question}
+                                                value={`${columnIndex}-${index}`}
+                                                className="rounded-lg border border-primary/15 bg-card/85 px-4 dark:border-primary/25"
+                                            >
+                                                <AccordionTrigger className="text-left text-sm font-semibold hover:no-underline">
+                                                    {faq.question}
+                                                </AccordionTrigger>
+                                                <AccordionContent className="text-sm text-muted-foreground">
+                                                    {faq.answer}
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                        ))}
+                                    </Accordion>
+                                )
+                            )}
+                        </div>
+                    </div>
+
+                    <GradientCta
+                        data={{
+                            title: "Ready to Achieve Your Academic Goals?",
+                            description: "Join thousands of successful students who trust Assignment Consultants.",
+                            primaryCta: { label: "Get Free Brief Check", href: "/contact" },
+                            icon: "sparkles",
+                        }}
+                    />
                 </section>
             </main>
             <Footer />

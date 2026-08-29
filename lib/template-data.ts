@@ -1,47 +1,142 @@
-import { Expert, GradientCtaData, FAQ, HeroData, HowItWorksData, ColumnDef, TabItem, DocumentRow, AuditLog } from "./types";
+import { Expert, GradientCtaData, FAQ, HeroData, HowItWorksData, ColumnDef, TabItem, DocumentRow, StatItem, PainPoint, AcademicService } from "./types";
+import { CONTACT_INFO } from "./site-content/contact-info";
 
 export const heroData: HeroData = {
     eyebrow: "Trusted by 50,000+ Students Worldwide",
-    title: "Get Premium Assignment Help from Top Experts",
-    description: "Achieve excellence with AI-free, plagiarism-free assignments crafted by verified PhD scholars and industry professionals. Guaranteed grades, on-time delivery, and 24/7 support.",
+    title: "Trusted Academic Support for Ambitious Students",
+    description: "Expert help with reports, presentations, research, referencing, and dissertation support—delivered on time, every time.",
     primaryCta: {
-        label: "Get Started Now",
-        href: "/login",
+        label: "Get Free Brief Check",
+        href: "/contact",
     },
     secondaryCta: {
-        label: "View Sample Work",
-        href: "/login",
+        label: "WhatsApp Us",
+        href: CONTACT_INFO.whatsappLink,
     },
     stats: {
         rating: "4.9 Rated",
         orders: "50,000+ Happy Students",
         support: "24/7 Live Support",
     },
+    trustBadges: [
+        { icon: "award", label: "Top 1% Academic Experts" },
+        { icon: "shield-check", label: "Plagiarism Free Work" },
+        { icon: "clock", label: "On-Time, Every Time" },
+    ],
     showForm: true,
 };
 
+export const statsBarData: StatItem[] = [
+    { icon: "users", value: "2500+", label: "Students Supported" },
+    { icon: "star", value: "4.8/5", label: "Student Rating" },
+    { icon: "headphones", value: "24/7", label: "Support" },
+    { icon: "trending-up", value: "98%", label: "On-Time Delivery" },
+    { icon: "shield-check", value: "100%", label: "Confidential Process" },
+];
+
+export const painPointsData: PainPoint[] = [
+    { icon: "clock", label: "Tight deadlines and heavy workload" },
+    { icon: "bar-chart", label: "Complex topics and unfamiliar subjects" },
+    { icon: "pen-line", label: "Referencing and formatting challenges" },
+    { icon: "file-check", label: "Plagiarism risks and quality concerns" },
+    { icon: "user-circle", label: "Balancing studies with work and life" },
+];
+
+export const academicServicesData: AcademicService[] = [
+    {
+        icon: "book-open",
+        title: "Assignment Help",
+        description:
+            "High-quality, original assignments tailored to your requirements, subject, and academic level. Every task is matched with a specialist who understands your course and marking criteria.",
+        href: "/contact?service=assignment-help",
+    },
+    {
+        icon: "microscope",
+        title: "Research & Reports",
+        description:
+            "Well-researched reports with credible sources, clear structure, and data-backed insights. We handle everything from literature reviews to full analytical reports.",
+        href: "/contact?service=research-reports",
+    },
+    {
+        icon: "graduation-cap",
+        title: "Dissertation Help",
+        description:
+            "End-to-end dissertation support from proposal and literature review through methodology, analysis, and final submission — guided by subject-matter experts.",
+        href: "/contact?service=dissertation-help",
+    },
+    {
+        icon: "presentation",
+        title: "Presentation (PPT)",
+        description:
+            "Engaging, well-structured presentation decks with clear visuals and speaker notes that make your ideas easy to follow and impressive to present.",
+        href: "/contact?service=presentation",
+    },
+    {
+        icon: "quote",
+        title: "Referencing",
+        description:
+            "Accurate, consistent referencing and citations in Harvard, APA, MLA, Chicago, and more — checked line by line against your university's style guide.",
+        href: "/contact?service=referencing",
+    },
+    {
+        icon: "spell-check",
+        title: "Editing & Proofreading",
+        description:
+            "Line-by-line polishing for grammar, structure, clarity, and academic tone, so your final submission reads with confidence and precision.",
+        href: "/contact?service=editing-proofreading",
+    },
+];
+
+export const whyChooseUsChecklist: string[] = [
+    "Experienced academics with advanced degrees",
+    "100% original, plagiarism-free content",
+    "Customized solutions tailored to your requirements",
+    "On-time delivery, every time",
+    "24/7 support via WhatsApp, chat & email",
+    "Safe, secure and confidential process",
+    "Affordable pricing with value for money",
+];
+
 export const howItWorksData: HowItWorksData = {
     eyebrow: "Simple Process",
-    title: "How Our Assignment Service Works",
-    description: "Get your assignments done in three simple steps. Fast, secure, and hassle-free from start to finish.",
+    title: "How It Works",
+    description: "Get your assignments done in six simple steps. Fast, secure, and hassle-free from start to finish.",
     steps: [
         {
-            icon: "book-open",
-            step: "Step 1",
-            title: "Fill Out Order Form",
-            description: "Share your assignment requirements, deadline, and academic level in just a few minutes.",
+            icon: "file-edit",
+            step: "1",
+            title: "Submit Your Brief",
+            description: "Share your assignment details and upload your brief or rubric.",
         },
         {
-            icon: "credit-card",
-            step: "Step 2",
-            title: "Make Secure Payment",
-            description: "Choose from multiple payment options. Your transaction is 100% safe and encrypted.",
+            icon: "user-check",
+            step: "2",
+            title: "Expert Assigned",
+            description: "We assign the best expert based on your subject and needs.",
         },
         {
-            icon: "check-circle",
-            step: "Step 3",
-            title: "Receive Quality Work",
-            description: "Get your completed assignment on time with free revisions and plagiarism report included.",
+            icon: "message-square",
+            step: "3",
+            title: "Work in Progress",
+            description: "Stay updated with regular progress and communication.",
+        },
+        {
+            icon: "clipboard-check",
+            step: "4",
+            title: "Quality Check",
+            description: "Rigorous quality and plagiarism checks for error-free work.",
+        },
+        {
+            icon: "send",
+            step: "5",
+            title: "On-Time Delivery",
+            description: "Receive your completed work before the deadline.",
+        },
+        {
+            icon: "thumbs-up",
+            step: "6",
+            title: "Your Success",
+            description: "Submit with confidence and achieve better results.",
         },
     ],
     cta: {
@@ -51,19 +146,18 @@ export const howItWorksData: HowItWorksData = {
 };
 
 export const gradientCtaData: GradientCtaData = {
-    eyebrow: "Limited Time Offer",
-    title: "Boost Your Grades with Expert Academic Support",
-    description: "Get matched with top-rated subject experts and receive high-quality, original work delivered on time.",
+    title: "Ready to Achieve Academic Excellence?",
+    description: "Get your assignment brief checked for free and take the first step toward better grades and less stress.",
     primaryCta: {
-        label: "Get Free Quote",
+        label: "Get Free Brief Check",
         href: "/contact",
     },
     secondaryCta: {
-        label: "View Samples",
-        href: "/blogs",
+        label: "WhatsApp Us",
+        href: CONTACT_INFO.whatsappLink,
     },
-    icon: "sparkles",
-    gradientClassName: "from-indigo-600 via-purple-600 to-pink-600",
+    icon: "rocket",
+    gradientClassName: "from-primary via-primary to-violet-700",
 };
 
 export const expertsData: Expert[] = [
@@ -133,52 +227,6 @@ export const tableTabs: TabItem[] = [
     { id: "Past Performance", label: "Past Performance", count: 3 },
     { id: "Key Personnel", label: "Key Personnel", count: 2 },
     { id: "Focus Documents", label: "Focus Documents", count: null },
-];
-
-// Admin Dashboard Mock Data
-export const mockStats = [
-    {
-        title: "Total Revenue",
-        value: "$1,250.00",
-        change: "+12.5%",
-        trend: "up" as const,
-        description: "Trending up this month",
-        icon: "dollar-sign" as const,
-    },
-    {
-        title: "New Customers",
-        value: "1,234",
-        change: "+20%",
-        trend: "up" as const,
-        description: "Down 20% this period",
-        icon: "users" as const,
-    },
-    {
-        title: "Active Accounts",
-        value: "45,678",
-        change: "+18.6%",
-        trend: "up" as const,
-        description: "Strong user retention",
-        icon: "activity" as const,
-    },
-    {
-        title: "Growth Rate",
-        value: "4.5%",
-        change: "+4.5%",
-        trend: "up" as const,
-        description: "Steady performance increase",
-        icon: "trending-up" as const,
-    },
-];
-
-export const mockChartData = [
-    { date: "Jun 24", value: 2400 },
-    { date: "Jun 25", value: 1398 },
-    { date: "Jun 26", value: 4800 },
-    { date: "Jun 27", value: 3908 },
-    { date: "Jun 28", value: 4800 },
-    { date: "Jun 29", value: 3800 },
-    { date: "Jun 30", value: 4300 },
 ];
 
 export const mockDocuments: DocumentRow[] = [
@@ -291,276 +339,4 @@ export const defaultColumns: ColumnDef[] = [
     { id: "target", label: "Target", visible: true },
     { id: "limit", label: "Limit", visible: true },
     { id: "reviewer", label: "Reviewer", visible: true },
-];
-
-// ...existing exports...
-
-// Analytics Page Mock Data
-export const analyticsData = {
-    metrics: [
-        {
-            title: "New Leads",
-            subtitle: "Last Month",
-            value: 635,
-            change: "+54.6%",
-            trend: "up" as const,
-            icon: "bar" as const,
-            chartData: [
-                { value: 80 },
-                { value: 90 },
-                { value: 150 },
-                { value: 140 },
-                { value: 180 },
-                { value: 200 },
-                { value: 175 },
-            ],
-        },
-        {
-            title: "Proposals Sent",
-            subtitle: "Last Month",
-            value: "—",
-            change: "",
-            trend: "up" as const,
-            icon: "line" as const,
-            chartData: [
-                { value: 280 },
-                { value: 200 },
-                { value: 380 },
-                { value: 180 },
-                { value: 350 },
-                { value: 280 },
-            ],
-        },
-        {
-            title: "Revenue",
-            subtitle: "Last 6 Months",
-            value: "$56,050",
-            change: "+22.2%",
-            trend: "up" as const,
-            icon: "dollar" as const,
-        },
-        {
-            title: "Projects Won",
-            subtitle: "Last 6 Months",
-            value: 136,
-            change: "-2.5%",
-            trend: "down" as const,
-            icon: "trophy" as const,
-        },
-    ],
-    leadSources: [
-        { name: "Website", value: 170, color: "#3b82f6" },
-        { name: "Referral", value: 105, color: "#8b5cf6" },
-        { name: "Social Media", value: 90, color: "#06b6d4" },
-        { name: "Cold Outreach", value: 62, color: "#6366f1" },
-        { name: "Other", value: 48, color: "#a855f7" },
-    ],
-    projectProgress: [
-        { name: "MVP Development", progress: 82000, target: 8000, status: "above" as const },
-        { name: "Consultation", progress: 48000, target: 17000, status: "above" as const },
-        { name: "Framer Sites", progress: 34000, target: 11000, status: "above" as const },
-        { name: "DevOps Support", progress: 77000, target: 13000, status: "above" as const },
-        { name: "LLM Training", progress: 68000, target: 12000, status: "above" as const },
-        { name: "Product Launch", progress: 52000, target: 18000, status: "above" as const },
-    ],
-    revenueGrowth: [
-        { date: "Jan", value: 1200 },
-        { date: "Feb", value: 1280 },
-        { date: "Mar", value: 1150 },
-        { date: "Apr", value: 1320 },
-        { date: "May", value: 1280 },
-        { date: "Jun", value: 1350 },
-        { date: "Jul", value: 1420 },
-        { date: "Aug", value: 1380 },
-        { date: "Sep", value: 1450 },
-        { date: "Oct", value: 1520 },
-        { date: "Nov", value: 1480 },
-        { date: "Dec", value: 1600 },
-    ],
-    averageProgress: 78,
-    projectsAboveTarget: 2,
-};
-
-// Audit Logs Mock Data
-export const auditLogs: AuditLog[] = [
-    {
-        id: "AUDIT-7878",
-        type: "Assignment",
-        subtype: "create",
-        value: "Created new assignment 'Data Structures Project'",
-        user: "John Doe",
-        time: "2024-02-28 10:30 AM",
-        timestamp: Date.now() - 1000 * 60 * 30,
-    },
-    {
-        id: "AUDIT-5562",
-        type: "User",
-        subtype: "edit",
-        value: "Updated user profile for 'jane@example.com'",
-        user: "Admin User",
-        time: "2024-02-28 09:15 AM",
-        timestamp: Date.now() - 1000 * 60 * 105,
-    },
-    {
-        id: "AUDIT-7184",
-        type: "Document",
-        subtype: "delete",
-        value: "Deleted document 'old_requirements.pdf'",
-        user: "Sarah Smith",
-        time: "2024-02-28 08:45 AM",
-        timestamp: Date.now() - 1000 * 60 * 135,
-    },
-    {
-        id: "AUDIT-6699",
-        type: "Assignment",
-        subtype: "edit",
-        value: "Updated deadline for 'Web Development Task'",
-        user: "John Doe",
-        time: "2024-02-27 04:20 PM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 18,
-    },
-    {
-        id: "AUDIT-2858",
-        type: "Payment",
-        subtype: "create",
-        value: "Processed payment of $150 for order #1234",
-        user: "System",
-        time: "2024-02-27 02:30 PM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 20,
-    },
-    {
-        id: "AUDIT-3216",
-        type: "User",
-        subtype: "create",
-        value: "New user registration 'mike@example.com'",
-        user: "System",
-        time: "2024-02-27 11:00 AM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 23,
-    },
-    {
-        id: "AUDIT-5326",
-        type: "Assignment",
-        subtype: "delete",
-        value: "Deleted assignment 'Cancelled Project'",
-        user: "Admin User",
-        time: "2024-02-26 03:45 PM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 42,
-    },
-    {
-        id: "AUDIT-2197",
-        type: "Document",
-        subtype: "create",
-        value: "Uploaded new document 'final_report.pdf'",
-        user: "Sarah Smith",
-        time: "2024-02-26 10:20 AM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 48,
-    },
-    {
-        id: "AUDIT-1376",
-        type: "Settings",
-        subtype: "edit",
-        value: "Changed notification preferences",
-        user: "John Doe",
-        time: "2024-02-25 02:15 PM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 68,
-    },
-    {
-        id: "AUDIT-9821",
-        type: "Assignment",
-        subtype: "create",
-        value: "Created new assignment 'Machine Learning Project'",
-        user: "Admin User",
-        time: "2024-02-25 09:00 AM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 73,
-    },
-    {
-        id: "AUDIT-7878",
-        type: "Assignment",
-        subtype: "create",
-        value: "Created new assignment 'Data Structures Project'",
-        user: "John Doe",
-        time: "2024-02-28 10:30 AM",
-        timestamp: Date.now() - 1000 * 60 * 30,
-    },
-    {
-        id: "AUDIT-5562",
-        type: "User",
-        subtype: "edit",
-        value: "Updated user profile for 'jane@example.com'",
-        user: "Admin User",
-        time: "2024-02-28 09:15 AM",
-        timestamp: Date.now() - 1000 * 60 * 105,
-    },
-    {
-        id: "AUDIT-7184",
-        type: "Document",
-        subtype: "delete",
-        value: "Deleted document 'old_requirements.pdf'",
-        user: "Sarah Smith",
-        time: "2024-02-28 08:45 AM",
-        timestamp: Date.now() - 1000 * 60 * 135,
-    },
-    {
-        id: "AUDIT-6699",
-        type: "Assignment",
-        subtype: "edit",
-        value: "Updated deadline for 'Web Development Task'",
-        user: "John Doe",
-        time: "2024-02-27 04:20 PM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 18,
-    },
-    {
-        id: "AUDIT-2858",
-        type: "Payment",
-        subtype: "create",
-        value: "Processed payment of $150 for order #1234",
-        user: "System",
-        time: "2024-02-27 02:30 PM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 20,
-    },
-    {
-        id: "AUDIT-3216",
-        type: "User",
-        subtype: "create",
-        value: "New user registration 'mike@example.com'",
-        user: "System",
-        time: "2024-02-27 11:00 AM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 23,
-    },
-    {
-        id: "AUDIT-5326",
-        type: "Assignment",
-        subtype: "delete",
-        value: "Deleted assignment 'Cancelled Project'",
-        user: "Admin User",
-        time: "2024-02-26 03:45 PM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 42,
-    },
-    {
-        id: "AUDIT-2197",
-        type: "Document",
-        subtype: "create",
-        value: "Uploaded new document 'final_report.pdf'",
-        user: "Sarah Smith",
-        time: "2024-02-26 10:20 AM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 48,
-    },
-    {
-        id: "AUDIT-1376",
-        type: "Settings",
-        subtype: "edit",
-        value: "Changed notification preferences",
-        user: "John Doe",
-        time: "2024-02-25 02:15 PM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 68,
-    },
-    {
-        id: "AUDIT-9821",
-        type: "Assignment",
-        subtype: "create",
-        value: "Created new assignment 'Machine Learning Project'",
-        user: "Admin User",
-        time: "2024-02-25 09:00 AM",
-        timestamp: Date.now() - 1000 * 60 * 60 * 73,
-    },
 ];

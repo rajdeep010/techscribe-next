@@ -1,8 +1,10 @@
 "use client";
 
+import { CONTACT_INFO } from "@/lib/site-content/contact-info";
+
 const DEFAULT_MESSAGE =
     "Hi, I need help with my assignment. Can you assist me?";
-const DEFAULT_PHONE = "15551234567";
+const DEFAULT_PHONE = CONTACT_INFO.whatsappNumber;
 
 const LOCAL_STORAGE_PHONE_KEY = "whatsapp_phone_number";
 const LOCAL_STORAGE_MESSAGE_KEY = "whatsapp_prefill_message";

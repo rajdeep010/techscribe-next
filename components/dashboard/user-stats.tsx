@@ -174,7 +174,8 @@ export function UserProfileSection() {
                             <div className="flex flex-wrap gap-3">
                                 <Button
                                     asChild
-                                    className="h-11 rounded-xl border border-slate-900/10 bg-slate-950 text-white hover:bg-slate-900 dark:border-white/15 dark:bg-white dark:text-slate-950 dark:hover:bg-white/90"
+                                    variant="secondary"
+                                    className="h-11 rounded-xl border border-slate-900/10 bg-slate-950 text-white hover:bg-slate-900 hover:text-white dark:border-white/15 dark:bg-white dark:text-slate-950 dark:hover:bg-white/90 dark:hover:text-slate-950"
                                 >
                                     <Link href={`${dashboardBase}/tasks/new`}>
                                         <PlusCircle className="h-4 w-4" />
@@ -201,9 +202,7 @@ export function UserProfileSection() {
                                     Member ID
                                 </div>
                                 <div className="mt-3 text-lg font-semibold">{memberId}</div>
-                                <div className="mt-1 text-sm text-slate-600 dark:text-white/65">
-                                    Short reference from your account
-                                </div>
+                                
                             </div>
 
                             <div className="rounded-3xl border border-slate-900/10 bg-white/65 p-4 backdrop-blur dark:border-white/12 dark:bg-white/10">

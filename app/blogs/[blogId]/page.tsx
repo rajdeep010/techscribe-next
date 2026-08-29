@@ -73,12 +73,12 @@ export default async function BlogDetailPage({
 }) {
     const { blogId } = await params
 
-    await dbConnect()
-
     let blog: BlogDetailRecord | null = null
     let allBlogs: BlogSidebarRecord[] = []
 
     try {
+        await dbConnect()
+
         blog = await BlogModel.findOne({
             _id: blogId,
             status: "published",

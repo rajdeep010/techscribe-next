@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { LayoutDashboard, LogIn, LogOut, Menu, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Logo, BRAND_NAME } from "@/components/common/logo";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -17,15 +18,11 @@ import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { publicServices } from "@/lib/site-content/public-pages";
 
-const resourceLinks = [
-    { label: "Blogs", href: "/blogs" },
-    { label: "Reviews", href: "/reviews" },
-    { label: "Experts", href: "/experts" },
-];
-
 const primaryLinks = [
+    { label: "Home", href: "/" },
     { label: "Experts", href: "/experts" },
     { label: "Reviews", href: "/reviews" },
+    { label: "Blog", href: "/blogs" },
     { label: "About Us", href: "/about" },
     { label: "Contact Us", href: "/contact" },
 ];
@@ -41,8 +38,8 @@ export function Navbar() {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-                <Link href="/" className="text-xl font-bold tracking-tight">
-                    MyAssignmentHelp
+                <Link href="/" className="flex items-center" aria-label={`${BRAND_NAME} home`}>
+                    <Logo showText={false} markClassName="h-11 w-11 text-xl" />
                 </Link>
 
                 <div className="hidden md:block">
@@ -65,26 +62,6 @@ export function Navbar() {
                                                         {/* <div className="mt-1 text-xs text-muted-foreground">
                                                             {item.description}
                                                         </div> */}
-                                                    </Link>
-                                                </NavigationMenuLink>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </NavigationMenuContent>
-                            </NavigationMenuItem>
-
-                            <NavigationMenuItem>
-                                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-                                <NavigationMenuContent>
-                                    <ul className="grid w-[240px] gap-1 p-2">
-                                        {resourceLinks.map((item) => (
-                                            <li key={item.label}>
-                                                <NavigationMenuLink asChild>
-                                                    <Link
-                                                        href={item.href}
-                                                        className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
-                                                    >
-                                                        {item.label}
                                                     </Link>
                                                 </NavigationMenuLink>
                                             </li>
@@ -168,9 +145,8 @@ export function Navbar() {
                                         </Link>
                                     </Button>
                                     <Button className="h-11 rounded-md px-5 text-sm font-semibold" asChild>
-                                        <Link href="/signup" className="inline-flex items-center gap-2">
-                                            <UserPlus className="h-4 w-4" />
-                                            Get Started
+                                        <Link href="/contact" className="inline-flex items-center gap-2">
+                                            Get Free Brief Check
                                         </Link>
                                     </Button>
                                 </>
@@ -188,7 +164,10 @@ export function Navbar() {
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="right" className="w-[300px] px-6 py-4 sm:w-[400px]">
-                            <SheetTitle>MyAssignmentHelp</SheetTitle>
+                            <SheetTitle className="flex items-center">
+                                <Logo showText={false} markClassName="h-11 w-11 text-xl" />
+                                <span className="sr-only">{BRAND_NAME}</span>
+                            </SheetTitle>
 
                             <nav className="mt-8 flex flex-col gap-4">
                                 {publicServices.map((item) => (
@@ -202,16 +181,6 @@ export function Navbar() {
                                 ))}
 
                                 {primaryLinks.map((item) => (
-                                    <Link
-                                        key={item.label}
-                                        href={item.href}
-                                        className="text-base font-medium transition-colors hover:text-primary"
-                                    >
-                                        {item.label}
-                                    </Link>
-                                ))}
-
-                                {resourceLinks.map((item) => (
                                     <Link
                                         key={item.label}
                                         href={item.href}
@@ -259,9 +228,8 @@ export function Navbar() {
                                                 </Link>
                                             </Button>
                                             <Button className="h-11 w-full rounded-md text-sm font-semibold" asChild>
-                                                <Link href="/signup" className="inline-flex items-center justify-center gap-2">
-                                                    <UserPlus className="h-4 w-4" />
-                                                    Get Started
+                                                <Link href="/contact" className="inline-flex items-center justify-center gap-2">
+                                                    Get Free Brief Check
                                                 </Link>
                                             </Button>
                                         </>

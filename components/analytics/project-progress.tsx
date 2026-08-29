@@ -1,6 +1,5 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
 
 import {
@@ -18,24 +17,9 @@ import {
     type ChartConfig,
 } from "@/components/ui/chart"
 
-export const description = "A bar chart with a custom label"
-
-const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
-]
-
 const chartConfig = {
-    desktop: {
-        label: "Desktop",
-        color: "var(--chart-2)",
-    },
-    mobile: {
-        label: "Mobile",
+    value: {
+        label: "Assignments",
         color: "var(--chart-2)",
     },
     label: {
@@ -43,68 +27,82 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
-export function ProjectProgress() {
+export function ProjectProgress({
+    data,
+    title = "Assignments Submitted",
+    description = "New assignments received per month",
+    footerNote = "Showing new assignment submissions for the last 6 months",
+}: {
+    data: { name: string; value: number }[]
+    title?: string
+    description?: string
+    footerNote?: string
+}) {
+    const total = data.reduce((sum, item) => sum + item.value, 0)
+
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Bar Chart - Custom Label</CardTitle>
-                <CardDescription>January - June 2024</CardDescription>
+                <CardTitle>{title}</CardTitle>
+                <CardDescription>{description}</CardDescription>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={chartConfig}>
-                    <BarChart
-                        accessibilityLayer
-                        data={chartData}
-                        layout="vertical"
-                        margin={{
-                            right: 16,
-                        }}
-                    >
-                        <CartesianGrid horizontal={false} />
-                        <YAxis
-                            dataKey="month"
-                            type="category"
-                            tickLine={false}
-                            tickMargin={10}
-                            axisLine={false}
-                            tickFormatter={(value) => value.slice(0, 3)}
-                            hide
-                        />
-                        <XAxis dataKey="desktop" type="number" hide />
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent indicator="line" />}
-                        />
-                        <Bar
-                            dataKey="desktop"
+                {total === 0 ? (
+                    <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
+                        No assignment data yet for this period.
+                    </div>
+                ) : (
+                    <ChartContainer config={chartConfig}>
+                        <BarChart
+                            accessibilityLayer
+                            data={data}
                             layout="vertical"
-                            fill="var(--color-desktop)"
-                            radius={4}
+                            margin={{
+                                right: 16,
+                            }}
                         >
-                            <LabelList
-                                dataKey="month"
-                                position="insideLeft"
-                                offset={8}
-                                className="fill-(--color-label)"
-                                fontSize={12}
+                            <CartesianGrid horizontal={false} />
+                            <YAxis
+                                dataKey="name"
+                                type="category"
+                                tickLine={false}
+                                tickMargin={10}
+                                axisLine={false}
+                                hide
                             />
-                            <LabelList
-                                dataKey="desktop"
-                                position="right"
-                                offset={8}
-                                className="fill-foreground"
-                                fontSize={12}
+                            <XAxis dataKey="value" type="number" hide />
+                            <ChartTooltip
+                                cursor={false}
+                                content={<ChartTooltipContent indicator="line" />}
                             />
-                        </Bar>
-                    </BarChart>
-                </ChartContainer>
+                            <Bar
+                                dataKey="value"
+                                layout="vertical"
+                                fill="var(--color-value)"
+                                radius={4}
+                            >
+                                <LabelList
+                                    dataKey="name"
+                                    position="insideLeft"
+                                    offset={8}
+                                    className="fill-(--color-label)"
+                                    fontSize={12}
+                                />
+                                <LabelList
+                                    dataKey="value"
+                                    position="right"
+                                    offset={8}
+                                    className="fill-foreground"
+                                    fontSize={12}
+                                />
+                            </Bar>
+                        </BarChart>
+                    </ChartContainer>
+                )}
             </CardContent>
             <CardFooter className="flex-col items-start gap-2 text-sm mt-4">
-                <div className="flex gap-2 leading-none font-medium">
-                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-                </div>
                 <div className="text-muted-foreground leading-none">
-                    Showing total visitors for the last 6 months
+                    {footerNote}
                 </div>
             </CardFooter>
         </Card>
